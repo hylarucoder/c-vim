@@ -1,0 +1,64 @@
+extends html, javascript, css
+
+snippet vtpl "初始化Vue文件" b
+<template>
+  <div class="mydiv"></div>
+</template>
+
+<style lang="scss" scoped>
+  /*如果css行数超过30 ,则抽取出来放到同级目录下,然后从此处导入*/
+  .mydiv {
+    width: 600px;
+    height: 400px;
+  }
+</style>
+
+<script>
+  /**
+   * 功能: balabalabl
+   * 类型: 组件 / 页面 / 控件
+   * 页面: 你猜
+   * 板块: 这是啥
+   * 位置: 左/中/右
+   * 标题: 啦啦啦啦
+   */
+ 
+// 模块导入
+
+// 部分常量定义
+
+// 部分函数定义
+
+  export default {
+    // 名称
+    name: '',
+    // 属性值
+    props: {},
+    components: {
+      // chart: ECharts,
+    },
+    // 状态值
+    data() {
+      return {
+        val: null
+      }
+    },
+    // 计算值
+    computed: {},
+    // 监听值
+    watch: {},
+    // DOM 无关的数据获取
+    created() {
+    },
+    // DOM 有关的数据获取
+    mounted() {
+    },
+    // 内部方法
+    methods: {
+      fooBar() {
+        console.log('how you doing');
+      },
+    }
+  }
+</script>
+endsnippet

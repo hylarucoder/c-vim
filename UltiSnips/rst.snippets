@@ -1,0 +1,186 @@
+# emphasis
+snippet em
+	*${1}* ${2}
+endsnippet
+
+# strong
+snippet st
+	**${1}** ${2}
+endsnippet
+
+# backquotes
+snippet bq
+	\`\`${1}\`\` ${2}
+endsnippet
+
+# attention
+snippet att
+.. attention::
+    ${0}
+endsnippet
+
+# warning
+snippet war
+.. warning::
+    ${0}
+endsnippet
+
+snippet tips
+.. attention::
+"attention", "caution", "danger", "error", "hint", "important", "note", "tip", "warning", "admonition"
+    ${0}
+endsnippet
+
+# tip
+snippet tip
+.. tip::
+    ${0}
+endsnippet
+
+# subscript
+snippet sbs
+    TODO: subscript
+endsnippet
+
+# superscript
+snippet sps
+    TODO: superscript
+endsnippet
+
+# title-reference
+snippet tref
+    TODO: superscript
+endsnippet
+
+# simple table
+snippet sptb
+=====  =====  =======
+A      B      A and B
+=====  =====  =======
+False  False  False
+True   True   True
+=====  =====  =======
+endsnippet
+
+# h1
+snippet parh
+==================================
+ ${1:篇章}
+==================================
+endsnippet
+
+# h2
+snippet chah
+**********************************
+ ${1:章节}
+**********************************
+endsnippet
+
+# h3
+snippet sech
+==================================
+ ${1:部分}
+==================================
+endsnippet
+
+# h4
+snippet ssech
+----------------------------------
+ ${1:子部分}
+----------------------------------
+endsnippet
+
+# h5
+snippet sssech
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ ${1:子子部分}
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+endsnippet
+
+# h6
+snippet parah
+""""""""""""""""""""""""""""""""""
+ ${1:段落}
+""""""""""""""""""""""""""""""""""
+endsnippet
+
+# raw
+snippet raw
+.. raw:: html
+
+   <hr width=50 size=10>
+endsnippet
+
+# footnote
+snippet fn
+[#]_
+
+.. [#] ${1:footnote}
+# hyperlink
+endsnippet
+
+snippet lnk
+\`${1:link-name}\`_
+
+.. _\`$1\`: ${2:link-url}
+endsnippet
+
+snippet img
+.. image:: ./images/s/1.png
+endsnippet
+# page break
+snippet pb
+.. raw:: pdf
+
+    PageBreak
+	
+endsnippet
+
+# code block
+snippet cbl
+.. code-block:: ${1:language}
+
+    ${2:#code}
+endsnippet
+# code block
+snippet cb
+.. code-block:: ${1:language}
+
+    ${2:#code}
+endsnippet
+
+# doc info
+snippet docinfo
+	:Author: ${1:Author}
+	:Revision: ${2:$Revision$}
+	:Description: ${3:#description}
+endsnippet
+
+snippet cl "cross link" b
+详细请参考 :ref:\`第一节 编码的流程\`
+endsnippet
+
+# horizontal rule
+snippet hr
+	-----
+	
+endsnippet
+
+# contents
+snippet toc
+.. contents::
+endsnippet
+
+# definition 
+snippet def
+${1:Definition}
+    ${2:Meaning}
+
+${0}
+how
+    The term is a one-line phrase, and the definition is one
+    or more paragraphs or body elements, indented relative to
+    the term.
+endsnippet
+
+
