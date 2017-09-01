@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/Users/twocucao/Writing/twocucao.xyz/HexoBlog/source/_posts'
 let g:netrw_dirhist_2='/Users/twocucao/dotfiles/c-vim'
 let g:netrw_dirhist_3='/Users/twocucao/Codes/PublicRepos'
+let g:netrw_dirhist_4='/Users/twocucao/dotfiles/c-vim'
+let g:netrw_dirhist_5='/Users/twocucao/dotfiles/c-vim/UltiSnips'

@@ -210,6 +210,9 @@ if count(g:bundle_groups, 'javascript')
     call dein#add('mxw/vim-jsx')
     call dein#add('posva/vim-vue')
 
+    call dein#add('leafgarland/typescript-vim')
+    call dein#add('Quramy/tsuquyomi')
+
     let g:javascript_plugin_flow = 1
 
     let g:jsx_ext_required = 0
@@ -255,25 +258,11 @@ endif
     let g:ale_sign_error = '>>'
     let g:ale_sign_warning = '--'
     let g:airline#extensions#ale#enabled = 1
-    function! LinterStatus() abort
-        let l:counts = ale#statusline#Count(bufnr(''))
-
-        let l:all_errors = l:counts.error + l:counts.style_error
-        let l:all_non_errors = l:counts.total - l:all_errors
-
-        return l:counts.total == 0 ? 'OK' : printf(
-        \   '%dW %dE',
-        \   all_non_errors,
-        \   all_errors
-        \)
-    endfunction
-
-    set statusline=%{LinterStatus()}
     let g:ale_echo_msg_error_str = 'E'
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-    nmap <silent> <C-j> <Plug>(ale_next_wrap)
+    nmap <silent> <C-F3> <Plug>(ale_previous_wrap)
+    nmap <silent> <C-F2> <Plug>(ale_next_wrap)
     " Write this in your vimrc file
     let g:ale_lint_on_text_changed = 'never'
     " You can disable this option too
@@ -303,6 +292,7 @@ endif
         \ 'scheme' : $HOME.'/.gosh_completions'
             \ }
 
+    let g:neosnippet#disable_runtime_snippets = {}
     " Define keyword.
     if !exists('g:neocomplete#keyword_patterns')
         let g:neocomplete#keyword_patterns = {}
@@ -673,7 +663,7 @@ endif
 " tagbar {{{
     nmap <F9> :TagbarToggle<CR>
     let g:tagbar_autofocus = 1
-    " let g:tagbar_autoshowtag = 1
+    let g:tagbar_autoshowtag = 1
     " let g:tagbar_show_visibility = 1
     " for ruby
     let g:tagbar_type_ruby = {
@@ -686,7 +676,30 @@ endif
             \ 'F:singleton methods'
         \ ]
     \ }
-
+    let g:tagbar_type_typescript = {                                                  
+    \ 'ctagsbin' : 'tstags',                                                        
+    \ 'ctagsargs' : '-f-',                                                           
+    \ 'kinds': [                                                                     
+        \ 'e:enums:0:1',                                                               
+        \ 'f:function:0:1',                                                            
+        \ 't:typealias:0:1',                                                           
+        \ 'M:Module:0:1',                                                              
+        \ 'I:import:0:1',                                                              
+        \ 'i:interface:0:1',                                                           
+        \ 'C:class:0:1',                                                               
+        \ 'm:method:0:1',                                                              
+        \ 'p:property:0:1',                                                            
+        \ 'v:variable:0:1',                                                            
+        \ 'c:const:0:1',                                                              
+    \ ],                                                                            
+    \ 'sort' : 0                                                                    
+    \ }    
+    let g:tagbar_type_snippets = {
+        \ 'ctagstype' : 'snippets',
+        \ 'kinds' : [
+            \ 's:snippets',
+        \ ]
+    \ }
 " }}}
 
 
