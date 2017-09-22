@@ -172,7 +172,6 @@ nnoremap * #
 " for # indent, python文件中输入新行时#号注释不切回行首
 autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 
-
 " tab/buffer相关
 
 " 切换前后buffer

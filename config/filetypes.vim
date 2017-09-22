@@ -10,8 +10,6 @@ autocmd BufRead,BufNewFile *.part set filetype=html
 " disable showmatch when use > in php
 au BufWinEnter *.php set mps-=<:>
 
-
-
 " 保存python文件时删除多余空格
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
@@ -40,3 +38,5 @@ function! AutoSetFileHead()
     normal o
     normal o
 endfunc
+" 自动删除末尾空格
+autocmd BufWritePre * %s/\s\+$//e

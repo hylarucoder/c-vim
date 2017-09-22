@@ -52,9 +52,9 @@ endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=Monaco:h14
+    set guifont=DejaVu\ Sans\ Mono:h12
     if has("gui_gtk2")   "GTK2
-        set guifont=DejaVu\ Sans\ Mono 12,Monaco\ 12,Monospace\ 12
+        set guifont=DejaVu\ Sans\ Mono:h12
     endif
     set guioptions-=T
     set guioptions+=e
@@ -91,5 +91,4 @@ highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
 nnoremap <F11> :Pangu<CR>
-let g:ctrlp_custom_ignore = '\v[\/]\.(DS_Storegit|hg|svn|optimized|compiled|node_modules)$'
 autocmd BufWritePre *.markdown,*.md,*.wiki,*.rst call PanGuSpacing()

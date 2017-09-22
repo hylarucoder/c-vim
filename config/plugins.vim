@@ -13,7 +13,7 @@
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'web', 'json', 'nginx']
+    let g:bundle_groups=['python', 'javascript', 'markdown', 'web', 'json', 'go', 'nginx']
 endif
 
 " 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
@@ -39,6 +39,7 @@ if dein#load_state($HOME.'/dotfiles/c-vim/dein')
   call dein#add('Shougo/denite.nvim')
 
 
+
   " 自动补全
   call dein#add('Shougo/neocomplete')
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -47,9 +48,6 @@ if dein#load_state($HOME.'/dotfiles/c-vim/dein')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('SirVer/ultisnips')
   call dein#add('honza/vim-snippets')
-
-  " You can specify revision/branch/tag.
-  call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
   " 语法相关
   call dein#add('w0rp/ale')
@@ -151,8 +149,9 @@ call dein#add('tomasr/molokai')
 " nerdtree nerdtreetabs
 call dein#add('scrooloose/nerdtree')
 call dein#add('jistr/vim-nerdtree-tabs')
-" ctrlspace
-call dein#add('vim-ctrlspace/vim-ctrlspace')
+call dein#add('Xuyuanp/nerdtree-git-plugin')
+
+
 " tagbar
 call dein#add('majutsushi/tagbar')
 
@@ -169,6 +168,8 @@ call dein#add('kana/vim-textobj-indent')
 if count(g:bundle_groups, 'markdown')
     call dein#add('godlygeek/tabular')
     call dein#add('plasticboy/vim-markdown')
+    call dein#add('Rykka/riv.vim')
+    call dein#add('dhruvasagar/vim-table-mode')
 
     let g:vim_markdown_toc_autofit = 1
     " https://github.com/suan/vim-instant-markdown
@@ -177,6 +178,8 @@ if count(g:bundle_groups, 'markdown')
     " let g:instant_markdown_slow = 1
     " let g:instant_markdown_autostart = 0
     " map <F12> :InstantMarkdownPreview<CR>
+    let g:table_mode_corner_corner='+'
+    let g:table_mode_header_fillchar='='
 endif
 
 if count(g:bundle_groups, 'python')
@@ -207,7 +210,6 @@ endif
 if count(g:bundle_groups, 'javascript')
     " javascript
     call dein#add('pangloss/vim-javascript')
-    call dein#add('mxw/vim-jsx')
     call dein#add('posva/vim-vue')
 
     call dein#add('leafgarland/typescript-vim')
@@ -215,7 +217,28 @@ if count(g:bundle_groups, 'javascript')
 
     let g:javascript_plugin_flow = 1
 
-    let g:jsx_ext_required = 0
+    call dein#add('prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] })
+    let g:prettier#exec_cmd_async = 1
+    " max line length that prettier will wrap on
+    let g:prettier#config#print_width = 80
+    " number of spaces per indentation level
+    let g:prettier#config#tab_width = 2
+    " use tabs over spaces
+    let g:prettier#config#use_tabs = 'false'
+    " print semicolons
+    let g:prettier#config#semi = 'true'
+    " single quotes over double quotes
+    let g:prettier#config#single_quote = 'true'
+    " print spaces between brackets
+    let g:prettier#config#bracket_spacing = 'false'
+    " put > on the last line instead of new line
+    let g:prettier#config#jsx_bracket_same_line = 'true'
+    " none|es5|all
+    let g:prettier#config#trailing_comma = 'all'
+    " flow|babylon|typescript|postcss|json|graphql
+    let g:prettier#config#parser = 'flow'
+    " cli-override|file-override|prefer-file
+    let g:prettier#config#config_precedence = 'prefer-file'
 endif
 
 if count(g:bundle_groups, 'json')
@@ -223,8 +246,13 @@ if count(g:bundle_groups, 'json')
     call dein#add('elzr/vim-json')
 endif
 
+if count(g:bundle_groups, 'go')
+    call dein#add('fatih/vim-go')
+endif
+
 if count(g:bundle_groups, 'web')
     " ###### emmet HTML complete #########
+    call dein#add('mattn/emmet-vim')
 endif
 
 if count(g:bundle_groups, 'nginx')
@@ -333,16 +361,16 @@ endif
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType python setlocal omnifunc=jedi#completions
-	let g:jedi#completions_enabled = 0
-	let g:jedi#auto_vim_configuration = 0
-	let g:jedi#smart_auto_mappings = 0
+    autocmd FileType python setlocal omnifunc=jedi#completions
+    let g:jedi#completions_enabled = 0
+    let g:jedi#auto_vim_configuration = 0
+    let g:jedi#smart_auto_mappings = 0
     if !exists('g:neocomplete#force_omni_input_patterns')
-	    let g:neocomplete#force_omni_input_patterns = {}
-	endif
-	let g:neocomplete#force_omni_input_patterns.python =
-	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-	" alternative pattern: '\h\w*\|[^. \t]\.\w*'
+        let g:neocomplete#force_omni_input_patterns = {}
+    endif
+    let g:neocomplete#force_omni_input_patterns.python =
+    \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+    " alternative pattern: '\h\w*\|[^. \t]\.\w*'
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
     " Enable heavy omni completion.
@@ -486,10 +514,9 @@ endif
 " ctrlp ctrlpfunky{{{
     let g:ctrlp_map = '<leader>p'
     let g:ctrlp_cmd = 'CtrlP'
-    map <leader>f :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
-        \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+        \ 'dir':  '\v[\/]\.(git|hg|svn|rvm|optimized|compiled|node_modules)$',
+        \ 'file': '\v\.(DS_Store|exe|so|dll|zip|tar|tar.gz|pyc)$',
         \ }
     let g:ctrlp_working_path_mode=0
     let g:ctrlp_match_window_bottom=1
@@ -498,12 +525,13 @@ endif
     let g:ctrlp_mruf_max=500
     let g:ctrlp_follow_symlinks=1
     " 如果安装了ag, 使用ag
-    " if executable('ag')
-    " " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    " " ag is fast enough that CtrlP doesn't need to cache
-    " let g:ctrlp_use_caching = 0
-    " endif
+    if executable('ag')
+      " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+      let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+      " ag is fast enough that CtrlP doesn't need to cache
+      let g:ctrlp_use_caching = 0
+    endif
+    map <leader>f :CtrlPMRU<CR>
 
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
@@ -646,6 +674,18 @@ endif
     " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
     " let g:nerdtree_tabs_open_on_console_startup=0
     " let g:nerdtree_tabs_open_on_gui_startup=0
+    let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
 " }}}
 
 
@@ -676,24 +716,24 @@ endif
             \ 'F:singleton methods'
         \ ]
     \ }
-    let g:tagbar_type_typescript = {                                                  
-    \ 'ctagsbin' : 'tstags',                                                        
-    \ 'ctagsargs' : '-f-',                                                           
-    \ 'kinds': [                                                                     
-        \ 'e:enums:0:1',                                                               
-        \ 'f:function:0:1',                                                            
-        \ 't:typealias:0:1',                                                           
-        \ 'M:Module:0:1',                                                              
-        \ 'I:import:0:1',                                                              
-        \ 'i:interface:0:1',                                                           
-        \ 'C:class:0:1',                                                               
-        \ 'm:method:0:1',                                                              
-        \ 'p:property:0:1',                                                            
-        \ 'v:variable:0:1',                                                            
-        \ 'c:const:0:1',                                                              
-    \ ],                                                                            
-    \ 'sort' : 0                                                                    
-    \ }    
+    let g:tagbar_type_typescript = {
+    \ 'ctagsbin' : 'tstags',
+    \ 'ctagsargs' : '-f-',
+    \ 'kinds': [
+        \ 'e:enums:0:1',
+        \ 'f:function:0:1',
+        \ 't:typealias:0:1',
+        \ 'M:Module:0:1',
+        \ 'I:import:0:1',
+        \ 'i:interface:0:1',
+        \ 'C:class:0:1',
+        \ 'm:method:0:1',
+        \ 'p:property:0:1',
+        \ 'v:variable:0:1',
+        \ 'c:const:0:1',
+    \ ],
+    \ 'sort' : 0
+    \ }
     let g:tagbar_type_snippets = {
         \ 'ctagstype' : 'snippets',
         \ 'kinds' : [
@@ -778,3 +818,4 @@ endif
 " }}}
 
 "------------------------------------------- end of configs --------------------------------------------
+"

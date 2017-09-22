@@ -3,7 +3,5 @@ bundle
 *.pyc
 *.bak
 *.bk
-configs
-config.sh
-init.vim
 .DS_Store
+.netrwhist
