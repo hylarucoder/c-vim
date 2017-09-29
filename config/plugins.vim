@@ -168,7 +168,7 @@ call dein#add('kana/vim-textobj-indent')
 if count(g:bundle_groups, 'markdown')
     call dein#add('godlygeek/tabular')
     call dein#add('plasticboy/vim-markdown')
-    call dein#add('Rykka/riv.vim')
+    call dein#add('Rykka/riv.vim',{ 'for': 'rst' })
     call dein#add('dhruvasagar/vim-table-mode')
 
     let g:vim_markdown_toc_autofit = 1
@@ -214,6 +214,7 @@ if count(g:bundle_groups, 'javascript')
 
     call dein#add('leafgarland/typescript-vim')
     call dein#add('Quramy/tsuquyomi')
+    let g:tsuquyomi_use_vimproc = 1
 
     let g:javascript_plugin_flow = 1
 
@@ -316,7 +317,6 @@ endif
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
         \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
         \ 'scheme' : $HOME.'/.gosh_completions'
             \ }
 
@@ -739,6 +739,20 @@ endif
         \ 'kinds' : [
             \ 's:snippets',
         \ ]
+    \ }
+    let g:tagbar_type_rst = {
+        \ 'ctagstype': 'rst',
+        \ 'ctagsbin' : '/Users/twocucao/dotfiles/c-vim/scripts/rst2ctags.py',
+        \ 'ctagsargs' : '-f - --sort=yes',
+        \ 'kinds' : [
+            \ 's:sections',
+            \ 'i:images'
+        \ ],
+        \ 'sro' : '|',
+        \ 'kind2scope' : {
+            \ 's' : 'section',
+        \ },
+        \ 'sort': 0,
     \ }
 " }}}
 

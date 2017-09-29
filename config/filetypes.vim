@@ -38,5 +38,3 @@ function! AutoSetFileHead()
     normal o
     normal o
 endfunc
-" 自动删除末尾空格
-autocmd BufWritePre * %s/\s\+$//e
