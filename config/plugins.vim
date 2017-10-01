@@ -107,6 +107,7 @@ call dein#add('terryma/vim-multiple-cursors')
 " ctrlp ctrlpfunky
 call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('tacahiroy/ctrlp-funky')
+
 " ctrlsf
 " 类似sublimetext的搜索
 " In CtrlSF window:

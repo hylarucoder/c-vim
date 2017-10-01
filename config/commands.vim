@@ -137,8 +137,9 @@ noremap H ^
 noremap L $
 
 
-" Map ; to : and save a million keystrokes 用于快速进入命令行
-nnoremap ; :
+" Map ; to : and save a million keystrokes
+" 用于快速进入命令行 建议关闭,因为;命令很好用
+" nnoremap ; :
 
 
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
@@ -149,8 +150,9 @@ cnoremap <C-e> <End>
 
 
 " 搜索相关
+" 建议关闭关闭搜索
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+" map <space> /
 " 进入搜索Use sane regexes"
 nnoremap / /\v
 vnoremap / /\v
@@ -166,8 +168,8 @@ nnoremap <silent> g* g*zz
 noremap <silent><leader>/ :nohls<CR>
 
 " switch # *
-nnoremap # *
-nnoremap * #
+" nnoremap # *
+" nnoremap * #
 
 " for # indent, python文件中输入新行时#号注释不切回行首
 autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
@@ -271,8 +273,8 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>w :w<CR>
 
 " 交换 ' `, 使得可以快速使用'跳到marked位置
-nnoremap ' `
-nnoremap ` '
+" nnoremap ' `
+" nnoremap ` '
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
