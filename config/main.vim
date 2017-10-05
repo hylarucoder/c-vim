@@ -53,6 +53,8 @@ endif
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guifont=DejaVu\ Sans\ Mono:h12
+    " 设置透明度
+    set transparency=8
     if has("gui_gtk2")   "GTK2
         set guifont=DejaVu\ Sans\ Mono:h12
     endif

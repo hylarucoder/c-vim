@@ -16,7 +16,6 @@ For example:
     install.sh --help"
 }
 FOR_VIM=true
-FOR_NEOVIM=false
 if [ "$1" != "" ]; then
     case $1 in
         --for-vim)
@@ -52,7 +51,7 @@ fi
 
 echo "Step3: update/install plugins using dein"
 mkdir dein
-bash install.sh dein
+sh -x ./install_dein.sh dein
 system_shell=$SHELL
 export SHELL="/bin/sh"
 if $FOR_VIM; then

@@ -170,7 +170,8 @@ if count(g:bundle_groups, 'markdown')
     call dein#add('godlygeek/tabular')
     call dein#add('plasticboy/vim-markdown')
     call dein#add('Rykka/riv.vim',{ 'for': 'rst' })
-    call dein#add('dhruvasagar/vim-table-mode')
+    " 禁掉,否则Ultisnip没法用
+    let g:riv_ignored_imaps = "<Tab>,<S-Tab>"
 
     let g:vim_markdown_toc_autofit = 1
     " https://github.com/suan/vim-instant-markdown
@@ -404,7 +405,7 @@ endif
     map <leader>us :UltiSnipsEdit<CR>
 
     " ctrl+j/k 进行选择
-    func! g:JInNcpl()
+    function! g:JInNcpl()
         if pumvisible()
             return "\<C-n>"
         else
@@ -412,13 +413,6 @@ endif
         endif
     endfunction
 
-    func! g:KInYCM()
-        if pumvisible()
-            return "\<C-p>"
-        else
-            return "\<c-k>"
-        endif
-    endfunction
     inoremap <c-j> <c-r>=g:JInNcpl()<cr>
     au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInNcpl()<cr>"
     let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
@@ -658,7 +652,8 @@ endif
     map <F3> :NERDTreeToggle<CR>
     map <leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
-    let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+    let NERDTreeShowHidden=1
+    let NERDTreeIgnore=[ '\node_modules$', '\.DS_Store$', '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
     "close vim if the only window left open is a NERDTree
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
     " s/v 分屏打开文件
@@ -743,7 +738,21 @@ endif
     \ }
     let g:tagbar_type_rst = {
         \ 'ctagstype': 'rst',
-        \ 'ctagsbin' : '/Users/twocucao/dotfiles/c-vim/scripts/rst2ctags.py',
+        \ 'ctagsbin' : $HOME.'/dotfiles/c-vim/scripts/rst2ctags.py',
+        \ 'ctagsargs' : '-f - --sort=yes',
+        \ 'kinds' : [
+            \ 's:sections',
+            \ 'i:images'
+        \ ],
+        \ 'sro' : '|',
+        \ 'kind2scope' : {
+            \ 's' : 'section',
+        \ },
+        \ 'sort': 0,
+    \ }
+    let g:tagbar_type_markdown = {
+        \ 'ctagstype': 'markdown',
+        \ 'ctagsbin' : $HOME.'/dotfiles/c-vim/scripts/markdown2ctags.py',
         \ 'ctagsargs' : '-f - --sort=yes',
         \ 'kinds' : [
             \ 's:sections',
@@ -798,14 +807,6 @@ endif
 
 " markdown {{{
     let g:vim_markdown_folding_disabled=1
-    let g:tagbar_type_markdown = {
-        \ 'ctagstype' : 'markdown',
-        \ 'kinds' : [
-            \ 'h:Heading_L1',
-            \ 'i:Heading_L2',
-            \ 'k:Heading_L3'
-        \ ]
-    \ }
 " }}}
 
 

@@ -22,6 +22,7 @@ filetype plugin on
 " 启动自动补全
 filetype plugin indent on
 
+
 " 文件修改之后自动载入
 set autoread
 " 启动的时候不显示那个援助乌干达儿童的提示
