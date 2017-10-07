@@ -4,18 +4,25 @@
 
 > Note : Vim 8 Only , tested on MacVim Only
 
-特别感谢 k-vim
+特别感谢
+ - k-vim
+ - SpaceVim
 
 ## 安装
 
 ```
+# 安装 MacVim 并执行 brew linkapps, 并且 Python2/3 也务必装上。
 brew install macvim --with-luajit --with-lua --with-python3
-git clone https://github.com/twocucao/c-vim.git your/path
-cd your/path
-sh -x install.sh
+brew linkapps
+mkdir -p ~/dotfiles && cd ~/dotfiles
+git clone https://github.com/twocucao/c-vim.git
+chmod a+x ~/dotfiles/c-vim/scripts/markdown2ctags.py
+chmod a+x ~/dotfiles/c-vim/scripts/rst2ctags.py
+cd ~/dotfiles/c-vim/ && sh -x ./install.sh
 ```
 
 ## ChangeLog
 
-20170810 修改 YCM 至 NeoComplete
+- **20170810** 修改 YCM 至 NeoComplete
+- **20171007** 解决部分快捷键冲突
 

@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/twocucao/Writing/私人笔记/ProgrammingNote'
 let g:netrw_dirhist_2='/Users/twocucao/Writing/私人笔记'
 let g:netrw_dirhist_3='/Users/twocucao/Writing/私人笔记/ProgrammingNote'
@@ -8,3 +8,4 @@ let g:netrw_dirhist_5='/Users/twocucao/Writing/私人笔记/ProgrammingNote/sour
 let g:netrw_dirhist_6='/Users/twocucao/Writing/私人笔记/ProgrammingNote/source'
 let g:netrw_dirhist_7='/Users/twocucao/Writing/私人笔记/ProgrammingNote/source/ch04'
 let g:netrw_dirhist_8='/Users/twocucao/Writing/私人笔记/ProgrammingNote'
+let g:netrw_dirhist_9='/Users/twocucao'

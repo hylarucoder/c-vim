@@ -174,12 +174,6 @@ if count(g:bundle_groups, 'markdown')
     let g:riv_ignored_imaps = "<Tab>,<S-Tab>"
 
     let g:vim_markdown_toc_autofit = 1
-    " https://github.com/suan/vim-instant-markdown
-    " npm -g install instant-markdown-d
-    " Plug 'suan/vim-instant-markdown'
-    " let g:instant_markdown_slow = 1
-    " let g:instant_markdown_autostart = 0
-    " map <F12> :InstantMarkdownPreview<CR>
     let g:table_mode_corner_corner='+'
     let g:table_mode_header_fillchar='='
 endif
@@ -314,9 +308,11 @@ endif
     " Use smartcase.
     let g:neocomplete#enable_smart_case = 1
     " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
 
     " Define dictionary.
+    " TODO 字典太大. 建议选一个小一点的字典
+    " \'_' : '/usr/share/dict/words',
     let g:neocomplete#sources#dictionary#dictionaries = {
         \ 'default' : '',
         \ 'scheme' : $HOME.'/.gosh_completions'
@@ -634,6 +630,7 @@ endif
 " ################### 显示增强-主题 ###################"
 
 " solarized {{{
+    let g:solarized_menu=0
     let g:solarized_termtrans=1
     let g:solarized_contrast="normal"
     let g:solarized_visibility="normal"
