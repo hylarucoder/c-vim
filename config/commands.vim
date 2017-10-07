@@ -62,34 +62,9 @@ nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
-" F1 - F6 设置
 
-" F1 废弃这个键,防止调出系统帮助
-" I can type :help on my own, thanks.  Protect your fat fingers from the evils of <F1>
-noremap <F1> <Esc>"
 
-" F2 行号开关，用于鼠标复制代码用
-" 为方便复制，用<F2>开启/关闭行号显示:
-function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
-    set number!
-  else
-    set relativenumber!
-  endif
-  set number?
-endfunc
-nnoremap <F2> :call HideNumber()<CR>
-" F3 显示可打印字符开关
-" nnoremap <F3> :set list! list?<CR>
-" F4 换行开关
-nnoremap <F4> :set wrap! wrap?<CR>
-
-" F6 语法开关，关闭语法可以加快大文件的展示
-nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
-
-set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
+" set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
 
@@ -276,9 +251,42 @@ nnoremap <leader>w :w<CR>
 " nnoremap ' `
 " nnoremap ` '
 
-" remap U to <C-r> for easier redo
-nnoremap U <C-r>
+" F1 - F12 设置
 
-" Quickly edit/reload the vimrc file
+" F1 废弃这个键,防止调出系统帮助
+" I can type :help on my own, thanks.  Protect your fat fingers from the evils of <F1>
+noremap <F1> <Esc>"
+
+" F5 行号开关，用于鼠标复制代码用
+" 为方便复制，用<F5>开启/关闭行号显示:
+function! HideNumber()
+  if(&relativenumber == &number)
+    set relativenumber! number!
+  elseif(&number)
+    set number!
+  else
+    set relativenumber!
+  endif
+  set number?
+endfunc
+
+nnoremap <F2> <Plug>(ale_next_wrap)
+nnoremap <F3> <Plug>(ale_previous_wrap)
+nnoremap <F4> :set wrap! wrap?<CR>
+" F5 关闭
+nnoremap <F5> :call HideNumber()<CR>
+" F6 显示可打印字符开关
+nnoremap <F6> :set list! list?<CR>
+" F7 语法开关，关闭语法可以加快大文件的展示
+nnoremap <F7> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+
+" F10 依据当前文件最高级别格式化
+nnoremap <F10> :UltiSnipsEdit<CR>
+
+" F11 依据当前文件跳转到UltiSnips进行定义
+
+" F12 TagbarToggle
+nnoremap <F12> :TagbarToggle<CR>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
+

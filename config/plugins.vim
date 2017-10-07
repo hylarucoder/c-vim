@@ -286,8 +286,6 @@ endif
     let g:ale_echo_msg_error_str = 'E'
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-    nmap <silent> <C-F3> <Plug>(ale_previous_wrap)
-    nmap <silent> <C-F2> <Plug>(ale_next_wrap)
     " Write this in your vimrc file
     let g:ale_lint_on_text_changed = 'never'
     " You can disable this option too
@@ -312,9 +310,9 @@ endif
 
     " Define dictionary.
     " TODO 字典太大. 建议选一个小一点的字典
-    " \'_' : '/usr/share/dict/words',
     let g:neocomplete#sources#dictionary#dictionaries = {
         \ 'default' : '',
+        \ '_' : $HOME.'/dotfiles/c-vim/dict/programming.dict',
         \ 'scheme' : $HOME.'/.gosh_completions'
             \ }
 
@@ -694,7 +692,6 @@ endif
 
 " 标签导航
 " tagbar {{{
-    nmap <F9> :TagbarToggle<CR>
     let g:tagbar_autofocus = 1
     let g:tagbar_autoshowtag = 1
     " let g:tagbar_show_visibility = 1
