@@ -181,8 +181,8 @@ endif
 if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
     " pythonsyntax
-    " call dein#add('python-mode/python-mode')
-    call dein#add('davidhalter/jedi-vim',{"autoload": { "filetypes": [ "python", "python3"] }})
+    call dein#add('python-mode/python-mode')
+    " call dein#add('davidhalter/jedi-vim',{"autoload": { "filetypes": [ "python", "python3"] }})
     " call dein#add('hdima/python-syntax')
     " call dein#add('Glench/Vim-Jinja2-Syntax')
 
@@ -207,14 +207,15 @@ if count(g:bundle_groups, 'javascript')
     " javascript
     call dein#add('pangloss/vim-javascript')
     call dein#add('posva/vim-vue')
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+    autocmd FileType vue syntax sync fromstart
 
     call dein#add('leafgarland/typescript-vim')
     call dein#add('Quramy/tsuquyomi')
     let g:tsuquyomi_use_vimproc = 1
-
     let g:javascript_plugin_flow = 1
 
-    call dein#add('prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] })
+    call dein#add('prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] })
     let g:prettier#exec_cmd_async = 1
     " max line length that prettier will wrap on
     let g:prettier#config#print_width = 80
@@ -233,9 +234,12 @@ if count(g:bundle_groups, 'javascript')
     " none|es5|all
     let g:prettier#config#trailing_comma = 'all'
     " flow|babylon|typescript|postcss|json|graphql
-    let g:prettier#config#parser = 'flow'
+    let g:prettier#config#parser = 'babylon'
     " cli-override|file-override|prefer-file
     let g:prettier#config#config_precedence = 'prefer-file'
+
+    let g:prettier#autoformat = 0
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 endif
 
 if count(g:bundle_groups, 'json')
@@ -277,9 +281,9 @@ endif
 " ale {{{
     let g:ale_lint_on_save = 1
     let g:ale_lint_on_text_changed = 0
-    " let g:ale_linters = {
-    " \   'javascript': ['eslint'],
-    " \}
+    "let g:ale_linters = {
+    "   'javascript': ['eslint'],
+    "}
     let g:ale_sign_error = '>>'
     let g:ale_sign_warning = '--'
     let g:airline#extensions#ale#enabled = 1
@@ -357,10 +361,10 @@ endif
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType python setlocal omnifunc=jedi#completions
-    let g:jedi#completions_enabled = 0
-    let g:jedi#auto_vim_configuration = 0
-    let g:jedi#smart_auto_mappings = 0
+    " autocmd FileType python setlocal omnifunc=jedi#completions
+    " let g:jedi#completions_enabled = 0
+    " let g:jedi#auto_vim_configuration = 0
+    " let g:jedi#smart_auto_mappings = 0
     if !exists('g:neocomplete#force_omni_input_patterns')
         let g:neocomplete#force_omni_input_patterns = {}
     endif

@@ -27,7 +27,7 @@ autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,pe
 function! AutoSetFileHead()
     "如果文件类型为.sh文件
     if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
+        call setline(1, "\#!/usr/bin/env bash")
     endif
 
     "如果文件类型为python
