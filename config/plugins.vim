@@ -103,10 +103,7 @@ call dein#add('terryma/vim-multiple-cursors')
 
 " quick locate file or function
 " 文件搜索
-" change to https://github.com/ctrlpvim/ctrlp.vim
-" ctrlp ctrlpfunky
-call dein#add('ctrlpvim/ctrlp.vim')
-call dein#add('tacahiroy/ctrlp-funky')
+call dein#add('Yggdroot/LeaderF', { 'do': './install.sh' })
 
 " ctrlsf
 " 类似sublimetext的搜索
@@ -150,11 +147,13 @@ call dein#add('tomasr/molokai')
 " nerdtree nerdtreetabs
 call dein#add('scrooloose/nerdtree')
 call dein#add('jistr/vim-nerdtree-tabs')
-call dein#add('Xuyuanp/nerdtree-git-plugin')
+call dein#add('skywind3000/vim-preview')
+" call dein#add('Xuyuanp/nerdtree-git-plugin')
 
 
 " tagbar
 call dein#add('majutsushi/tagbar')
+call dein#add('ludovicchabant/vim-gutentags')
 
 " text object
 " 支持自定义文本对象
@@ -182,6 +181,14 @@ if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
     " pythonsyntax
     call dein#add('python-mode/python-mode')
+    let g:pymode_python = 'python3'
+    let g:pymode_indent = 1
+    let g:pymode_folding = 1
+    let g:pymode_motion = 1
+    let g:pymode_virtualenv = 1
+    let g:pymode_lint = 1
+    let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+
     " call dein#add('davidhalter/jedi-vim',{"autoload": { "filetypes": [ "python", "python3"] }})
     " call dein#add('hdima/python-syntax')
     " call dein#add('Glench/Vim-Jinja2-Syntax')
@@ -430,6 +437,30 @@ endif
     let g:closetag_html_style=1
 " }}}
 
+" vim-gutentags {{{
+    let g:closetag_html_style=1
+    " https://www.zhihu.com/question/47691414/answer/373700711
+    " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+    " 所生成的数据文件的名称
+    let g:gutentags_ctags_tagfile = '.tags'
+
+    " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+    let s:vim_tags = expand('~/.cache/tags')
+    let g:gutentags_cache_dir = s:vim_tags
+
+    " 配置 ctags 的参数
+    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+    " 检测 ~/.cache/tags 不存在就新建
+    if !isdirectory(s:vim_tags)
+        silent! call mkdir(s:vim_tags, 'p')
+    endif
+" }}}
+
 " ################### 快速编码 ###################
 
 " nerdcommenter {{{
@@ -504,38 +535,33 @@ endif
 
 " ################### 功能相关 ###################
 
-" ctrlp ctrlpfunky{{{
-    let g:ctrlp_map = '<leader>p'
-    let g:ctrlp_cmd = 'CtrlP'
-    let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\v[\/]\.(git|hg|svn|rvm|optimized|compiled|node_modules)$',
-        \ 'file': '\v\.(DS_Store|exe|so|dll|zip|tar|tar.gz|pyc)$',
+" LeaderF {{{
+    let g:Lf_ShortcutF = '<c-p>'
+    let g:Lf_ShortcutB = '<m-n>'
+    noremap <c-n> :LeaderfMru<cr>
+    noremap <m-p> :LeaderfFunction!<cr>
+    noremap <m-n> :LeaderfBuffer<cr>
+    noremap <m-m> :LeaderfTag<cr>
+    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+    let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+    let g:Lf_WorkingDirectoryMode = 'Ac'
+    let g:Lf_WindowHeight = 0.30
+    let g:Lf_CacheDirectory = expand('~/.vim/cache')
+    let g:Lf_ShowRelativePath = 0
+    let g:Lf_HideHelp = 1
+    let g:Lf_StlColorscheme = 'powerline'
+    let g:Lf_PreviewResult = {'Function':0}
+
+    let g:Lf_NormalMap = {
+        \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+        \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+        \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+        \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+        \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+        \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
         \ }
-    let g:ctrlp_working_path_mode=0
-    let g:ctrlp_match_window_bottom=1
-    let g:ctrlp_max_height=15
-    let g:ctrlp_match_window_reversed=0
-    let g:ctrlp_mruf_max=500
-    let g:ctrlp_follow_symlinks=1
-    " 如果安装了ag, 使用ag
-    if executable('ag')
-      " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-      let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-      " ag is fast enough that CtrlP doesn't need to cache
-      let g:ctrlp_use_caching = 0
-    endif
-    map <leader>f :CtrlPMRU<CR>
-
-    " ctrlpfunky
-    " ctrlp插件1 - 不用ctag进行函数快速跳转
-    nnoremap <Leader>fu :CtrlPFunky<Cr>
-    " narrow the list down with a word under cursor
-    nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-    let g:ctrlp_funky_syntax_highlight = 1
-
-    let g:ctrlp_extensions = ['funky']
 " }}}
-
 
 " ctrlsf {{{
     nmap \ <Plug>CtrlSFCwordPath<CR>

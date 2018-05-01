@@ -5,3 +5,4 @@ bundle
 *.bk
 .DS_Store
 .netrwhist
+cache/
