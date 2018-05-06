@@ -51,7 +51,7 @@ fi
 
 echo "Step3: update/install plugins using dein"
 mkdir dein
-sh -x ./install_dein.sh dein
+sh -x ./install_dein.sh ~/.cache/dein
 system_shell=$SHELL
 export SHELL="/bin/sh"
 if $FOR_VIM; then

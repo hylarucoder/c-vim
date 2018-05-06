@@ -25,14 +25,14 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=$HOME/dotfiles/c-vim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state($HOME.'/dotfiles/c-vim/dein')
-  call dein#begin($HOME.'/dotfiles/c-vim/dein')
+if dein#load_state($HOME.'/.cache/dein')
+  call dein#begin($HOME.'/.cache/dein')
   " Let dein manage dein
   " Required:
-  call dein#add($HOME.'/dotfiles/c-vim/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add($HOME.'/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " UI设置
   call dein#add('mhinz/vim-startify')
@@ -146,7 +146,6 @@ call dein#add('tomasr/molokai')
 " nav
 " nerdtree nerdtreetabs
 call dein#add('scrooloose/nerdtree')
-call dein#add('jistr/vim-nerdtree-tabs')
 call dein#add('skywind3000/vim-preview')
 " call dein#add('Xuyuanp/nerdtree-git-plugin')
 
