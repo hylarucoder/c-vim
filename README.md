@@ -8,10 +8,6 @@
  - k-vim
  - SpaceVim
 
-## Note
-
-本项目被并入我的另一个项目 dotfiles
-
 ## 安装
 
 ```
