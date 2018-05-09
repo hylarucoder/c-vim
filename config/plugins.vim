@@ -13,97 +13,84 @@
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'web', 'json', 'go', 'nginx']
+    let g:bundle_groups=['python', 'javascript', 'markdown', 'web', 'json', 'nginx']
 endif
 
 " 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 filetype off " required! turn off
 
-"dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
+call plug#begin('~/.vim/plugged')
 
-" Required:
-if dein#load_state($HOME.'/.cache/dein')
-  call dein#begin($HOME.'/.cache/dein')
-  " Let dein manage dein
-  " Required:
-  call dein#add($HOME.'/.cache/dein/repos/github.com/Shougo/dein.vim')
+" UI设置
+Plug 'mhinz/vim-startify'
+Plug 'Shougo/denite.nvim'
 
-  " UI设置
-  call dein#add('mhinz/vim-startify')
-  call dein#add('Shougo/denite.nvim')
+" 自动补全
+Plug 'Valloric/YouCompleteMe'
+Plug 'Shougo/vimproc.vim', {'build' : 'make'}
+" Add or remove your plugins here:
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
-
-
-  " 自动补全
-  call dein#add('Shougo/neocomplete')
-  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-  " Add or remove your plugins here:
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('SirVer/ultisnips')
-  call dein#add('honza/vim-snippets')
-
-  " 语法相关
-  call dein#add('w0rp/ale')
+" 语法相关
+Plug 'w0rp/ale'
 
 
 
-  " 自动补全单引号，双引号等
-  call dein#add('Raimondi/delimitMate')
-  " 自动补全html/xml标签
-  call dein#add('docunext/closetag.vim')
+" 自动补全单引号，双引号等
+Plug 'Raimondi/delimitMate'
+" 自动补全html/xml标签
+Plug 'docunext/closetag.vim'
 
-  " quick edit
-  " 快速注释
-  call dein#add('scrooloose/nerdcommenter')
+" quick edit
+" 快速注释
+Plug 'scrooloose/nerdcommenter'
 
 
-  " 快速加入修改环绕字符
-  " for repeat -> enhance surround.vim, . to repeat command
-  call dein#add('tpope/vim-repeat')
-  call dein#add('tpope/vim-surround')
-  " trailingwhitespace
-  " 快速去行尾空格 [, + <Space>]
-  call dein#add('bronson/vim-trailing-whitespace')
-  " easyalign
-  " 快速赋值语句对齐
-  call dein#add('junegunn/vim-easy-align')
+" 快速加入修改环绕字符
+" for repeat -> enhance surround.vim, . to repeat command
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+" trailingwhitespace
+" 快速去行尾空格 [, + <Space>]
+Plug 'bronson/vim-trailing-whitespace'
+" easyalign
+" 快速赋值语句对齐
+Plug 'junegunn/vim-easy-align'
 
-  " quick movement
-  " easymotion
-  " 更高效的移动 [,, + w/fx/h/j/k/l]
-  call dein#add('Lokaltog/vim-easymotion')
+" quick movement
+" easymotion
+" 更高效的移动 [,, + w/fx/h/j/k/l]
+Plug 'Lokaltog/vim-easymotion'
 
-  " 更高效的行内移动, f/F/t/T, 才触发
-  " quickscope
-  call dein#add('unblevable/quick-scope')
+" 更高效的行内移动, f/F/t/T, 才触发
+" quickscope
+Plug 'unblevable/quick-scope'
 
-  call dein#add('vim-scripts/matchit.zip')
-  " signature
-  " 显示marks - 方便自己进行标记和跳转
-  " m[a-zA-Z] add mark
-  " '[a-zA-Z] go to mark
-  " m<Space>  del all marks
-  " m/        list all marks
-  call dein#add('kshenoy/vim-signature')
+Plug 'vim-scripts/matchit.zip'
+" signature
+" 显示marks - 方便自己进行标记和跳转
+" m[a-zA-Z] add mark
+" '[a-zA-Z] go to mark
+" m<Space>  del all marks
+" m/        list all marks
+Plug 'kshenoy/vim-signature'
 
 " quick selection and edit
 " expandregion
 " 选中区块
-call dein#add('terryma/vim-expand-region')
+Plug 'terryma/vim-expand-region'
 " 多光标选中编辑
 " multiplecursors
-call dein#add('terryma/vim-multiple-cursors')
+Plug 'terryma/vim-multiple-cursors'
 
 " quick locate file or function
 " 文件搜索
-call dein#add('Yggdroot/LeaderF', { 'do': './install.sh' })
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 " ctrlsf
 " 类似sublimetext的搜索
@@ -112,7 +99,7 @@ call dein#add('Yggdroot/LeaderF', { 'do': './install.sh' })
 " t       在tab中打开(建议)
 " T - Lkie t but focus CtrlSF window instead of opened new tab.
 " q - Quit CtrlSF window.
-call dein#add('dyng/ctrlsf.vim')
+Plug 'dyng/ctrlsf.vim'
 " incsearch
 " Plug 'haya14busa/incsearch.vim'
 " map /  <Plug>(incsearch-forward)
@@ -120,54 +107,54 @@ call dein#add('dyng/ctrlsf.vim')
 " map g/ <Plug>(incsearch-stay)
 
 " quickrun
-call dein#add('thinca/vim-quickrun')
+Plug 'thinca/vim-quickrun'
 
 " git
 " fugitive
-call dein#add('tpope/vim-fugitive')
+Plug 'tpope/vim-fugitive'
 " gitgutter
-call dein#add('airblade/vim-gitgutter')
+Plug 'airblade/vim-gitgutter'
 
 " view
 " airline
 " 状态栏增强展示
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
-call dein#add('kien/rainbow_parentheses.vim')
+Plug 'kien/rainbow_parentheses.vim'
 " 主题 solarized
 " solarized
-call dein#add('altercation/vim-colors-solarized')
+Plug 'altercation/vim-colors-solarized'
 " molokai
 " 主题 molokai
-call dein#add('tomasr/molokai')
+Plug 'tomasr/molokai'
 
 " nav
 " nerdtree nerdtreetabs
-call dein#add('scrooloose/nerdtree')
-call dein#add('skywind3000/vim-preview')
-" call dein#add('Xuyuanp/nerdtree-git-plugin')
+Plug 'scrooloose/nerdtree'
+Plug 'skywind3000/vim-preview'
+" Plug 'Xuyuanp/nerdtree-git-plugin')
 
 
 " tagbar
-call dein#add('majutsushi/tagbar')
-call dein#add('ludovicchabant/vim-gutentags')
+Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
 
 " text object
 " 支持自定义文本对象
-call dein#add('kana/vim-textobj-user')
+Plug 'kana/vim-textobj-user'
 " 增加行文本对象: l   dal yal cil
-call dein#add('kana/vim-textobj-line')
+Plug 'kana/vim-textobj-line'
 " 增加文件文本对象: e   dae yae cie
-call dein#add('kana/vim-textobj-entire')
+Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
-call dein#add('kana/vim-textobj-indent')
+Plug 'kana/vim-textobj-indent'
 
 if count(g:bundle_groups, 'markdown')
-    call dein#add('godlygeek/tabular')
-    call dein#add('plasticboy/vim-markdown')
-    call dein#add('Rykka/riv.vim',{ 'for': 'rst' })
+    Plug 'godlygeek/tabular'
+    Plug 'plasticboy/vim-markdown'
+    Plug 'Rykka/riv.vim',{ 'for': 'rst' }
     " 禁掉,否则Ultisnip没法用
     let g:riv_ignored_imaps = "<Tab>,<S-Tab>"
 
@@ -179,7 +166,7 @@ endif
 if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
     " pythonsyntax
-    call dein#add('python-mode/python-mode')
+    Plug 'python-mode/python-mode'
     let g:pymode_python = 'python3'
     let g:pymode_indent = 1
     let g:pymode_folding = 1
@@ -188,12 +175,12 @@ if count(g:bundle_groups, 'python')
     let g:pymode_lint = 1
     let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 
-    " call dein#add('davidhalter/jedi-vim',{"autoload": { "filetypes": [ "python", "python3"] }})
-    " call dein#add('hdima/python-syntax')
-    " call dein#add('Glench/Vim-Jinja2-Syntax')
+    " Plug 'davidhalter/jedi-vim',{"autoload": { "filetypes": [ "python", "python3"] }})
+    " Plug 'hdima/python-syntax')
+    " Plug 'Glench/Vim-Jinja2-Syntax')
 
     " pip install isort
-    call dein#add('fisadev/vim-isort')
+    Plug 'fisadev/vim-isort'
     " Shift-V 上下选中, ctrl + i 规范化
     let g:vim_isort_map = '<C-i>'
     " python code format all file
@@ -211,17 +198,17 @@ endif
 
 if count(g:bundle_groups, 'javascript')
     " javascript
-    call dein#add('pangloss/vim-javascript')
-    call dein#add('posva/vim-vue')
+    Plug 'pangloss/vim-javascript'
+    Plug 'posva/vim-vue'
     autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
     autocmd FileType vue syntax sync fromstart
 
-    call dein#add('leafgarland/typescript-vim')
-    call dein#add('Quramy/tsuquyomi')
+    Plug 'leafgarland/typescript-vim'
+    Plug 'Quramy/tsuquyomi'
     let g:tsuquyomi_use_vimproc = 1
     let g:javascript_plugin_flow = 1
 
-    call dein#add('prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] })
+    Plug 'prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
     let g:prettier#exec_cmd_async = 1
     " max line length that prettier will wrap on
     let g:prettier#config#print_width = 80
@@ -250,37 +237,24 @@ endif
 
 if count(g:bundle_groups, 'json')
     " json
-    call dein#add('elzr/vim-json')
+    Plug 'elzr/vim-json'
 endif
 
 if count(g:bundle_groups, 'go')
-    call dein#add('fatih/vim-go')
+    Plug 'fatih/vim-go'
 endif
 
 if count(g:bundle_groups, 'web')
     " ###### emmet HTML complete #########
-    call dein#add('mattn/emmet-vim')
+    Plug 'mattn/emmet-vim'
 endif
 
 if count(g:bundle_groups, 'nginx')
 endif
 
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
 " Required:
 filetype plugin indent on
 syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-"End dein Scripts-------------------------
 
 " ################### 基础 ######################
 
@@ -306,61 +280,8 @@ endif
 
 " ################### 自动补全 ###################
 
-" NeoComplete {{{
-    "neocomplete 默认tab  s-tab 和自动补全冲突
-    "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 2
-
-    " Define dictionary.
+" Deoplete {{{
     " TODO 字典太大. 建议选一个小一点的字典
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ '_' : $HOME.'/dotfiles/c-vim/dict/programming.dict',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-
-    let g:neosnippet#disable_runtime_snippets = {}
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
-
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -371,30 +292,13 @@ endif
     " let g:jedi#completions_enabled = 0
     " let g:jedi#auto_vim_configuration = 0
     " let g:jedi#smart_auto_mappings = 0
-    if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
-    endif
-    let g:neocomplete#force_omni_input_patterns.python =
-    \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
     " alternative pattern: '\h\w*\|[^. \t]\.\w*'
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " }}}
 
 " denite {{{
-    call denite#custom#var('grep', 'command', ['ag'])
+" call denite#custom#var('grep', 'command', ['ag'])
 ""}}}
 
 " ultisnips {{{
@@ -511,16 +415,7 @@ endif
 " expandregion {{{
     " map + <Plug>(expand_region_expand)
     " map _ <Plug>(expand_region_shrink)
-    vmap v <Plug>(expand_region_expand)
-    vmap V <Plug>(expand_region_shrink)
     " Extend the global default
-    call expand_region#custom_text_objects({
-      \ 'a]' :1,
-      \ 'ab' :1,
-      \ 'aB' :1,
-      \ 'ii' :0,
-      \ 'ai' :0
-      \ })
 " }}}
 
 " multiplecursors {{{
@@ -546,7 +441,7 @@ endif
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_WindowHeight = 0.30
-    let g:Lf_CacheDirectory = expand('~/.vim/cache')
+    let g:Lf_CacheDirectory = expand('~/.cache/lf')
     let g:Lf_ShowRelativePath = 0
     let g:Lf_HideHelp = 1
     let g:Lf_StlColorscheme = 'powerline'
@@ -724,6 +619,19 @@ endif
     let g:tagbar_autofocus = 1
     let g:tagbar_autoshowtag = 1
     " let g:tagbar_show_visibility = 1
+    let g:tagbar_type_ansible = {
+        \ 'ctagstype' : 'ansible',
+        \ 'kinds' : [
+            \ 't:tasks'
+        \ ],
+        \ 'sort' : 0
+    \ }
+    let g:tagbar_type_make = {
+        \ 'kinds':[
+            \ 'm:macros',
+            \ 't:targets'
+        \ ]
+    \}
     " for ruby
     let g:tagbar_type_ruby = {
         \ 'kinds' : [
@@ -849,12 +757,4 @@ endif
 
 " nginx {{{
 " }}}
-
-
-" ####### temp #######
-
-" beta {{{
-" }}}
-
-"------------------------------------------- end of configs --------------------------------------------
-"
+call plug#end()
