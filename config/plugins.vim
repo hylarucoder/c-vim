@@ -8,7 +8,6 @@
 " package dependence:  ctags, ag(he_silver_searcher)
 " python dependence:   pep8, pyflake
 
-
 " ################### 插件管理 ###################
 
 " inspired by spf13, 自定义需要的插件集合
@@ -27,37 +26,37 @@ call plug#begin('~/.vim/plugged')
 
 " UI设置
 Plug 'mhinz/vim-startify'
-Plug 'Shougo/denite.nvim'
+Plug 'junegunn/goyo.vim'
+" 主题 solarized
+Plug 'altercation/vim-colors-solarized'
+" airline
+" 状态栏增强展示
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-" 自动补全
-Plug 'Valloric/YouCompleteMe'
-Plug 'Shougo/vimproc.vim', {'build' : 'make'}
-" Add or remove your plugins here:
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" 语法相关
+" 语法显示增强
+" 括号
+Plug 'junegunn/rainbow_parentheses.vim'
+" lint
 Plug 'w0rp/ale'
 
-
+" 代码补全
 
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
-" 自动补全html/xml标签
-Plug 'docunext/closetag.vim'
 
-" quick edit
+" 自动补全
+Plug 'Shougo/vimproc.vim', {'build' : 'make'}
+" Add or remove your plugins here:
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
 " 快速注释
 Plug 'scrooloose/nerdcommenter'
-
 
 " 快速加入修改环绕字符
 " for repeat -> enhance surround.vim, . to repeat command
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-" trailingwhitespace
-" 快速去行尾空格 [, + <Space>]
-Plug 'bronson/vim-trailing-whitespace'
 " easyalign
 " 快速赋值语句对齐
 Plug 'junegunn/vim-easy-align'
@@ -91,6 +90,8 @@ Plug 'terryma/vim-multiple-cursors'
 " quick locate file or function
 " 文件搜索
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " ctrlsf
 " 类似sublimetext的搜索
@@ -109,33 +110,15 @@ Plug 'dyng/ctrlsf.vim'
 " quickrun
 Plug 'thinca/vim-quickrun'
 
-" git
-" fugitive
+" git fugitive
 Plug 'tpope/vim-fugitive'
 " gitgutter
 Plug 'airblade/vim-gitgutter'
 
-" view
-" airline
-" 状态栏增强展示
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" rainbow_parentheses
-" 括号显示增强
-Plug 'kien/rainbow_parentheses.vim'
-" 主题 solarized
-" solarized
-Plug 'altercation/vim-colors-solarized'
-" molokai
-" 主题 molokai
-Plug 'tomasr/molokai'
 
 " nav
-" nerdtree nerdtreetabs
-Plug 'scrooloose/nerdtree'
-Plug 'skywind3000/vim-preview'
-" Plug 'Xuyuanp/nerdtree-git-plugin')
-
+Plug 'justinmk/vim-dirvish'
+Plug 'justinmk/vim-sneak'
 
 " tagbar
 Plug 'majutsushi/tagbar'
@@ -151,6 +134,45 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
 
+" deoplete{{{
+	if has('nvim')
+		Plug 'Shougo/deoplete.nvim'
+	else
+		Plug 'Shougo/deoplete.nvim'
+		Plug 'roxma/nvim-yarp'
+		Plug 'roxma/vim-hug-neovim-rpc'
+	endif
+
+	" Plug 'zchee/deoplete-clang'
+	Plug 'zchee/deoplete-jedi'
+
+	let g:deoplete#enable_at_startup = 1
+	let g:deoplete#enable_smart_case = 1
+	let g:deoplete#enable_refresh_always = 1
+
+	inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<tab>"
+	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+	inoremap <expr><BS> deoplete#smart_close_popup()."\<bs>"
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
+	if 0
+		let g:deoplete#sources = {}
+		let g:deoplete#sources._ = ['buffer', 'dictionary']
+		" let g:deoplete#sources.cpp = ['clang']
+		let g:deoplete#sources.python = ['jedi']
+		let g:deoplete#sources.cpp = ['omni']
+	endif
+
+	set shortmess+=c
+	let g:echodoc#enable_at_startup = 1
+
+	if exists('g:python_host_prog')
+		let g:deoplete#sources#jedi#python_path = g:python_host_prog
+	endif
+
+	let g:deoplete#sources#jedi#enable_cache = 1
+"}}}
 if count(g:bundle_groups, 'markdown')
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
@@ -165,19 +187,11 @@ endif
 
 if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
-    " pythonsyntax
-    Plug 'python-mode/python-mode'
-    let g:pymode_python = 'python3'
-    let g:pymode_indent = 1
-    let g:pymode_folding = 1
-    let g:pymode_motion = 1
-    let g:pymode_virtualenv = 1
-    let g:pymode_lint = 1
-    let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 
     " Plug 'davidhalter/jedi-vim',{"autoload": { "filetypes": [ "python", "python3"] }})
     " Plug 'hdima/python-syntax')
     " Plug 'Glench/Vim-Jinja2-Syntax')
+    Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
     " pip install isort
     Plug 'fisadev/vim-isort'
@@ -203,7 +217,7 @@ if count(g:bundle_groups, 'javascript')
     autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
     autocmd FileType vue syntax sync fromstart
 
-    Plug 'leafgarland/typescript-vim'
+    " Plug 'leafgarland/typescript-vim'
     Plug 'Quramy/tsuquyomi'
     let g:tsuquyomi_use_vimproc = 1
     let g:javascript_plugin_flow = 1
@@ -245,7 +259,6 @@ if count(g:bundle_groups, 'go')
 endif
 
 if count(g:bundle_groups, 'web')
-    " ###### emmet HTML complete #########
     Plug 'mattn/emmet-vim'
 endif
 
@@ -279,23 +292,6 @@ syntax enable
 
 
 " ################### 自动补全 ###################
-
-" Deoplete {{{
-    " TODO 字典太大. 建议选一个小一点的字典
-
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    " autocmd FileType python setlocal omnifunc=jedi#completions
-    " let g:jedi#completions_enabled = 0
-    " let g:jedi#auto_vim_configuration = 0
-    " let g:jedi#smart_auto_mappings = 0
-    " alternative pattern: '\h\w*\|[^. \t]\.\w*'
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" }}}
 
 " denite {{{
 " call denite#custom#var('grep', 'command', ['ag'])
@@ -556,39 +552,24 @@ syntax enable
     let g:solarized_termtrans=1
     let g:solarized_contrast="normal"
     let g:solarized_visibility="normal"
-    " let g:solarized_termcolors=256
-" }}}
-
-" molokai {{{
-    " monokai原始背景色
-    let g:molokai_original = 1
-    let g:rehash256 = 1
+    let g:solarized_termcolors=256
 " }}}
 
 " ################### 快速导航 ###################
 
 " nerdtree nerdtreetabs {{{
-    map <F3> :NERDTreeToggle<CR>
-    map <leader>n :NERDTreeToggle<CR>
-    let NERDTreeHighlightCursorline=1
-    let NERDTreeShowHidden=1
-    let NERDTreeIgnore=[ '\node_modules$', '\.DS_Store$', '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
-    "close vim if the only window left open is a NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-    " s/v 分屏打开文件
-    let g:NERDTreeMapOpenSplit = 's'
-    let g:NERDTreeMapOpenVSplit = 'v'
-
-
-    " nerdtreetabs
-    map <Leader>n <plug>NERDTreeTabsToggle<CR>
-    " 关闭同步
-    " let g:nerdtree_tabs_synchronize_view=0
-    " let g:nerdtree_tabs_synchronize_focus=0
-    " 是否自动开启nerdtree
-    " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
-    " let g:nerdtree_tabs_open_on_console_startup=0
-    " let g:nerdtree_tabs_open_on_gui_startup=0
+    Plug 'scrooloose/nerdtree'
+	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+	let g:NERDTreeMinimalUI = 1
+	let g:NERDTreeDirArrows = 1
+	let g:NERDTreeHijackNetrw = 0
+	" let g:NERDTreeFileExtensionHighlightFullName = 1
+	" let g:NERDTreeExactMatchHighlightFullName = 1
+	" let g:NERDTreePatternMatchHighlightFullName = 1
+	noremap <space>tn :NERDTree<cr>
+	noremap <space>to :NERDTreeFocus<cr>
+	noremap <space>tm :NERDTreeMirror<cr>
+	noremap <space>tt :NERDTreeToggle<cr>
     let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -758,3 +739,18 @@ syntax enable
 " nginx {{{
 " }}}
 call plug#end()
+
+" starify {{{
+	noremap <space>ht :Startify<cr>
+	noremap <space>hy :tabnew<cr>:Startify<cr>
+" }}}
+
+" starify {{{
+	let g:gutentags_modules = []
+	if executable('ctags')
+		let g:gutentags_modules += ['ctags']
+	endif
+	if executable('gtags-cscope') && executable('gtags')
+		let g:gutentags_modules += ['gtags_cscope']
+	endif
+" }}}

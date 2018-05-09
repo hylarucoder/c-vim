@@ -52,11 +52,11 @@ endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=DejaVu\ Sans\ Mono:h14
+    set guifont=DejaVu\ Sans\ Mono:h16
     " 设置透明度
     set transparency=8
     if has("gui_gtk2")   "GTK2
-        set guifont=DejaVu\ Sans\ Mono:h14
+        set guifont=DejaVu\ Sans\ Mono:h16
     endif
     set guioptions-=T
     set guioptions+=e
@@ -74,8 +74,6 @@ endif
 set t_Co=256
 
 colorscheme solarized
-" colorscheme molokai
-" colorscheme desert
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr

@@ -1,2 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/twocucao/dotfiles/c-vim'
+let g:netrw_dirhist_2='/Users/twocucao/dotfiles/c-vim/plugged'
+let g:netrw_dirhist_3='/Users/twocucao/dotfiles/c-vim'
+let g:netrw_dirhist_4='/Users/twocucao/dotfiles/c-vim/doc'
+let g:netrw_dirhist_5='/Users/twocucao/dotfiles/c-vim'
+let g:netrw_dirhist_6='/Users/twocucao/dotfiles/c-vim/scripts'
+let g:netrw_dirhist_7='/Users/twocucao/dotfiles/c-vim'
+let g:netrw_dirhist_8='/Users/twocucao/dotfiles/c-vim/dict'
+let g:netrw_dirhist_9='/Users/twocucao/dotfiles/c-vim'

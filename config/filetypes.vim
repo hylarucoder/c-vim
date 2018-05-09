@@ -11,7 +11,7 @@ autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
 autocmd FileType ruby,javascript,html,css,rst,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 
 " 打开各类文件时的动作
-autocmd FileType markdown,python,javascript,html,css,rst,xml nested :TagbarOpen
+" autocmd FileType markdown,python,javascript,html,css,rst,xml nested :TagbarOpen
 " autocmd FileType markdown,python,javascript,html,css,rst,xml nested :NERDTree
 
 fun! <SID>StripTrailingWhitespaces()
