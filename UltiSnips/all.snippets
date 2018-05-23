@@ -1,4 +1,9 @@
-# Global snippets
+##############
+# NICE BOXES #
+##############
+global !p
+from vimsnippets import foldmarker, make_box, get_comment_format
+endglobal
 
 snippet Copy
 Copyright (c) ${1:`!v g:snips_author`} <${2:`!v g:snips_author_email`}>. All Rights Reserved.
@@ -16,6 +21,7 @@ endsnippet
 snippet ts
 vim: set ts=${1:4} sw=${2:$1}${3: MORE OPTIONS}:$0
 endsnippet
+
 
 snippet ddate
 `!v strftime("%B %d, %Y")`
@@ -46,3 +52,8 @@ endsnippet
 snippet rms
 # TODO: remove this
 endsnippet
+
+snippet todo "TODO comment" bw
+`!p snip.rv=get_comment_format()[0]` ${2:TODO}: $0${3: <${4:`!v strftime('%Y-%m-%d')`}${5:, `!v g:snips_author`}>} `!p snip.rv=get_comment_format()[2]`
+endsnippet
+

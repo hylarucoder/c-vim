@@ -175,35 +175,6 @@ snippet dk "api doc"
 
 endsnippet
 
-snippet swagdoc "swagdoc"
-    :summary
-    :purpose
-    :note
-
-    :schema
-
-    ---
-    tags:
-      - AuctionActivity 拍卖活动
-    parameters:
-      - name: activity_id
-        in: path
-        type: int
-        required: true
-      - name: payload
-        in: body
-        type: object
-        required: true
-    responses:
-      200:
-        description: 如上 
-        schema:
-          $ref: '#/definitions/activity_id'
-        examples:
-          activity_id: 1
-          party_id: 6
-endsnippet
-
 snippet dpath "swagger doc path params"
 parameters:
   - name: ${1}
@@ -211,3 +182,4 @@ parameters:
     type: str
     required: true
 endsnippet
+

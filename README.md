@@ -5,8 +5,10 @@
 > Note : Vim 8 Only , tested on MacVim Only
 
 特别感谢
- - k-vim
- - SpaceVim
+
+* k-vim
+* SpaceVim
+* skywind3000/vim
 
 ## 安装
 
@@ -23,6 +25,6 @@ cd ~/dotfiles/c-vim/ && sh -x ./install.sh
 
 ## ChangeLog
 
-- **20170810** 修改 YCM 至 NeoComplete
-- **20171007** 解决部分快捷键冲突
-
+* **20170810** 修改 YCM 至 NeoComplete
+* **20171007** 解决部分快捷键冲突
+* **20180509** 修改 NeoComplete 至 Deplete, 删除非常用的插件，补充一些代码模板

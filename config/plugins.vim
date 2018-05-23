@@ -115,14 +115,15 @@ Plug 'tpope/vim-fugitive'
 " gitgutter
 Plug 'airblade/vim-gitgutter'
 
-
 " nav
-Plug 'justinmk/vim-dirvish'
+" Plug 'justinmk/vim-dirvish'
 Plug 'justinmk/vim-sneak'
 
 " tagbar
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
+" Plug 'jsfaint/gen_tags.vim'
+
 
 " text object
 " 支持自定义文本对象
@@ -222,7 +223,7 @@ if count(g:bundle_groups, 'javascript')
     let g:tsuquyomi_use_vimproc = 1
     let g:javascript_plugin_flow = 1
 
-    Plug 'prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+    Plug 'prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue'] }
     let g:prettier#exec_cmd_async = 1
     " max line length that prettier will wrap on
     let g:prettier#config#print_width = 80
@@ -246,7 +247,7 @@ if count(g:bundle_groups, 'javascript')
     let g:prettier#config#config_precedence = 'prefer-file'
 
     let g:prettier#autoformat = 0
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
 endif
 
 if count(g:bundle_groups, 'json')
@@ -303,23 +304,10 @@ syntax enable
     let g:UltiSnipsJumpForwardTrigger  = "<tab>"
     let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
     let g:UltiSnipsSnippetDirectories  = ['ultisnips']
-    let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-    " 定义存放代码片段的文件夹 .vim/UltiSnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
+    let g:UltiSnipsSnippetsDir = '~/.vim/ultisnips'
+    " 定义存放代码片段的文件夹 .vim/ultisnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
     " 进入对应filetype的snippets进行编辑
     map <leader>us :UltiSnipsEdit<CR>
-
-    " ctrl+j/k 进行选择
-    function! g:JInNcpl()
-        if pumvisible()
-            return "\<C-n>"
-        else
-            return "\<c-j>"
-        endif
-    endfunction
-
-    inoremap <c-j> <c-r>=g:JInNcpl()<cr>
-    au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInNcpl()<cr>"
-    let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 " }}}
 
 
@@ -337,27 +325,36 @@ syntax enable
 " }}}
 
 " vim-gutentags {{{
-    let g:closetag_html_style=1
-    " https://www.zhihu.com/question/47691414/answer/373700711
-    " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+    let $GTAGSLABEL = 'native-pygments'
+    let $GTAGSCONF = '~/.gtags.conf'
+        " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
     " 所生成的数据文件的名称
     let g:gutentags_ctags_tagfile = '.tags'
 
-    " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-    let s:vim_tags = expand('~/.cache/tags')
-    let g:gutentags_cache_dir = s:vim_tags
+    " 同时开启 ctags 和 gtags 支持：
+    let g:gutentags_modules = []
+    if executable('ctags')
+        let g:gutentags_modules += ['ctags']
+    endif
+    if executable('gtags-cscope') && executable('gtags')
+        let g:gutentags_modules += ['gtags_cscope']
+    endif
+
+    " 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+    let g:gutentags_cache_dir = expand('~/.cache/tags')
 
     " 配置 ctags 的参数
     let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['']
+    let g:gutentags_ctags_extra_args += ['']
 
-    " 检测 ~/.cache/tags 不存在就新建
-    if !isdirectory(s:vim_tags)
-        silent! call mkdir(s:vim_tags, 'p')
-    endif
+    " 如果使用 universal ctags 需要增加下面一行
+    let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+    " 禁用 gutentags 自动加载 gtags 数据库的行为
+    let g:gutentags_auto_add_gtags_cscope = 0
 " }}}
 
 " ################### 快速编码 ###################
@@ -430,8 +427,8 @@ syntax enable
     let g:Lf_ShortcutB = '<m-n>'
     noremap <c-n> :LeaderfMru<cr>
     noremap <m-p> :LeaderfFunction!<cr>
-    noremap <m-n> :LeaderfBuffer<cr>
-    noremap <m-m> :LeaderfTag<cr>
+    noremap ˜ :LeaderfBuffer<cr>
+    noremap µ :LeaderfTag<cr>
     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
@@ -492,7 +489,7 @@ syntax enable
     " 同git diff,实时展示文件中修改的行
     " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
     let g:gitgutter_map_keys = 0
-    let g:gitgutter_enabled = 0
+    let g:gitgutter_enabled = 1
     let g:gitgutter_highlight_lines = 1
     nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
@@ -514,37 +511,6 @@ syntax enable
 " }}}
 
 
-
-" rainbow_parentheses {{{
-    " 不加入这行, 防止黑色括号出现, 很难识别
-    " \ ['black',       'SeaGreen3'],
-    let g:rbpt_colorpairs = [
-        \ ['brown',       'RoyalBlue3'],
-        \ ['Darkblue',    'SeaGreen3'],
-        \ ['darkgray',    'DarkOrchid3'],
-        \ ['darkgreen',   'firebrick3'],
-        \ ['darkcyan',    'RoyalBlue3'],
-        \ ['darkred',     'SeaGreen3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['brown',       'firebrick3'],
-        \ ['gray',        'RoyalBlue3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['Darkblue',    'firebrick3'],
-        \ ['darkgreen',   'RoyalBlue3'],
-        \ ['darkcyan',    'SeaGreen3'],
-        \ ['darkred',     'DarkOrchid3'],
-        \ ['red',         'firebrick3'],
-        \ ]
-
-    let g:rbpt_max = 16
-    let g:rbpt_loadcmd_toggle = 0
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
-" }}}
-
-
 " ################### 显示增强-主题 ###################"
 
 " solarized {{{
@@ -552,7 +518,7 @@ syntax enable
     let g:solarized_termtrans=1
     let g:solarized_contrast="normal"
     let g:solarized_visibility="normal"
-    let g:solarized_termcolors=256
+    " let g:solarized_termcolors=256
 " }}}
 
 " ################### 快速导航 ###################
@@ -563,6 +529,8 @@ syntax enable
 	let g:NERDTreeMinimalUI = 1
 	let g:NERDTreeDirArrows = 1
 	let g:NERDTreeHijackNetrw = 0
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 	" let g:NERDTreeFileExtensionHighlightFullName = 1
 	" let g:NERDTreeExactMatchHighlightFullName = 1
 	" let g:NERDTreePatternMatchHighlightFullName = 1
@@ -746,11 +714,4 @@ call plug#end()
 " }}}
 
 " starify {{{
-	let g:gutentags_modules = []
-	if executable('ctags')
-		let g:gutentags_modules += ['ctags']
-	endif
-	if executable('gtags-cscope') && executable('gtags')
-		let g:gutentags_modules += ['gtags_cscope']
-	endif
 " }}}

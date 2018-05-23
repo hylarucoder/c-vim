@@ -280,7 +280,7 @@ nnoremap <F6> :set list! list?<CR>
 " F7 语法开关，关闭语法可以加快大文件的展示
 nnoremap <F7> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
-" F10 依据当前文件最高级别格式化
+" F10 跳转到代码编辑
 nnoremap <F10> :UltiSnipsEdit<CR>
 
 " F11 依据当前文件跳转到UltiSnips进行定义
