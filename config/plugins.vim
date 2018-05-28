@@ -70,6 +70,8 @@ Plug 'Lokaltog/vim-easymotion'
 " quickscope
 Plug 'unblevable/quick-scope'
 
+Plug 'skywind3000/vim-preview'
+
 Plug 'vim-scripts/matchit.zip'
 " signature
 " 显示marks - 方便自己进行标记和跳转
@@ -122,7 +124,7 @@ Plug 'justinmk/vim-sneak'
 " tagbar
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-" Plug 'jsfaint/gen_tags.vim'
+Plug 'skywind3000/gutentags_plus'
 
 
 " text object
@@ -327,8 +329,18 @@ syntax enable
 " vim-gutentags {{{
     let $GTAGSLABEL = 'native-pygments'
     let $GTAGSCONF = '~/.gtags.conf'
-        " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
+
+    " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+    " enable gtags module
+    let g:gutentags_modules = ['ctags', 'gtags_cscope']
+
+    " generate datebases in my cache directory, prevent gtags files polluting my project
+    let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+    " forbid gutentags adding gtags databases
+    let g:gutentags_auto_add_gtags_cscope = 0
 
     " 所生成的数据文件的名称
     let g:gutentags_ctags_tagfile = '.tags'

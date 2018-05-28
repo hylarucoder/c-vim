@@ -7,3 +7,5 @@ bundle
 .netrwhist
 cache/
 plugged/
+.vim
+.netrwhist
