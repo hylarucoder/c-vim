@@ -124,8 +124,6 @@ Plug 'justinmk/vim-sneak'
 " tagbar
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
-
 
 " text object
 " 支持自定义文本对象
@@ -163,8 +161,8 @@ Plug 'kana/vim-textobj-indent'
 		let g:deoplete#sources = {}
 		let g:deoplete#sources._ = ['buffer', 'dictionary']
 		" let g:deoplete#sources.cpp = ['clang']
-		let g:deoplete#sources.python = ['jedi']
-		let g:deoplete#sources.cpp = ['omni']
+		" let g:deoplete#sources.python = ['jedi']
+		" let g:deoplete#sources.cpp = ['omni']
 	endif
 
 	set shortmess+=c
@@ -194,7 +192,10 @@ if count(g:bundle_groups, 'python')
     " Plug 'davidhalter/jedi-vim',{"autoload": { "filetypes": [ "python", "python3"] }})
     " Plug 'hdima/python-syntax')
     " Plug 'Glench/Vim-Jinja2-Syntax')
-    Plug 'vim-python/python-syntax', { 'for': ['python'] }
+    " Plug 'vim-python/python-syntax', { 'for': ['python'] }
+    Plug 'python-mode/python-mode', { 'branch': 'develop' }
+    let g:pymode_python = 'python3'
+    let g:pymode = 1
 
     " pip install isort
     Plug 'fisadev/vim-isort'
@@ -334,13 +335,10 @@ syntax enable
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
     " enable gtags module
-    let g:gutentags_modules = ['ctags', 'gtags_cscope']
+    let g:gutentags_modules = ['ctags']
 
     " generate datebases in my cache directory, prevent gtags files polluting my project
     let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-    " forbid gutentags adding gtags databases
-    let g:gutentags_auto_add_gtags_cscope = 0
 
     " 所生成的数据文件的名称
     let g:gutentags_ctags_tagfile = '.tags'
@@ -350,23 +348,22 @@ syntax enable
     if executable('ctags')
         let g:gutentags_modules += ['ctags']
     endif
-    if executable('gtags-cscope') && executable('gtags')
-        let g:gutentags_modules += ['gtags_cscope']
-    endif
-
-    " 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-    let g:gutentags_cache_dir = expand('~/.cache/tags')
 
     " 配置 ctags 的参数
     let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
     let g:gutentags_ctags_extra_args += ['']
-    let g:gutentags_ctags_extra_args += ['']
 
     " 如果使用 universal ctags 需要增加下面一行
     let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+    let g:gutentags_debug = 1
+    let g:gutentags_file_list_command = {
+        \ 'markers': {
+            \ '.git': 'git ls-files',
+            \ '.hg': 'hg files',
+            \ 'Pipfile': 'python -c \"import os, sys; print('' ''.join(''{}''.format(d) for d in sys.path if os.path.isdir(d)))\"',
+        \ },
+    \ }
 
-    " 禁用 gutentags 自动加载 gtags 数据库的行为
-    let g:gutentags_auto_add_gtags_cscope = 0
 " }}}
 
 " ################### 快速编码 ###################
@@ -562,16 +559,6 @@ syntax enable
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
-" }}}
-
-
-" Vim Workspace Controller
-" ctrlspace {{{
-    let g:airline_exclude_preview = 1
-    hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
-    hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
-    hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
-    hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
 " }}}
 
 
