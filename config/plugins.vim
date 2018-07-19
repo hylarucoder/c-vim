@@ -47,6 +47,8 @@ Plug 'w0rp/ale'
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 
+Plug 'tpope/vim-projectionist'
+
 " 自动补全
 Plug 'Shougo/vimproc.vim', {'build' : 'make'}
 " Add or remove your plugins here:
@@ -307,7 +309,7 @@ syntax enable
     let g:UltiSnipsJumpForwardTrigger  = "<tab>"
     let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
     let g:UltiSnipsSnippetDirectories  = ['ultisnips']
-    let g:UltiSnipsSnippetsDir = '~/.vim/ultisnips'
+    let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips'
     " 定义存放代码片段的文件夹 .vim/ultisnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
     " 进入对应filetype的snippets进行编辑
     map <leader>us :UltiSnipsEdit<CR>
