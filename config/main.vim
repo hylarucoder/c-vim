@@ -70,7 +70,7 @@ if has("gui_running")
 endif
 
 " theme主题
-" set background=dark
+set background=dark
 set t_Co=256
 
 colorscheme solarized

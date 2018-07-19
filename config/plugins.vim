@@ -22,7 +22,7 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.c-vim/plugged')
 
 " UI设置
 Plug 'mhinz/vim-startify'
@@ -33,6 +33,8 @@ Plug 'altercation/vim-colors-solarized'
 " 状态栏增强展示
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+Plug 'ybian/smartim'
 
 " 语法显示增强
 " 括号
@@ -189,13 +191,11 @@ endif
 if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
 
-    " Plug 'davidhalter/jedi-vim',{"autoload": { "filetypes": [ "python", "python3"] }})
-    " Plug 'hdima/python-syntax')
-    " Plug 'Glench/Vim-Jinja2-Syntax')
-    " Plug 'vim-python/python-syntax', { 'for': ['python'] }
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
-    let g:pymode_python = 'python3'
     let g:pymode = 1
+    let g:pymode_python = 'python3'
+    let g:pymode_rope = 1
+    let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 
     " pip install isort
     Plug 'fisadev/vim-isort'
@@ -686,6 +686,7 @@ syntax enable
 
 " markdown {{{
     let g:vim_markdown_folding_disabled=1
+    let g:smartim_default = 'com.apple.keylayout.ABC'
 " }}}
 
 
