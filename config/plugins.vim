@@ -619,7 +619,7 @@ syntax enable
     \ }
     let g:tagbar_type_rst = {
         \ 'ctagstype': 'rst',
-        \ 'ctagsbin' : $HOME.'/dotfiles/c-vim/scripts/rst2ctags.py',
+        \ 'ctagsbin' : $HOME.'/Cystem/c-vim/scripts/rst2ctags.py',
         \ 'ctagsargs' : '-f - --sort=yes',
         \ 'kinds' : [
             \ 's:sections',
@@ -633,7 +633,7 @@ syntax enable
     \ }
     let g:tagbar_type_markdown = {
         \ 'ctagstype': 'markdown',
-        \ 'ctagsbin' : $HOME.'/dotfiles/c-vim/scripts/markdown2ctags.py',
+        \ 'ctagsbin' : $HOME.'/Cystem/c-vim/scripts/markdown2ctags.py',
         \ 'ctagsargs' : '-f - --sort=yes',
         \ 'kinds' : [
             \ 's:sections',
