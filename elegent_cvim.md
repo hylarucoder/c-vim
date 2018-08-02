@@ -29,7 +29,7 @@ k-vim 做的很棒，我通读了几遍，针对我日常的一些小习惯做�
 文件名称
 
 * :e you/path/file.py
-* ,p - ctrlp
+* c-p
 * nerdtree
 
 文件内容

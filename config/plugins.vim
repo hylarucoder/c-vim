@@ -33,6 +33,7 @@ Plug 'altercation/vim-colors-solarized'
 " 状态栏增强展示
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'Shougo/denite.nvim'
 
 Plug 'ybian/smartim'
 
@@ -41,6 +42,7 @@ Plug 'ybian/smartim'
 Plug 'junegunn/rainbow_parentheses.vim'
 " lint
 Plug 'w0rp/ale'
+Plug 'brooth/far.vim'
 
 " 代码补全
 
@@ -120,6 +122,7 @@ Plug 'thinca/vim-quickrun'
 Plug 'tpope/vim-fugitive'
 " gitgutter
 Plug 'airblade/vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " nav
 " Plug 'justinmk/vim-dirvish'
@@ -140,15 +143,8 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 
 " deoplete{{{
-	if has('nvim')
-		Plug 'Shougo/deoplete.nvim'
-	else
-		Plug 'Shougo/deoplete.nvim'
-		Plug 'roxma/nvim-yarp'
-		Plug 'roxma/vim-hug-neovim-rpc'
-	endif
+	Plug 'Shougo/deoplete.nvim'
 
-	" Plug 'zchee/deoplete-clang'
 	Plug 'zchee/deoplete-jedi'
 
 	let g:deoplete#enable_at_startup = 1
@@ -505,6 +501,7 @@ syntax enable
     nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
+
 " ################### 显示增强 ###################
 
 " airline {{{
@@ -715,5 +712,5 @@ call plug#end()
 	noremap <space>hy :tabnew<cr>:Startify<cr>
 " }}}
 
-" starify {{{
+" denite {{{
 " }}}
