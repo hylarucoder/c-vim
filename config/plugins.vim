@@ -304,8 +304,9 @@ syntax enable
     let g:UltiSnipsExpandTrigger       = "<tab>"
     let g:UltiSnipsJumpForwardTrigger  = "<tab>"
     let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-    let g:UltiSnipsSnippetDirectories  = ['ultisnips']
-    let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips'
+    let g:UltiSnipsSnippetDirectories  = ['ultisnips','ultisnips.private']
+    " let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips'
+    let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips.private'
     " 定义存放代码片段的文件夹 .vim/ultisnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
     " 进入对应filetype的snippets进行编辑
     map <leader>us :UltiSnipsEdit<CR>

@@ -55,9 +55,52 @@ Normal Mode
 * u 撤销
 * EasyMotion 这是一个可以给当前的文字立即用打上 tag, 这样的话在 normal 情况下输入，,w 然后就可以看到很多 tag, 输入其中的 tag 就可以立即跳转到相应的 tag.
 
+Python Mode
+
+- [[ 跳转到上一个 class or funciton
+- ]] 跳转到上一个 class or function
+
 ### 2.3 文件间跳转
 
 * vim-rails 选中当前文本直接 Go To Path
+
+### 2.4 fzf
+
+| Command           | List                                                                    |
+| ---               | ---                                                                     |
+| `Files [PATH]`    | Files (similar to `:FZF`)                                               |
+| `GFiles [OPTS]`   | Git files (`git ls-files`)                                              |
+| `GFiles?`         | Git files (`git status`)                                                |
+| `Buffers`         | Open buffers                                                            |
+| `Colors`          | Color schemes                                                           |
+| `Ag [PATTERN]`    | [ag][ag] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
+| `Lines [QUERY]`   | Lines in loaded buffers                                                 |
+| `BLines [QUERY]`  | Lines in the current buffer                                             |
+| `Tags [QUERY]`    | Tags in the project (`ctags -R`)                                        |
+| `BTags [QUERY]`   | Tags in the current buffer                                              |
+| `Marks`           | Marks                                                                   |
+| `Windows`         | Windows                                                                 |
+| `Locate PATTERN`  | `locate` command output                                                 |
+| `History`         | `v:oldfiles` and open buffers                                           |
+| `History:`        | Command history                                                         |
+| `History/`        | Search history                                                          |
+| `Snippets`        | Snippets ([UltiSnips][us])                                              |
+| `Commits`         | Git commits (requires [fugitive.vim][f])                                |
+| `BCommits`        | Git commits for the current buffer                                      |
+| `Commands`        | Commands                                                                |
+| `Maps`            | Normal mode mappings                                                    |
+| `Helptags`        | Help tags <sup id="a1">[1](#helptags)</sup>                             |
+| `Filetypes`       | File types
+
+- Most commands support `CTRL-T` / `CTRL-X` / `CTRL-V` key
+  bindings to open in a new tab, a new split, or in a new vertical split
+- Bang-versions of the commands (e.g. `Ag!`) will open fzf in fullscreen
+- You can set `g:fzf_command_prefix` to give the same prefix to the commands
+
+### 2.5 EasyMotion
+
+- <Leader><Leader>w
+- <Leader><Leader>o
 
 ## 0x03 文本编辑之选择
 
@@ -88,8 +131,18 @@ Normal Mode
 
 ### 4.3 文本编辑查找替换
 
+查找基本操作
+
 * /
 * ?
+- c-[
+
+Far.vim
+
+```
+:Far {pattern} {replace-with} {file-mask} [params]
+:Farp [params]
+```
 
 ## 0x05 文本编辑之窗口 /Tab 管理
 

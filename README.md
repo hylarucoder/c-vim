@@ -18,9 +18,9 @@ brew install macvim --with-luajit --with-lua --with-python3
 brew linkapps
 mkdir -p ~/dotfiles && cd ~/dotfiles
 git clone https://github.com/twocucao/c-vim.git
-chmod a+x ~/dotfiles/c-vim/scripts/markdown2ctags.py
-chmod a+x ~/dotfiles/c-vim/scripts/rst2ctags.py
-cd ~/dotfiles/c-vim/ && sh -x ./install.sh
+chmod a+x ~/Cystem/c-vim/scripts/markdown2ctags.py
+chmod a+x ~/Cystem/c-vim/scripts/rst2ctags.py
+cd ~/Cystem/c-vim/ && sh -x ./install.sh
 ```
 
 ## ChangeLog
@@ -29,3 +29,4 @@ cd ~/dotfiles/c-vim/ && sh -x ./install.sh
 * **20171007** 解决部分快捷键冲突
 * **20180509** 修改 NeoComplete 至 Deplete, 删除非常用的插件，补充一些代码模板
 * **20180719** 迁移 vim8 配置到 neovim 0.3
+
