@@ -55,16 +55,16 @@ Normal Mode
 * u 撤销
 * EasyMotion 这是一个可以给当前的文字立即用打上 tag, 这样的话在 normal 情况下输入，,w 然后就可以看到很多 tag, 输入其中的 tag 就可以立即跳转到相应的 tag.
 
-Python Mode
+Python Mode 或者 Markdown 之类的文件
 
 - [[ 跳转到上一个 class or funciton
 - ]] 跳转到上一个 class or function
 
 ### 2.3 文件间跳转
 
-* vim-rails 选中当前文本直接 Go To Path
+FZF
 
-### 2.4 fzf
+### 2.4 FZF
 
 | Command           | List                                                                    |
 | ---               | ---                                                                     |
@@ -106,11 +106,13 @@ Python Mode
 
 ### 3.1 Visual 选择
 
-* vib- 选框内
-* vi"- "" 内部
-* vi'- '' 内部
-* ggVG
-* gv 选中上次的 visual 选中区
+```python
+vib- 选框内
+vi"- "" 内部
+vi'- '' 内部
+ggVG
+gv 选中上次的 visual 选中区
+```
 
 行选择，块选择，扩展块选择
 
@@ -144,11 +146,75 @@ Far.vim
 :Farp [params]
 ```
 
+### 4.4 未分类
+
+```
+gi 返回上次修改地点
+d% 剪切包含括号的括号内部内容
+U 恢复单个句子
+在命令状态下按 c-d 可以查看所有命令，相当于 bash 下面的 tabtab
+hjkl 左下上右
+EasyMotion 使用这个就可以代替乱七八糟的快速移动了。这是一个可以给当前的文字立即用打上 tag, 这样的话在 normal 情况下输入，,w 然后就可以看到很多 tag, 输入其中的 tag 就可以立即跳转到相应的 tag.
+insert 状态进行编辑 c-h c-w 删除一个字，删除一个词。
+normal 状态下进行删除 x dd —— 删除一个字，剪切一行。
+. .. —— 重复操作
+< —— 缩进 >G g
+
+c-b c-f back forth
+c-n c-p 代码补全，tips, 建议标点符号全部半角花，这样就会吧每段连起来的汉字当成一个单词，这样就可以减少输入代码。
+indent
+
+< outdent
+do it (>)
+repeat (.)
+reverse (u)
+f{char}
+repeat ;
+reverse ,
+```
+
 ## 0x05 文本编辑之窗口 /Tab 管理
 
 * . 重复上次文本操作
 * u 撤销上次文本操作
 * ; 重复上次查找操作
+
+## 0x06 文本处理技能
+
+### 行处理
+
+行排序
+
+```bash
+sort r /【.\+】/
+sort u
+sort n
+sort
+sort!
+g/start/+1,/end/-1 sort n
+:%!column -t
+:%!sort -k2nr
+```
+
+```bash
+# 行删除
+# 删除 html 标签
+
+:%s/<\_.\{-1,\}>//g
+```
+
+```
+# 删除空行
+:g/^$/d
+:g/^\s*$/d
+:%s/\n\{3,}/\r\r/e
+:g/^[ \t\u3000]*$/d
+:g/pattern/d
+:g!/pattern/d
+:g/pattern/t$
+:g/pattern/m$
+:s/ \{2,}/ /g
+```
 
 ## 0x07 代码补全与 Snippet
 
@@ -163,6 +229,16 @@ Far.vim
 ### 8.4 Markdown / ReStructedText
 
 平日里记笔记主要使用 markdown 和 ReStructedText 来搞。
+
+### 8.5 Go
+
+## 0x09 tips
+
+### profiling startuptime
+
+```bash
+vim --startuptime /tmp/startup.log +q && vim /tmp/startup.log
+```
 
 ## 0xFF CheatSheet
 

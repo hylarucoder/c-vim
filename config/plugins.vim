@@ -2,20 +2,10 @@
 " bundle 插件管理和配置项
 " ==========================================
 
-"------------------------------------------- begin of configs --------------------------------------------
-
-" ################### 包依赖 #####################
-" package dependence:  ctags, ag(he_silver_searcher)
-" python dependence:   pep8, pyflake
-
-" ################### 插件管理 ###################
-
-" inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'web', 'json', 'nginx']
+    let g:bundle_groups=['python', 'rust', 'go', 'javascript', 'markdown', 'web', 'json', 'nginx']
 endif
 
-" 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 filetype off " required! turn off
 
 if &compatible
@@ -26,7 +16,6 @@ call plug#begin('~/.c-vim/plugged')
 
 " UI设置
 Plug 'mhinz/vim-startify'
-Plug 'junegunn/goyo.vim'
 " 主题 solarized
 Plug 'altercation/vim-colors-solarized'
 " airline
@@ -42,6 +31,7 @@ Plug 'ybian/smartim'
 Plug 'junegunn/rainbow_parentheses.vim'
 " lint
 Plug 'w0rp/ale'
+" 补全和替换
 Plug 'brooth/far.vim'
 
 " 代码补全
@@ -71,12 +61,6 @@ Plug 'junegunn/vim-easy-align'
 " easymotion
 " 更高效的移动 [,, + w/fx/h/j/k/l]
 Plug 'Lokaltog/vim-easymotion'
-
-" 更高效的行内移动, f/F/t/T, 才触发
-" quickscope
-Plug 'unblevable/quick-scope'
-
-Plug 'skywind3000/vim-preview'
 
 Plug 'vim-scripts/matchit.zip'
 " signature
@@ -114,9 +98,6 @@ Plug 'dyng/ctrlsf.vim'
 " map /  <Plug>(incsearch-forward)
 " map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
-
-" quickrun
-Plug 'thinca/vim-quickrun'
 
 " git fugitive
 Plug 'tpope/vim-fugitive'
@@ -160,9 +141,7 @@ Plug 'kana/vim-textobj-indent'
 	if 0
 		let g:deoplete#sources = {}
 		let g:deoplete#sources._ = ['buffer', 'dictionary']
-		" let g:deoplete#sources.cpp = ['clang']
 		" let g:deoplete#sources.python = ['jedi']
-		" let g:deoplete#sources.cpp = ['omni']
 	endif
 
 	set shortmess+=c
@@ -188,34 +167,22 @@ endif
 
 if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
-
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
+    Plug 'ambv/black'
+    Plug 'tshirtman/vim-cython'
     let g:pymode = 1
     let g:pymode_python = 'python3'
     let g:pymode_rope = 1
-    let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-
-    " pip install isort
-    Plug 'fisadev/vim-isort'
-    " Shift-V 上下选中, ctrl + i 规范化
-    let g:vim_isort_map = '<C-i>'
-    " python code format all file
-    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
-    " format select block
-    " autocmd FileType python vnoremap <leader>y :!yapf<Cr>
-
-    " Plug 'mindriot101/vim-yapf'
-    " scriptencoding utf-8
-    " let g:yapf_style = "google"
-    " let g:yapf_style = "pep8"
-    " setenv PYTHONIOENCODING UTF-8
-    " nnoremap <leader>y :call Yapf()<cr>
+    let g:pymode_lint = 0
+    " let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 endif
 
 if count(g:bundle_groups, 'javascript')
     " javascript
     Plug 'pangloss/vim-javascript'
     Plug 'posva/vim-vue'
+    let g:vue_disable_pre_processors=1
+
     autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
     autocmd FileType vue syntax sync fromstart
 
@@ -260,8 +227,14 @@ if count(g:bundle_groups, 'go')
     Plug 'fatih/vim-go'
 endif
 
+if count(g:bundle_groups, 'rust')
+    Plug 'rust-lang/rust.vim'
+endif
+
 if count(g:bundle_groups, 'web')
     Plug 'mattn/emmet-vim'
+    Plug 'cespare/vim-toml'
+    Plug 'ksauzz/thrift.vim'
 endif
 
 if count(g:bundle_groups, 'nginx')
@@ -393,22 +366,19 @@ syntax enable
 " easymotion {{{
     let g:EasyMotion_smartcase = 1
     "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+    hi link EasyMotionTarget WarningMsg
+    hi link EasyMotionShade Comment
+    let g:EasyMotion_do_mapping = 0
+    map f <Plug>(easymotion-f)
+    map F <Plug>(easymotion-F)
+    map b <Plug>(easymotion-b)
+    map B <Plug>(easymotion-B)
     map <Leader><leader>h <Plug>(easymotion-linebackward)
     map <Leader><Leader>j <Plug>(easymotion-j)
     map <Leader><Leader>k <Plug>(easymotion-k)
     map <Leader><leader>l <Plug>(easymotion-lineforward)
     " 重复上一次操作, 类似repeat插件, 很强大
     map <Leader><leader>. <Plug>(easymotion-repeat)
-" }}}
-
-
-" quickscope {{{
-    let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-    " macvim/gvim会有问题, 暂时注解
-    " let g:qs_first_occurrence_highlight_color = '#afff5f' " gui vim
-    " let g:qs_first_occurrence_highlight_color = 155       " terminal vim
-    " let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
-    " let g:qs_second_occurrence_highlight_color = 81         " terminal vim
 " }}}
 
 " ################### 快速选中 ###################
@@ -646,31 +616,8 @@ syntax enable
 " }}}
 
 
-" ################### 语言相关 ###################
 
-" quickrun {{{
-    let g:quickrun_config = {
-    \   "_" : {
-    \       "outputter" : "message",
-    \   },
-    \}
-
-    let g:quickrun_no_default_key_mappings = 1
-    nmap <Leader>r <Plug>(quickrun)
-    map <F10> :QuickRun<CR>
-" }}}
-
-
-" pythonsyntax {{{
-    let python_highlight_all = 1
-" }}}
-
-" piv {{{
-    let g:DisableAutoPHPFolding = 1
-" }}}
-
-
-" vimgo {{{
+" vim-go {{{
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
     let g:go_highlight_structs = 1
