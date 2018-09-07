@@ -116,28 +116,36 @@ set ignorecase
 set smartcase
 
 " 代码折叠
-set foldenable
-" 折叠方法
-" manual    手工折叠
-" indent    使用缩进表示折叠
-" expr      使用表达式定义折叠
-" syntax    使用语法定义折叠
-" diff      对没有更改的文本进行折叠
-" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-set foldmethod=indent
-set foldlevel=99
-" 代码折叠自定义快捷键 <leader>zz
-let g:FoldMethod = 0
-map <leader>zz :call ToggleFold()<cr>
-fun! ToggleFold()
-    if g:FoldMethod == 0
-        exe "normal! zM"
-        let g:FoldMethod = 1
-    else
-        exe "normal! zR"
-        let g:FoldMethod = 0
-    endif
-endfun
+if has('folding')
+	set foldenable
+	set foldmethod=syntax
+	set foldlevelstart=99
+	set foldtext=FoldText()
+endif
+
+" Improved Vim fold-text
+" See: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
+function! FoldText()
+	" Get first non-blank line
+	let fs = v:foldstart
+	while getline(fs) =~? '^\s*$' | let fs = nextnonblank(fs + 1)
+	endwhile
+	if fs > v:foldend
+		let line = getline(v:foldstart)
+	else
+		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+	endif
+
+	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+	let foldSize = 1 + v:foldend - v:foldstart
+	let foldSizeStr = ' ' . foldSize . ' lines '
+	let foldLevelStr = repeat('+--', v:foldlevel)
+	let lineCount = line('$')
+	let foldPercentage = printf('[%.1f', (foldSize*1.0)/lineCount*100) . '%] '
+	let expansionString = repeat('.', w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+	return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+endfunction
+" }}}
 
 " 缩进配置
 " Smart indent
@@ -225,3 +233,4 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

@@ -10,10 +10,21 @@ autocmd! bufwritepost .vimrc source %
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 set completeopt=longest,menu
 
-" 增强模式中的命令行自动完成操作
-set wildmenu
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc,*.class,*.swp,*.bak,.svn,.DS_Store
+
+" Wildmenu {{{
+" --------
+if has('wildmenu')
+	set nowildmenu
+	set wildmode=list:longest,full
+	set wildoptions=tagfile
+	set wildignorecase
+	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
+	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
+	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
+	set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
+	set wildignore+=__pycache__,*.egg-info
+    set wildignore+=*~,*.class,*.swp,*.bak,.svn
+endif
 
 " 离开插入模式后自动关闭预览窗口
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
