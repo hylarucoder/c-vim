@@ -14,118 +14,93 @@ endif
 
 call plug#begin('~/.c-vim/plugged')
 
-" UI设置
-Plug 'mhinz/vim-startify'
+"====================
+"   UI设置 
+"====================
+
 " 主题 solarized
 Plug 'altercation/vim-colors-solarized'
 " airline
 " 状态栏增强展示
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'Shougo/denite.nvim'
 
-Plug 'ybian/smartim'
+" starify {{{
+    Plug 'mhinz/vim-startify'
+	noremap <space>ht :Startify<cr>
+	noremap <space>hy :tabnew<cr>:Startify<cr>
+    " Don't change to directory when selecting a file
+    let g:startify_files_number = 5
+    let g:startify_change_to_dir = 0
+    let g:startify_custom_header = [ ]
+    let g:startify_relative_path = 1
+    let g:startify_use_env = 1
+    function! s:list_commits()
+        let git = 'git -C ' . getcwd()
+        let commits = systemlist(git . ' log --oneline | head -n5')
+        let git = 'G' . git[1:]
+        return map(commits, '{"line": matchstr(v:val, "\\s\\zs.*"), "cmd": "'. git .' show ". matchstr(v:val, "^\\x\\+") }')
+    endfunction
+    " Custom startup list, only show MRU from current directory/project
+    let g:startify_lists = [
+    \  { 'type': 'dir',       'header': [ 'Files '. getcwd() ] },
+    \  { 'type': function('s:list_commits'), 'header': [ 'Recent Commits' ] },
+    \  { 'type': 'sessions',  'header': [ 'Sessions' ]       },
+    \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ]      },
+    \  { 'type': 'commands',  'header': [ 'Commands' ]       },
+    \ ]
 
-" 语法显示增强
-" 括号
-Plug 'junegunn/rainbow_parentheses.vim'
-" lint
-Plug 'w0rp/ale'
-" 补全和替换
-Plug 'brooth/far.vim'
+    let g:startify_commands = [
+    \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
+    \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
+    \ ]
+" }}}
 
-" 代码补全
-
-" 自动补全单引号，双引号等
-Plug 'Raimondi/delimitMate'
-
-Plug 'tpope/vim-projectionist'
-
-" 自动补全
-Plug 'Shougo/vimproc.vim', {'build' : 'make'}
-" Add or remove your plugins here:
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
-" 快速注释
-Plug 'scrooloose/nerdcommenter'
-
-" 快速加入修改环绕字符
-" for repeat -> enhance surround.vim, . to repeat command
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-" easyalign
-" 快速赋值语句对齐
-Plug 'junegunn/vim-easy-align'
-
-" quick movement
-" easymotion
+"====================
+"   移动跳转
+"====================
+" 移动增强
+Plug 'rhysd/accelerated-jk'
+Plug 'justinmk/vim-sneak'
 " 更高效的移动 [,, + w/fx/h/j/k/l]
 Plug 'Lokaltog/vim-easymotion'
-
+" 跳转增强
+Plug 'tpope/vim-projectionist'
 Plug 'vim-scripts/matchit.zip'
-" signature
-" 显示marks - 方便自己进行标记和跳转
+Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
 " m[a-zA-Z] add mark
 " '[a-zA-Z] go to mark
 " m<Space>  del all marks
 " m/        list all marks
 Plug 'kshenoy/vim-signature'
 
-" quick selection and edit
-" expandregion
-" 选中区块
-Plug 'terryma/vim-expand-region'
-" 多光标选中编辑
-" multiplecursors
-Plug 'terryma/vim-multiple-cursors'
-
-" quick locate file or function
-" 文件搜索
+Plug 'ybian/smartim'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-" ctrlsf
-" 类似sublimetext的搜索
-" In CtrlSF window:
-" 回车/o, 打开
-" t       在tab中打开(建议)
-" T - Lkie t but focus CtrlSF window instead of opened new tab.
-" q - Quit CtrlSF window.
 Plug 'dyng/ctrlsf.vim'
-" incsearch
-" Plug 'haya14busa/incsearch.vim'
-" map /  <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
 
-" git fugitive
-Plug 'tpope/vim-fugitive'
-" gitgutter
-Plug 'airblade/vim-gitgutter'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" fzf{{{
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+    " Insert mode completion
+    imap <c-x><c-k> <plug>(fzf-complete-word)
+    imap <c-x><c-f> <plug>(fzf-complete-path)
+    imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+    imap <c-x><c-l> <plug>(fzf-complete-line)
+" }}}
 
-" nav
-" Plug 'justinmk/vim-dirvish'
-Plug 'justinmk/vim-sneak'
 
-" tagbar
-Plug 'majutsushi/tagbar'
-Plug 'ludovicchabant/vim-gutentags'
+"====================
+"   输入增强
+"====================
 
-" text object
-" 支持自定义文本对象
-Plug 'kana/vim-textobj-user'
-" 增加行文本对象: l   dal yal cil
-Plug 'kana/vim-textobj-line'
-" 增加文件文本对象: e   dae yae cie
-Plug 'kana/vim-textobj-entire'
-" 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
-Plug 'kana/vim-textobj-indent'
+Plug 'Raimondi/delimitMate'
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/vimproc.vim', {'build' : 'make'}
 
 " deoplete{{{
 	Plug 'Shougo/deoplete.nvim'
-
 	Plug 'zchee/deoplete-jedi'
 
 	let g:deoplete#enable_at_startup = 1
@@ -153,6 +128,65 @@ Plug 'kana/vim-textobj-indent'
 
 	let g:deoplete#sources#jedi#enable_cache = 1
 "}}}
+" ultisnips {{{
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    let g:UltiSnipsEditSplit           = "vertical"
+    let g:UltiSnipsExpandTrigger       = "<tab>"
+    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+    let g:UltiSnipsSnippetDirectories  = ['ultisnips','ultisnips.private']
+    " let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips'
+    let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips.private'
+    " 定义存放代码片段的文件夹 .vim/ultisnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
+    " 进入对应filetype的snippets进行编辑
+    map <leader>us :UltiSnipsEdit<CR>
+" }}}
+
+"====================
+"   修改增强
+"====================
+
+Plug 'brooth/far.vim'
+Plug 'scrooloose/nerdcommenter'
+" 快速加入修改环绕字符
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'junegunn/vim-easy-align'
+
+"====================
+"   选区增强
+"====================
+
+Plug 'terryma/vim-expand-region'
+
+"====================
+"   GIT 相关
+"====================
+
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+
+"====================
+"  文本对象
+"====================
+" 支持自定义文本对象
+Plug 'kana/vim-textobj-user'
+" 增加行文本对象: l   dal yal cil
+Plug 'kana/vim-textobj-line'
+" 增加文件文本对象: e   dae yae cie
+Plug 'kana/vim-textobj-entire'
+" 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
+Plug 'kana/vim-textobj-indent'
+
+"====================
+"  未分类
+"====================
+Plug 'kristijanhusak/vim-carbon-now-sh'
+vnoremap <F5> :CarbonNowSh<CR>
+
 if count(g:bundle_groups, 'markdown')
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
@@ -169,6 +203,7 @@ if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
     Plug 'ambv/black'
+    let g:black_virtualenv = "~/.config/black"
     Plug 'tshirtman/vim-cython'
     let g:pymode = 1
     let g:pymode_python = 'python3'
@@ -224,7 +259,7 @@ if count(g:bundle_groups, 'json')
 endif
 
 if count(g:bundle_groups, 'go')
-    Plug 'fatih/vim-go'
+    Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 endif
 
 if count(g:bundle_groups, 'rust')
@@ -244,14 +279,15 @@ endif
 filetype plugin indent on
 syntax enable
 
-" ################### 基础 ######################
-
 " ale {{{
+    Plug 'w0rp/ale'
     let g:ale_lint_on_save = 1
     let g:ale_lint_on_text_changed = 0
-    "let g:ale_linters = {
-    "   'javascript': ['eslint'],
-    "}
+    let g:ale_linters = {
+    \   'javascript': ['eslint', 'tsserver'],
+    \   'typescript': ['tsserver', 'tslint'],
+    \   'html': []
+    \}
     let g:ale_sign_error = '>>'
     let g:ale_sign_warning = '--'
     let g:airline#extensions#ale#enabled = 1
@@ -263,27 +299,11 @@ syntax enable
     " You can disable this option too
     " if you don't want linters to run on opening a file
     let g:ale_lint_on_enter = 0
+    nmap <F2> <Plug>(ale_previous_wrap)
+    nmap <F3> <Plug>(ale_next_wrap)
 " }}}
 
 
-" ################### 自动补全 ###################
-
-" denite {{{
-" call denite#custom#var('grep', 'command', ['ag'])
-""}}}
-
-" ultisnips {{{
-    let g:UltiSnipsEditSplit           = "vertical"
-    let g:UltiSnipsExpandTrigger       = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-    let g:UltiSnipsSnippetDirectories  = ['ultisnips','ultisnips.private']
-    " let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips'
-    let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips.private'
-    " 定义存放代码片段的文件夹 .vim/ultisnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
-    " 进入对应filetype的snippets进行编辑
-    map <leader>us :UltiSnipsEdit<CR>
-" }}}
 
 
 " delimitMate {{{
@@ -649,16 +669,14 @@ syntax enable
 " }}}
 
 " css {{{
+
 " }}}
 
 " nginx {{{
+
 " }}}
 call plug#end()
 
-" starify {{{
-	noremap <space>ht :Startify<cr>
-	noremap <space>hy :tabnew<cr>:Startify<cr>
-" }}}
 
 " denite {{{
 " }}}
