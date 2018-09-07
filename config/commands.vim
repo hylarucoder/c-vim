@@ -11,24 +11,6 @@ autocmd! bufwritepost .vimrc source %
 set completeopt=longest,menu
 
 
-" Wildmenu {{{
-" --------
-if has('wildmenu')
-	set nowildmenu
-	set wildmode=list:longest,full
-	set wildoptions=tagfile
-	set wildignorecase
-	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
-	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
-	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
-	set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
-	set wildignore+=__pycache__,*.egg-info
-    set wildignore+=*~,*.class,*.swp,*.bak,.svn
-endif
-
-" 离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
 " 回车即选中当前项
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 
@@ -49,17 +31,12 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
-" 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
 
 "==========================================
 " HotKey Settings  自定义快捷键设置
 "==========================================
 
 " 主要按键重定义
-
 " 关闭方向键, 强迫自己用 hjkl
 map <Left> <Nop>
 map <Right> <Nop>
@@ -268,21 +245,6 @@ nnoremap <leader>w :w<CR>
 " I can type :help on my own, thanks.  Protect your fat fingers from the evils of <F1>
 noremap <F1> <Esc>"
 
-" F5 行号开关，用于鼠标复制代码用
-" 为方便复制，用<F5>开启/关闭行号显示:
-function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
-    set number!
-  else
-    set relativenumber!
-  endif
-  set number?
-endfunc
-
-nnoremap <F2> <Plug>(ale_next_wrap)
-nnoremap <F3> <Plug>(ale_previous_wrap)
 nnoremap <F4> :set wrap! wrap?<CR>
 " F5 关闭
 nnoremap <F5> :call HideNumber()<CR>
@@ -298,6 +260,4 @@ nnoremap <F10> :UltiSnipsEdit<CR>
 
 " F12 TagbarToggle
 nnoremap <F12> :TagbarToggle<CR>
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
 

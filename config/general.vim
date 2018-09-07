@@ -1,121 +1,206 @@
-"==========================================
-" General Settings 基础设置
-"==========================================
+" General Settings
+"---------------------------------------------------------
+" General {{{
+set mouse=nv                 " Disable mouse in command-line mode
+set modeline                 " automatically setting options from modelines
+set report=0                 " Don't report on line changes
+set errorbells               " Trigger bell on error
+set visualbell               " Use visual bell instead of beeping
+set hidden                   " hide buffers when abandoned instead of unload
+set fileformats=unix,dos,mac " Use Unix as the standard file type
+set magic                    " For regular expressions turn magic on
+set path=.,**                " Directories to search when using gf
+set virtualedit=block        " Position cursor anywhere in visual block
+set synmaxcol=1000           " Don't syntax highlight long lines
+set formatoptions+=1         " Don't break lines after a one-letter word
+set formatoptions-=t         " Don't auto-wrap text
+if has('patch-7.3.541')
+	set formatoptions+=j       " Remove comment leader when joining lines
+endif
 
-" 修改leader键
-let mapleader = ','
-let g:mapleader = ','
+if has('vim_starting')
+	set encoding=utf-8
+	scriptencoding utf-8
+endif
 
-" 开启语法高亮
-syntax on
+" What to save for views:
+set viewoptions-=options
+set viewoptions+=slash,unix
 
-filetype plugin indent on
-" history存储容量
+" What to save in sessions:
+set sessionoptions-=blank
+set sessionoptions-=options
+set sessionoptions-=globals
+set sessionoptions-=folds
+set sessionoptions-=help
+set sessionoptions-=buffers
+set sessionoptions+=tabpages
+
+if has('clipboard')
+	set clipboard& clipboard+=unnamedplus
+endif
+
+" }}}
+" Wildmenu {{{
+" --------
+if has('wildmenu')
+	set nowildmenu
+	set wildmode=list:longest,full
+	set wildoptions=tagfile
+	set wildignorecase
+	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
+	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
+	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
+	set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
+	set wildignore+=__pycache__,*.egg-info
+endif
+
+" }}}
+" Vim Directories {{{
+" ---------------
+set undofile swapfile nobackup
+set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
+set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
+set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
+set viewdir=$VARPATH/view/
+set nospell spellfile=$VIMPATH/spell/en.utf-8.add
+
+" History saving
 set history=2000
+if has('nvim')
+	"  ShaDa/viminfo:
+	"   ' - Maximum number of previously edited files marks
+	"   < - Maximum number of lines saved for each register
+	"   @ - Maximum number of items in the input-line history to be
+	"   s - Maximum size of an item contents in KiB
+	"   h - Disable the effect of 'hlsearch' when loading the shada
+	set shada='300,<50,@100,s10,h
+else
+	set viminfo='300,<10,@50,h,n$VARPATH/viminfo
+endif
 
-" 检测文件类型
-filetype on
-" 针对不同的文件类型采用不同的缩进格式
-filetype indent on
-" 允许插件
-filetype plugin on
-" 启动自动补全
-filetype plugin indent on
+" }}}
+" Tabs and Indents {{{
+" ----------------
+set textwidth=80    " Text width maximum chars before wrapping
+set noexpandtab     " Don't expand tabs to spaces.
+set tabstop=2       " The number of spaces a tab is
+set softtabstop=2   " While performing editing operations
+set shiftwidth=2    " Number of spaces to use in auto(indent)
+set smarttab        " Tab insert blanks according to 'shiftwidth'
+set autoindent      " Use same indenting on new lines
+set smartindent     " Smart autoindenting on new lines
+set shiftround      " Round indent to multiple of 'shiftwidth'
 
+" }}}
+" Timing {{{
+" ------
+set timeout ttimeout
+set timeoutlen=750  " Time out on mappings
+set updatetime=1000 " Idle time to write swap and trigger CursorHold
 
-" 文件修改之后自动载入
-set autoread
-" 启动的时候不显示那个援助乌干达儿童的提示
-set shortmess=atI
+" Time out on key codes
+set ttimeoutlen=10
 
-" 备份,到另一个位置. 防止误删, 目前是取消备份
-" set backup
-" set backupext=.bak
-" set backupdir=/tmp/vimbk/
+" }}}
+" Searching {{{
+" ---------
+set ignorecase      " Search ignoring case
+set smartcase       " Keep case when searching with *
+set infercase       " Adjust case in insert completion mode
+set incsearch       " Incremental search
+set hlsearch        " Highlight search results
+set wrapscan        " Searches wrap around the end of the file
+set showmatch       " Jump to matching bracket
+set matchpairs+=<:> " Add HTML brackets to pair matching
+set matchtime=1     " Tenths of a second to show the matching paren
+set cpoptions-=m    " showmatch will wait 0.5s or until a char is typed
 
-" 取消备份。 视情况自己改
-set nobackup
-" 关闭交换文件
-set noswapfile
+" }}}
+" Behavior {{{
+" --------
+set nowrap                      " No wrap by default
+set linebreak                   " Break long lines at 'breakat'
+set breakat=\ \	;:,!?           " Long lines break chars
+set nostartofline               " Cursor in same column for few commands
+set whichwrap+=h,l,<,>,[,],~    " Move to following line on certain keys
+set splitbelow splitright       " Splits open bottom right
+set switchbuf=useopen,usetab    " Jump to the first open window in any tab
+set switchbuf+=vsplit           " Switch buffer behavior to vsplit
+set backspace=indent,eol,start  " Intuitive backspacing in insert mode
+set diffopt=filler,iwhite       " Diff mode: show fillers, ignore white
+set showfulltag                 " Show tag and tidy search in completion
+set complete=.                  " No wins, buffs, tags, include scanning
+set completeopt=menuone         " Show menu even for one item
+set completeopt+=noselect       " Do not select a match in the menu
+if has('patch-7.4.775')
+	set completeopt+=noinsert
+endif
 
+if exists('+inccommand')
+	set inccommand=nosplit
+endif
 
-" 突出显示当前列
-set cursorcolumn
-" 突出显示当前行
-set cursorline
+" }}}
+" Editor UI Appearance {{{
+" --------------------
+set noshowmode          " Don't show mode in cmd window
+set shortmess=aoOTI     " Shorten messages and don't show intro
+set scrolloff=2         " Keep at least 2 lines above/below
+set sidescrolloff=5     " Keep at least 5 lines left/right
+set number              " Show line numbers
+set noruler             " Disable default status ruler
+set list                " Show hidden characters
 
-" 鼠标暂不启用, 键盘党....
-set mouse-=a
-" 启用鼠标
-" set mouse=a
-" Hide the mouse cursor while typing
-set mousehide
+set showtabline=2       " Always show the tabs line
+set winwidth=30         " Minimum width for active window
+set winheight=1         " Minimum height for active window
+set pumheight=15        " Pop-up menu's line height
+set helpheight=12       " Minimum help window height
+set previewheight=12    " Completion preview height
 
-" 修复ctrl+m 多光标操作选择的bug，但是改变了ctrl+v进行字符选中时将包含光标下的字符
-set selection=inclusive
-set selectmode=mouse,key
+set noshowcmd           " Don't show command in status line
+set cmdheight=2         " Height of the command line
+set cmdwinheight=5      " Command-line lines
+set noequalalways       " Don't resize windows on split or close
+set laststatus=2        " Always show a status line
+set colorcolumn=80      " Highlight the 80th character limit
+set display=lastline
 
-" change the terminal's title
-set title
-" 去掉输入错误的提示声音
-set novisualbell
-set noerrorbells
-set t_vb=
-set tm=500
+" Do not display completion messages
+" Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
+if has('patch-7.4.314')
+	set shortmess+=c
+endif
 
-" Remember info about open buffers on close
-set viminfo^=%
+" Do not display message when editing files
+if has('patch-7.4.1570')
+	set shortmess+=F
+endif
 
-" For regular expressions turn magic on
-set magic
+" For snippet_complete marker
+if has('conceal') && v:version >= 703
+	set conceallevel=2 concealcursor=niv
+endif
 
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
+" }}}
+" Folds {{{
+" -----
 
-"==========================================
-" Display Settings 展示/排版等界面格式设置
-"==========================================
+" FastFold
+" Credits: https://github.com/Shougo/shougo-s-github
+autocmd MyAutoCmd TextChangedI,TextChanged *
+	\ if &l:foldenable && &l:foldmethod !=# 'manual' |
+	\   let b:foldmethod_save = &l:foldmethod |
+	\   let &l:foldmethod = 'manual' |
+	\ endif
 
-" 显示当前的行号列号
-set ruler
-" 在状态栏显示正在输入的命令
-set showcmd
-" 左下角显示当前vim模式
-set showmode
+autocmd MyAutoCmd BufWritePost *
+	\ if &l:foldmethod ==# 'manual' && exists('b:foldmethod_save') |
+	\   let &l:foldmethod = b:foldmethod_save |
+	\   execute 'normal! zx' |
+	\ endif
 
-" 在上下移动光标时，光标的上方或下方至少会保留显示的行数
-set scrolloff=7
-
-" set winwidth=79
-
-" 命令行（在状态行下）的高度，默认为1，这里是2
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-" Always show the status line - use 2 lines for the status bar
-set laststatus=2
-
-" 显示行号
-set number
-" 取消换行
-set nowrap
-
-" 括号配对情况, 跳转并高亮一下匹配的括号
-set showmatch
-" How many tenths of a second to blink when matching brackets
-set matchtime=2
-
-
-" 设置文内智能搜索提示
-" 高亮search命中的文本
-set hlsearch
-" 打开增量搜索模式,随着键入即时搜索
-set incsearch
-" 搜索时忽略大小写
-set ignorecase
-" 有一个或以上大写字母时仍大小写敏感
-set smartcase
-
-" 代码折叠
 if has('folding')
 	set foldenable
 	set foldmethod=syntax
@@ -145,61 +230,10 @@ function! FoldText()
 	let expansionString = repeat('.', w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
 	return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
 endfunction
+
 " }}}
 
-" 缩进配置
-" Smart indent
-set smartindent
-" 打开自动缩进
-" never add copyindent, case error   " copy the previous indentation on autoindenting
-set autoindent
-
-" tab相关变更
-" 设置Tab键的宽度        [等同的空格个数]
-set tabstop=4
-" 每一次缩进对应的空格数
-set shiftwidth=4
-" 按退格键时可以一次删掉 4 个空格
-set softtabstop=4
-" insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
-set smarttab
-" 将Tab自动转化成空格[需要输入真正的Tab键时，使用 Ctrl+V + Tab]
-set expandtab
-" 缩进时，取整 use multiple of shiftwidth when indenting with '<' and '>'
-set shiftround
-
-" A buffer becomes hidden when it is abandoned
-set hidden
-set wildmode=list:longest
-set ttyfast
-
-" 00x增减数字时使用十进制
-set nrformats=
-
-" 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
-set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
-" 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber number
-  else
-    set relativenumber
-  endif
-endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
-
-" 防止tmux下vim的背景色显示异常
-" Refer: http://sunaku.github.io/vim-256color-bce.html
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
 
 "==========================================
 " FileEncode Settings 文件编码,格式

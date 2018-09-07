@@ -3,7 +3,7 @@
 " ==========================================
 
 if !exists('g:bundle_groups')
-    let g:bundle_groups=['python', 'rust', 'go', 'javascript', 'markdown', 'web', 'json', 'nginx']
+    let g:bundle_groups=['python', 'rust', 'go', 'javascript', 'writing', 'web', 'json', 'nginx']
 endif
 
 filetype off " required! turn off
@@ -12,7 +12,7 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-call plug#begin('~/.c-vim/plugged')
+call plug#begin($VARPATH.'/plugged')
 
 "====================
 "   UI设置 
@@ -20,13 +20,19 @@ call plug#begin('~/.c-vim/plugged')
 
 " 主题 solarized
 Plug 'altercation/vim-colors-solarized'
-" airline
 " 状态栏增强展示
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'fugitive#head'
+    \ },
+    \ }
+
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-
-
 
 "====================
 "   移动跳转
@@ -398,25 +404,22 @@ Plug 'w0rp/ale'
     let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java'] }
 " }}}
 
+" css {{{
 
-" javascript {{{
 " }}}
 
 " json {{{
     let g:vim_json_syntax_conceal = 0
 " }}}
 
-" css {{{
-
-" }}}
-
-" nginx {{{
-
-" }}}
 
 " markdown {{{
     let g:vim_markdown_folding_disabled=1
     let g:smartim_default = 'com.apple.keylayout.ABC'
+" }}}
+
+" Other Language {{{
+    Plug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; ./generate.py' }
 " }}}
 
 call cvim#source_rc('plugins/all.vim')
@@ -426,5 +429,3 @@ call cvim#source_rc('plugins/deoplete.vim')
 call cvim#source_rc('plugins/nerdtree.vim')
 
 call plug#end()
-
-
