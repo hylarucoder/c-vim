@@ -29,9 +29,9 @@ set autoread
 set shortmess=atI
 
 " 备份,到另一个位置. 防止误删, 目前是取消备份
-"set backup
-"set backupext=.bak
-"set backupdir=/tmp/vimbk/
+" set backup
+" set backupext=.bak
+" set backupdir=/tmp/vimbk/
 
 " 取消备份。 视情况自己改
 set nobackup
@@ -44,18 +44,12 @@ set cursorcolumn
 " 突出显示当前行
 set cursorline
 
-" 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
-" 好处：误删什么的，如果以前屏幕打开，可以找回
-set t_ti= t_te=
-
-
 " 鼠标暂不启用, 键盘党....
 set mouse-=a
 " 启用鼠标
 " set mouse=a
 " Hide the mouse cursor while typing
 set mousehide
-
 
 " 修复ctrl+m 多光标操作选择的bug，但是改变了ctrl+v进行字符选中时将包含光标下的字符
 set selection=inclusive

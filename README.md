@@ -13,14 +13,12 @@
 ## 安装
 
 ```
-# 安装 MacVim 并执行 brew linkapps, 并且 Python2/3 也务必装上。
-brew install macvim --with-luajit --with-lua --with-python3
-brew linkapps
-mkdir -p ~/dotfiles && cd ~/dotfiles
+brew install neovim
+mkdir -p ~/Cystem && cd ~/Cystem
 git clone https://github.com/twocucao/c-vim.git
 chmod a+x ~/Cystem/c-vim/scripts/markdown2ctags.py
 chmod a+x ~/Cystem/c-vim/scripts/rst2ctags.py
-cd ~/Cystem/c-vim/ && sh -x ./install.sh
+cd ~/Cystem/c-vim/ && bash -x ./install.sh
 ```
 
 ## ChangeLog

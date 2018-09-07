@@ -24,37 +24,9 @@ Plug 'altercation/vim-colors-solarized'
 " 状态栏增强展示
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-" starify {{{
-    Plug 'mhinz/vim-startify'
-	noremap <space>ht :Startify<cr>
-	noremap <space>hy :tabnew<cr>:Startify<cr>
-    " Don't change to directory when selecting a file
-    let g:startify_files_number = 5
-    let g:startify_change_to_dir = 0
-    let g:startify_custom_header = [ ]
-    let g:startify_relative_path = 1
-    let g:startify_use_env = 1
-    function! s:list_commits()
-        let git = 'git -C ' . getcwd()
-        let commits = systemlist(git . ' log --oneline | head -n5')
-        let git = 'G' . git[1:]
-        return map(commits, '{"line": matchstr(v:val, "\\s\\zs.*"), "cmd": "'. git .' show ". matchstr(v:val, "^\\x\\+") }')
-    endfunction
-    " Custom startup list, only show MRU from current directory/project
-    let g:startify_lists = [
-    \  { 'type': 'dir',       'header': [ 'Files '. getcwd() ] },
-    \  { 'type': function('s:list_commits'), 'header': [ 'Recent Commits' ] },
-    \  { 'type': 'sessions',  'header': [ 'Sessions' ]       },
-    \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ]      },
-    \  { 'type': 'commands',  'header': [ 'Commands' ]       },
-    \ ]
 
-    let g:startify_commands = [
-    \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
-    \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
-    \ ]
-" }}}
 
 "====================
 "   移动跳转
@@ -99,48 +71,17 @@ Plug 'Raimondi/delimitMate'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/vimproc.vim', {'build' : 'make'}
 
-" deoplete{{{
-	Plug 'Shougo/deoplete.nvim'
-	Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-jedi'
 
-	let g:deoplete#enable_at_startup = 1
-	let g:deoplete#enable_smart_case = 1
-	let g:deoplete#enable_refresh_always = 1
+Plug 'carlitux/deoplete-ternjs'
 
-	inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<tab>"
-	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-	inoremap <expr><BS> deoplete#smart_close_popup()."\<bs>"
-	inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = 0
 
-	if 0
-		let g:deoplete#sources = {}
-		let g:deoplete#sources._ = ['buffer', 'dictionary']
-		" let g:deoplete#sources.python = ['jedi']
-	endif
 
-	set shortmess+=c
-	let g:echodoc#enable_at_startup = 1
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-	if exists('g:python_host_prog')
-		let g:deoplete#sources#jedi#python_path = g:python_host_prog
-	endif
-
-	let g:deoplete#sources#jedi#enable_cache = 1
-"}}}
-" ultisnips {{{
-    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-    let g:UltiSnipsEditSplit           = "vertical"
-    let g:UltiSnipsExpandTrigger       = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-    let g:UltiSnipsSnippetDirectories  = ['ultisnips','ultisnips.private']
-    " let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips'
-    let g:UltiSnipsSnippetsDir = '~/Cystem/c-vim/ultisnips.private'
-    " 定义存放代码片段的文件夹 .vim/ultisnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
-    " 进入对应filetype的snippets进行编辑
-    map <leader>us :UltiSnipsEdit<CR>
-" }}}
 
 "====================
 "   修改增强
@@ -166,7 +107,6 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
 
 "====================
@@ -187,12 +127,12 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 vnoremap <F5> :CarbonNowSh<CR>
 
-if count(g:bundle_groups, 'markdown')
-    Plug 'godlygeek/tabular'
-    Plug 'plasticboy/vim-markdown'
+if count(g:bundle_groups, 'writing')
     Plug 'Rykka/riv.vim',{ 'for': 'rst' }
-    " 禁掉,否则Ultisnip没法用
     let g:riv_ignored_imaps = "<Tab>,<S-Tab>"
+    Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+    Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+    " 禁掉,否则Ultisnip没法用
 
     let g:vim_markdown_toc_autofit = 1
     let g:table_mode_corner_corner='+'
@@ -209,7 +149,6 @@ if count(g:bundle_groups, 'python')
     let g:pymode_python = 'python3'
     let g:pymode_rope = 1
     let g:pymode_lint = 0
-    " let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 endif
 
 if count(g:bundle_groups, 'javascript')
@@ -279,32 +218,7 @@ endif
 filetype plugin indent on
 syntax enable
 
-" ale {{{
-    Plug 'w0rp/ale'
-    let g:ale_lint_on_save = 1
-    let g:ale_lint_on_text_changed = 0
-    let g:ale_linters = {
-    \   'javascript': ['eslint', 'tsserver'],
-    \   'typescript': ['tsserver', 'tslint'],
-    \   'html': []
-    \}
-    let g:ale_sign_error = '>>'
-    let g:ale_sign_warning = '--'
-    let g:airline#extensions#ale#enabled = 1
-    let g:ale_echo_msg_error_str = 'E'
-    let g:ale_echo_msg_warning_str = 'W'
-    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-    " Write this in your vimrc file
-    let g:ale_lint_on_text_changed = 'never'
-    " You can disable this option too
-    " if you don't want linters to run on opening a file
-    let g:ale_lint_on_enter = 0
-    nmap <F2> <Plug>(ale_previous_wrap)
-    nmap <F3> <Plug>(ale_next_wrap)
-" }}}
-
-
-
+Plug 'w0rp/ale'
 
 " delimitMate {{{
     " for python docstring ",优化输入
@@ -314,49 +228,6 @@ syntax enable
     "au FileType mail let b:delimitMate_autoclose = 0
 " }}}
 
-
-" closetag {{{
-    let g:closetag_html_style=1
-" }}}
-
-" vim-gutentags {{{
-    let $GTAGSLABEL = 'native-pygments'
-    let $GTAGSCONF = '~/.gtags.conf'
-
-    " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
-    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-
-    " enable gtags module
-    let g:gutentags_modules = ['ctags']
-
-    " generate datebases in my cache directory, prevent gtags files polluting my project
-    let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-    " 所生成的数据文件的名称
-    let g:gutentags_ctags_tagfile = '.tags'
-
-    " 同时开启 ctags 和 gtags 支持：
-    let g:gutentags_modules = []
-    if executable('ctags')
-        let g:gutentags_modules += ['ctags']
-    endif
-
-    " 配置 ctags 的参数
-    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-    let g:gutentags_ctags_extra_args += ['']
-
-    " 如果使用 universal ctags 需要增加下面一行
-    let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-    let g:gutentags_debug = 1
-    let g:gutentags_file_list_command = {
-        \ 'markers': {
-            \ '.git': 'git ls-files',
-            \ '.hg': 'hg files',
-            \ 'Pipfile': 'python -c \"import os, sys; print('' ''.join(''{}''.format(d) for d in sys.path if os.path.isdir(d)))\"',
-        \ },
-    \ }
-
-" }}}
 
 " ################### 快速编码 ###################
 
@@ -401,11 +272,9 @@ syntax enable
     map <Leader><leader>. <Plug>(easymotion-repeat)
 " }}}
 
-" ################### 快速选中 ###################
-
 " expandregion {{{
-    " map + <Plug>(expand_region_expand)
-    " map _ <Plug>(expand_region_shrink)
+    map + <Plug>(expand_region_expand)
+    map - <Plug>(expand_region_shrink)
     " Extend the global default
 " }}}
 
@@ -417,8 +286,6 @@ syntax enable
     let g:multi_cursor_skip_key='<C-x>'
     let g:multi_cursor_quit_key='<Esc>'
 " }}}
-
-" ################### 功能相关 ###################
 
 " LeaderF {{{
     let g:Lf_ShortcutF = '<c-p>'
@@ -469,8 +336,6 @@ syntax enable
         \ }
 " }}}
 
-" git.  git操作还是习惯命令行,vim里面处理简单diff编辑操作
-
 " fugitive {{{
     " :Gdiff  :Gstatus :Gvsplit
     nnoremap <leader>ge :Gdiff<CR>
@@ -484,8 +349,6 @@ syntax enable
 " }}}
 
 " gitgutter {{{
-    " 同git diff,实时展示文件中修改的行
-    " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
     let g:gitgutter_map_keys = 0
     let g:gitgutter_enabled = 1
     let g:gitgutter_highlight_lines = 1
@@ -520,122 +383,6 @@ syntax enable
     " let g:solarized_termcolors=256
 " }}}
 
-" ################### 快速导航 ###################
-
-" nerdtree nerdtreetabs {{{
-    Plug 'scrooloose/nerdtree'
-	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-	let g:NERDTreeMinimalUI = 1
-	let g:NERDTreeDirArrows = 1
-	let g:NERDTreeHijackNetrw = 0
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-	" let g:NERDTreeFileExtensionHighlightFullName = 1
-	" let g:NERDTreeExactMatchHighlightFullName = 1
-	" let g:NERDTreePatternMatchHighlightFullName = 1
-	noremap <space>tn :NERDTree<cr>
-	noremap <space>to :NERDTreeFocus<cr>
-	noremap <space>tm :NERDTreeMirror<cr>
-	noremap <space>tt :NERDTreeToggle<cr>
-    let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-" }}}
-
-
-" 标签导航
-" tagbar {{{
-    let g:tagbar_autofocus = 1
-    let g:tagbar_autoshowtag = 1
-    " let g:tagbar_show_visibility = 1
-    let g:tagbar_type_ansible = {
-        \ 'ctagstype' : 'ansible',
-        \ 'kinds' : [
-            \ 't:tasks'
-        \ ],
-        \ 'sort' : 0
-    \ }
-    let g:tagbar_type_make = {
-        \ 'kinds':[
-            \ 'm:macros',
-            \ 't:targets'
-        \ ]
-    \}
-    " for ruby
-    let g:tagbar_type_ruby = {
-        \ 'kinds' : [
-            \ 'm:modules',
-            \ 'c:classes',
-            \ 'd:describes',
-            \ 'C:contexts',
-            \ 'f:methods',
-            \ 'F:singleton methods'
-        \ ]
-    \ }
-    let g:tagbar_type_typescript = {
-    \ 'ctagsbin' : 'tstags',
-    \ 'ctagsargs' : '-f-',
-    \ 'kinds': [
-        \ 'e:enums:0:1',
-        \ 'f:function:0:1',
-        \ 't:typealias:0:1',
-        \ 'M:Module:0:1',
-        \ 'I:import:0:1',
-        \ 'i:interface:0:1',
-        \ 'C:class:0:1',
-        \ 'm:method:0:1',
-        \ 'p:property:0:1',
-        \ 'v:variable:0:1',
-        \ 'c:const:0:1',
-    \ ],
-    \ 'sort' : 0
-    \ }
-    let g:tagbar_type_snippets = {
-        \ 'ctagstype' : 'snippets',
-        \ 'kinds' : [
-            \ 's:snippets',
-        \ ]
-    \ }
-    let g:tagbar_type_rst = {
-        \ 'ctagstype': 'rst',
-        \ 'ctagsbin' : $HOME.'/Cystem/c-vim/scripts/rst2ctags.py',
-        \ 'ctagsargs' : '-f - --sort=yes',
-        \ 'kinds' : [
-            \ 's:sections',
-            \ 'i:images'
-        \ ],
-        \ 'sro' : '|',
-        \ 'kind2scope' : {
-            \ 's' : 'section',
-        \ },
-        \ 'sort': 0,
-    \ }
-    let g:tagbar_type_markdown = {
-        \ 'ctagstype': 'markdown',
-        \ 'ctagsbin' : $HOME.'/Cystem/c-vim/scripts/markdown2ctags.py',
-        \ 'ctagsargs' : '-f - --sort=yes',
-        \ 'kinds' : [
-            \ 's:sections',
-            \ 'i:images'
-        \ ],
-        \ 'sro' : '|',
-        \ 'kind2scope' : {
-            \ 's' : 'section',
-        \ },
-        \ 'sort': 0,
-    \ }
-" }}}
-
-
 
 " vim-go {{{
     let g:go_highlight_functions = 1
@@ -651,17 +398,8 @@ syntax enable
     let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java'] }
 " }}}
 
-" markdown {{{
-    let g:vim_markdown_folding_disabled=1
-    let g:smartim_default = 'com.apple.keylayout.ABC'
-" }}}
-
 
 " javascript {{{
-    " pangloss/vim-javascript
-    let g:html_indent_inctags = "html,body,head,tbody"
-    let g:html_indent_script1 = "inc"
-    let g:html_indent_style1 = "inc"
 " }}}
 
 " json {{{
@@ -675,8 +413,18 @@ syntax enable
 " nginx {{{
 
 " }}}
+
+" markdown {{{
+    let g:vim_markdown_folding_disabled=1
+    let g:smartim_default = 'com.apple.keylayout.ABC'
+" }}}
+
+call cvim#source_rc('plugins/all.vim')
+call cvim#source_rc('plugins/starify.vim')
+call cvim#source_rc('plugins/tagbar.vim')
+call cvim#source_rc('plugins/deoplete.vim')
+call cvim#source_rc('plugins/nerdtree.vim')
+
 call plug#end()
 
 
-" denite {{{
-" }}}
