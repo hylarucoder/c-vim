@@ -5,7 +5,8 @@ let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 " Use spacebar as leader and ; as secondary-leader
 " Required before loading plugins!
 let g:mapleader="\<Space>"
-let g:maplocalleader=';'
+let g:maplocalleader=','
+autocmd! bufwritepost .vimrc source %
 
 " Release keymappings prefixes, evict entirely for use of plug-ins.
 nnoremap <Space>  <Nop>

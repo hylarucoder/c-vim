@@ -1,5 +1,5 @@
 "==========================================
-" Author:  wklken
+" Author:  wklken , rafi
 " Modified By:  Micheal Gardner
 " Email: wklken@yeah.net twocucao@gmail.com
 "==========================================
@@ -29,6 +29,6 @@ call cvim#source_rc('filetype.vim')
 call cvim#source_rc('general.vim')
 call cvim#source_rc('plugins.vim')
 call cvim#source_rc('plugins/pangu.vim')
-call cvim#source_rc('commands.vim')
+call cvim#source_rc('mappings.vim')
 call cvim#source_rc('filetypes.vim')
 call cvim#source_rc('theme.vim')

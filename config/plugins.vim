@@ -3,7 +3,7 @@
 " ==========================================
 
 if !exists('g:bundle_groups')
-    let g:bundle_groups=['python', 'rust', 'go', 'javascript', 'writing', 'web', 'json', 'nginx']
+    let g:bundle_groups=['python', 'rust', 'go', 'javascript', 'writing', 'web', 'json', 'misc']
 endif
 
 filetype off " required! turn off
@@ -112,6 +112,7 @@ Plug 'terryma/vim-expand-region'
 "====================
 
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git' ,{ 'for': ['gitcommit', 'gitrebase', 'gitconfig'] }
 Plug 'airblade/vim-gitgutter'
 
 
@@ -217,7 +218,12 @@ if count(g:bundle_groups, 'web')
     Plug 'ksauzz/thrift.vim'
 endif
 
-if count(g:bundle_groups, 'nginx')
+if count(g:bundle_groups, 'misc')
+    Plug 'cespare/vim-toml', for { 'for':'toml'}
+    Plug 'chrisbra/csv.vim', for { 'for':'csv'}
+    Plug 'ekalinin/Dockerfile.vim', for { 'for':['Dockerfile', 'yaml.docker-compose']}
+    Plug 'tmux-plugins/vim-tmux', for { 'for':'tmux'}
+    Plug 'andreshazard/vim-logreview', for { 'for':'logreview'}
 endif
 
 " Required:

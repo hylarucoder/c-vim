@@ -77,6 +77,7 @@ let insert_mode_mappings = [
 	\  ['<C-h>', '<denite:smart_delete_char_before_caret>', 'noremap'],
 	\ ]
 
+
 let normal_mode_mappings = [
 	\   ["'", '<denite:toggle_select_down>', 'noremap'],
 	\   ['<C-n>', '<denite:jump_to_next_source>', 'noremap'],
