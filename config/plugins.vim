@@ -219,11 +219,11 @@ if count(g:bundle_groups, 'web')
 endif
 
 if count(g:bundle_groups, 'misc')
-    Plug 'cespare/vim-toml', for { 'for':'toml'}
-    Plug 'chrisbra/csv.vim', for { 'for':'csv'}
-    Plug 'ekalinin/Dockerfile.vim', for { 'for':['Dockerfile', 'yaml.docker-compose']}
-    Plug 'tmux-plugins/vim-tmux', for { 'for':'tmux'}
-    Plug 'andreshazard/vim-logreview', for { 'for':'logreview'}
+    Plug 'cespare/vim-toml', { 'for':'toml'}
+    Plug 'chrisbra/csv.vim', { 'for':'csv'}
+    Plug 'ekalinin/Dockerfile.vim', { 'for':['Dockerfile', 'yaml.docker-compose']}
+    Plug 'tmux-plugins/vim-tmux', { 'for':'tmux'}
+    Plug 'andreshazard/vim-logreview', { 'for':'logreview'}
 endif
 
 " Required:
