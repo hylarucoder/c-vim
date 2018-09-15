@@ -429,9 +429,12 @@ Plug 'w0rp/ale'
 " }}}
 
 call cvim#source_rc('plugins/all.vim')
-call cvim#source_rc('plugins/starify.vim')
-call cvim#source_rc('plugins/tagbar.vim')
 call cvim#source_rc('plugins/deoplete.vim')
+call cvim#source_rc('plugins/tagbar.vim')
+call cvim#source_rc('plugins/gutentags.vim')
 call cvim#source_rc('plugins/nerdtree.vim')
+call cvim#source_rc('plugins/pangu.vim')
+call cvim#source_rc('plugins/starify.vim')
 
 call plug#end()
+call cvim#source_rc('plugins/denite.vim')

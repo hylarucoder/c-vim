@@ -34,5 +34,6 @@
             \ 'Pipfile': 'python -c \"import os, sys; print('' ''.join(''{}''.format(d) for d in sys.path if os.path.isdir(d)))\"',
         \ },
     \ }
+		au FileType gitcommit,gitrebase,json let g:gutentags_enabled=0
 
 " }}}
