@@ -138,20 +138,11 @@ let g:SimpleJsIndenter_CaseIndentLevel = -1
 
 " }}}
 " Markdown {{{
-let g:markdown_fenced_languages = [
-	\  'css',
-	\  'javascript',
-	\  'js=javascript',
-	\  'json=javascript',
-	\  'python',
-	\  'py=python',
-	\  'sh',
-	\  'sass',
-	\  'xml',
-	\  'vim'
-	\]
-
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_folding_level = 2
+let g:vim_markdown_conceal = 0
 " }}}
+"
 " Folding {{{
 " augroup: a
 " function: f
