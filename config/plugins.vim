@@ -47,11 +47,12 @@ Plug 'tpope/vim-projectionist'
 Plug 'vim-scripts/matchit.zip'
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
+
+Plug 'kshenoy/vim-signature'
 " m[a-zA-Z] add mark
 " '[a-zA-Z] go to mark
 " m<Space>  del all marks
 " m/        list all marks
-Plug 'kshenoy/vim-signature'
 
 Plug 'ybian/smartim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -420,7 +421,6 @@ Plug 'w0rp/ale'
 
 
 " markdown {{{
-    let g:vim_markdown_folding_disabled=1
     let g:smartim_default = 'com.apple.keylayout.ABC'
 " }}}
 

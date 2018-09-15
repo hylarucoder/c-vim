@@ -104,10 +104,6 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType json setlocal equalprg=python\ -c\ json.tool
 
-	autocmd FileType markdown
-		\ set expandtab
-		\ | setlocal spell autoindent formatoptions=tcroqn2 comments=n:>
-
 	autocmd FileType apache setlocal path+=./;/
 
 	autocmd FileType cam setlocal nonumber synmaxcol=10000
@@ -123,10 +119,6 @@ augroup END " }}}
 " Internal Plugin Settings  {{{
 " ------------------------
 
-" PHP {{{
-let g:PHP_removeCRwhenUnix = 0
-
-" }}}
 " Python {{{
 let g:python_highlight_all = 1
 
