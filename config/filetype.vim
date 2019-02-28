@@ -16,7 +16,7 @@ fun! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 " 保存各类文件时删除多余空格
-" autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " 定义函数AutoSetFileHead，自动插入文件头
 function! AutoSetFileHead()
@@ -38,8 +38,8 @@ endfunc
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 
 " Reload vim config automatically {{{
-execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*,vimrc nested'
-	\ .' source $MYVIMRC | redraw | silent doautocmd ColorScheme'
+" execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*,vimrc nested'
+" 	\ .' source $MYVIMRC | redraw | silent doautocmd ColorScheme'
 " }}}
 
 augroup MyAutoCmd " {{{

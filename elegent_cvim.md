@@ -2,27 +2,13 @@
 
 ## 0x00 什么是 CVim 呢？
 
-其实就是另一个 vim 配置。
+本项目最初起源于 https://github.com/wklken/k-vim , 后来受下面的项目启发，对这个项目陆陆续续做了一些改进
 
-话说，这个项目本身起源于 https://github.com/wklken/k-vim
+- SpaceVim
+- skywind3000/vim
+- rafi/vim-config
 
-随着我的技术栈越来越有针对性，则非常有必要自己梳理一套编辑器配置，这就是这个项目诞生的原因。
-
-k-vim 做的很棒，我通读了几遍，针对我日常的一些小习惯做了一些只满足于我个人的开发配置。
-
-## 0x01 那这篇文章的内容是什么？
-
-首先，先回答这篇文章不是什么。
-
-* 不是 Vim 的基础帖（尽管我会提及部分基础知识）。所以，如果连 vim 的基本常识都不明白，赶紧速度刷 vim 的教程去。
-* 不是 VimScript 的编写以及 Vim Plugin 的开发设计。
-
-那这篇文章是什么呢？
-
-* 是我整理 Vim 配置和常见之后的编辑器快捷键。
-* 是我整理处理不同文件的思路优化。
-
-## 0x02 文本编辑之跳转
+## 0x01 快速跳转
 
 ### 2.1 定位文件
 
@@ -60,11 +46,17 @@ Python Mode 或者 Markdown 之类的文件
 - [[ 跳转到上一个 class or funciton
 - ]] 跳转到上一个 class or function
 
-### 2.3 文件间跳转
+### 2.5 EasyMotion
 
-FZF
+- <Leader><Leader>w
+- <Leader><Leader>o
 
-### 2.4 FZF
+ref: vim diff
+
+- 按照文件名搜索文件
+- 按照文件内容搜索文件
+
+### FZF
 
 | Command           | List                                                                    |
 | ---               | ---                                                                     |
@@ -96,11 +88,6 @@ FZF
   bindings to open in a new tab, a new split, or in a new vertical split
 - Bang-versions of the commands (e.g. `Ag!`) will open fzf in fullscreen
 - You can set `g:fzf_command_prefix` to give the same prefix to the commands
-
-### 2.5 EasyMotion
-
-- <Leader><Leader>w
-- <Leader><Leader>o
 
 ## 0x03 文本编辑之选择
 
@@ -217,6 +204,14 @@ g/start/+1,/end/-1 sort n
 ```
 
 ## 0x07 代码补全与 Snippet
+
+### 常规补全
+
+- <C-X><C-F>  : insert name of a file in current directory
+- <C-N><C-P>  : word completion in insert mode
+- <C-X><C-L>  : Line complete SUPER USEFUL
+
+### UltiSnips
 
 ## 0x08 编程语言的支持
 

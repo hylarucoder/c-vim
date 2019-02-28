@@ -12,7 +12,7 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-call plug#begin($VARPATH.'/plugged')
+call plug#begin('~/.plugged')
 
 "====================
 "   UI设置 
@@ -78,7 +78,14 @@ Plug 'Raimondi/delimitMate'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/vimproc.vim', {'build' : 'make'}
 
-Plug 'Shougo/deoplete.nvim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plug 'zchee/deoplete-jedi'
 
 Plug 'carlitux/deoplete-ternjs'

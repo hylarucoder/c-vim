@@ -1,7 +1,0 @@
-*c-vim*
-
-在Vimrc中删除原有的插件后还需要执行下面命令
-
-:call dein#recache_runtimepath()
-:call dein#check_clean()
-
