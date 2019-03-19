@@ -94,7 +94,7 @@ let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = 0
 
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'twocucao/vim-snippets'
 
 
 "====================
@@ -146,6 +146,7 @@ if count(g:bundle_groups, 'writing')
     Plug 'Rykka/riv.vim',{ 'for': 'rst' }
     let g:riv_ignored_imaps = "<Tab>,<S-Tab>"
     Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+    Plug 'godlygeek/tabular', { 'for': 'markdown' }
     Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     " 禁掉,否则Ultisnip没法用
 
