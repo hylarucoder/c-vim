@@ -1,26 +1,35 @@
 # c-vim
 
-喜欢 k-vim 的配置，在自己的技能树逐渐稳定下来之后，我依照我的需求对 k-vim 进行再配置，这就是我日常编辑所用的 vim 配置。
+按个人需求对 vim-init 做少许改动
 
-> Note : NeoVim Only tested on neovim 0.3
+## Feature
 
-特别感谢
+### Code Completion
 
-- k-vim
-- SpaceVim
-- skywind3000/vim
-- rafi/vim-config
+### Language
+
+1. Python
+2. Rust
+3. Golang
+4. Markdown
 
 ## 安装
 
 ```
-brew install neovim
+brew install macvim
 mkdir -p ~/Cystem && cd ~/Cystem
 git clone https://github.com/twocucao/c-vim.git
 chmod a+x ~/Cystem/c-vim/scripts/markdown2ctags.py
 chmod a+x ~/Cystem/c-vim/scripts/rst2ctags.py
-cd ~/Cystem/c-vim/ && bash -x ./install.sh
 ```
+
+## Credits
+
+- skywind3000/vim-init
+- k-vim
+- SpaceVim
+- skywind3000/vim
+- rafi/vim-config
 
 ## ChangeLog
 
@@ -29,4 +38,6 @@ cd ~/Cystem/c-vim/ && bash -x ./install.sh
 * **20180509** 修改 NeoComplete 至 Deplete, 删除非常用的插件，补充一些代码模板
 * **20180719** 迁移 vim8 配置到 neovim 0.3
 * **20180908** 把大部分配置用 rafi vim-config 里面的配置替换掉
+* **20200804** 迁移配置框架到 skywind3000/vim-init
+
 
