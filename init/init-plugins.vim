@@ -9,7 +9,6 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 
 
-
 "----------------------------------------------------------------------
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
@@ -17,6 +16,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
 	let g:bundle_group += ['leaderf']
+	let g:bundle_group += ['python', "rust", "javascript", "writing", "web", "json"]
 endif
 
 
@@ -90,6 +90,8 @@ augroup END
 " 基础插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'basic') >= 0
+	" theme
+	Plug 'altercation/vim-colors-solarized'
 
 	" 展示开始画面，显示最近编辑过的文件
 	Plug 'mhinz/vim-startify'
@@ -115,6 +117,10 @@ if index(g:bundle_group, 'basic') >= 0
 
 	" 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
 	Plug 'skywind3000/vim-preview'
+
+	" 移动增强
+	Plug 'rhysd/accelerated-jk'
+	Plug 'justinmk/vim-sneak'
 
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
@@ -609,3 +615,61 @@ let g:ycm_filetype_whitelist = {
 			\ }
 
 
+"----------------------------------------------------------------------
+" Python
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'Python') >= 0
+	" for python.vim syntax highlight
+    Plug 'python-mode/python-mode', { 'branch': 'develop' }
+    Plug 'ambv/black'
+    let g:black_virtualenv = "~/.config/black"
+    Plug 'tshirtman/vim-cython'
+    let g:pymode = 1
+    let g:pymode_python = 'python3'
+    let g:pymode_rope = 1
+    let g:pymode_lint = 0
+endif
+
+"----------------------------------------------------------------------
+" JavaScript
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'JavaScript') >= 0
+	" javascript
+    Plug 'pangloss/vim-javascript'
+    Plug 'posva/vim-vue'
+    let g:vue_disable_pre_processors=1
+
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+    autocmd FileType vue syntax sync fromstart
+
+    " Plug 'leafgarland/typescript-vim'
+    Plug 'Quramy/tsuquyomi'
+    let g:tsuquyomi_use_vimproc = 1
+    let g:javascript_plugin_flow = 1
+
+    Plug 'prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue'] }
+    let g:prettier#exec_cmd_async = 1
+    " max line length that prettier will wrap on
+    let g:prettier#config#print_width = 80
+    " number of spaces per indentation level
+    let g:prettier#config#tab_width = 2
+    " use tabs over spaces
+    let g:prettier#config#use_tabs = 'false'
+    " print semicolons
+    let g:prettier#config#semi = 'true'
+    " single quotes over double quotes
+    let g:prettier#config#single_quote = 'true'
+    " print spaces between brackets
+    let g:prettier#config#bracket_spacing = 'false'
+    " put > on the last line instead of new line
+    let g:prettier#config#jsx_bracket_same_line = 'true'
+    " none|es5|all
+    let g:prettier#config#trailing_comma = 'all'
+    " flow|babylon|typescript|postcss|json|graphql
+    let g:prettier#config#parser = 'babylon'
+    " cli-override|file-override|prefer-file
+    let g:prettier#config#config_precedence = 'prefer-file'
+
+    let g:prettier#autoformat = 0
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
+endif
