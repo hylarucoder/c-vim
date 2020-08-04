@@ -40,4 +40,3 @@ chmod a+x ~/Cystem/c-vim/scripts/rst2ctags.py
 * **20180908** 把大部分配置用 rafi vim-config 里面的配置替换掉
 * **20200804** 迁移配置框架到 skywind3000/vim-init
 
-
