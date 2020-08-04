@@ -90,9 +90,6 @@ augroup END
 " 基础插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'basic') >= 0
-	" theme
-	Plug 'altercation/vim-colors-solarized'
-
 	" 展示开始画面，显示最近编辑过的文件
 	Plug 'mhinz/vim-startify'
 
