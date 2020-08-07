@@ -36,7 +36,7 @@ endfunc
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 "----------------------------------------------------------------------
-" 默认插件 
+" 默认插件
 "----------------------------------------------------------------------
 
 " 表格对齐，使用命令 Tabularize
@@ -106,7 +106,7 @@ if index(g:bundle_group, 'general') >= 0
 	noremap <silent><space>ha :RemoveErrorMarkers<cr>
 
 	" signify 调优
-	let g:signify_vcs_list = ['git', 'svn']
+	let g:signify_vcs_list = ['git']
 	let g:signify_sign_add               = '+'
 	let g:signify_sign_delete            = '_'
 	let g:signify_sign_delete_first_line = '‾'
@@ -233,9 +233,6 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'filetypes') >= 0
 
-	" powershell 脚本文件的语法高亮
-	Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
-
 	" lua 语法高亮增强
 	Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
@@ -244,9 +241,6 @@ if index(g:bundle_group, 'filetypes') >= 0
 
 	" 额外语法文件
 	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
-
-	" python 语法文件增强
-	Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
 	" rust 语法增强
 	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -427,7 +421,7 @@ endif
 if index(g:bundle_group, 'Python') >= 0
 	" for python.vim syntax highlight
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
-    Plug 'ambv/black'
+    Plug 'psf/black'
     let g:black_virtualenv = "~/.config/black"
     Plug 'tshirtman/vim-cython'
     let g:pymode = 1
@@ -488,6 +482,3 @@ LoadScript init/plugins/ale.vim
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
-
-
-
