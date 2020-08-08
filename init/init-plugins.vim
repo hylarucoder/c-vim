@@ -124,12 +124,6 @@ Plug 'junegunn/fzf'
 " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
 Plug 'asins/vim-dict'
 
-
-" 使用 :FlyGrep 命令进行实时 grep
-Plug 'wsdjeg/FlyGrep.vim'
-let g:spacevim_data_dir = '~/.vim/cache/'
-nnoremap <Space>s/ :FlyGrep<cr>
-
 " 配对括号和引号自动补全
 Plug 'Raimondi/delimitMate'
 
@@ -247,11 +241,10 @@ LoadScript init/plugins/ale.vim
 
 
 "----------------------------------------------------------------------
-" LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
+" Vim Clap 文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
-" 如果 vim 支持 python 则启用  Leaderf
-Plug 'Yggdroot/LeaderF'
-LoadScript init/plugins/leaderf.vim
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+LoadScript init/plugins/vim-clap.vim
 
 "----------------------------------------------------------------------
 " Python

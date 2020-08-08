@@ -7,6 +7,25 @@
 - skywind3000/vim
 - rafi/vim-config
 
+## 0x01 基础操作
+
+### Normal 模式
+
+- hjkl
+- ctrl+f/b/u/d
+- gg / G
+- w / W - e / E
+
+### Insert 模式
+
+## 0x02 浏览代码 - 文件跳转
+
+- gf 依据路径进行跳转
+- c-p 依据路径进行跳转
+- c-p 依据 Buffer 进行跳转
+- c-p 依据具体文本进行跳转
+- c-p 依据具体 Tags 进行跳转
+
 ## 0x01 快速跳转
 
 ### 2.1 定位文件
