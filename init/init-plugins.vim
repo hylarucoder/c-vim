@@ -3,10 +3,9 @@
 " init-plugins.vim - 
 "
 " Created by skywind on 2018/05/31
-" Last Modified: 2020-08-05 23:57
+" Last Modified: 2020-08-08 09:38:50
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
-
 
 "----------------------------------------------------------------------
 " 默认情况下的分组，可以再前面覆盖之
@@ -18,7 +17,6 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['Python', "Rust", "JavaScript", "Writing"]
 endif
 
-
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
 "----------------------------------------------------------------------
@@ -29,7 +27,6 @@ function! s:path(path)
 	return substitute(path, '\\', '/', 'g')
 endfunc
 
-
 "----------------------------------------------------------------------
 " 在 ~/.vim/bundles 下安装插件
 "----------------------------------------------------------------------
@@ -39,12 +36,17 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 " 默认插件
 "----------------------------------------------------------------------
 
+Plug 'ybian/smartim'
+let g:smartim_default = 'com.apple.keylayout.ABC'
+
 " 表格对齐，使用命令 Tabularize
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
+
 Plug 'maralla/completor.vim'
+Plug 'maralla/completor-neosnippet'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -59,98 +61,77 @@ Plug 'honza/vim-snippets'
 "----------------------------------------------------------------------
 " 基础插件
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'general') >= 0
 
-	" 展示开始画面，显示最近编辑过的文件
-	Plug 'mhinz/vim-startify'
+" 展示开始画面，显示最近编辑过的文件
+Plug 'mhinz/vim-startify'
 
-	" 一次性安装一大堆 colorscheme
-	Plug 'flazz/vim-colorschemes'
+" 括号
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
-	" 支持库，给其他插件用的函数库
-	Plug 'xolox/vim-misc'
+" 一次性安装一大堆 colorscheme
+Plug 'flazz/vim-colorschemes'
 
-	" 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
-	Plug 'kshenoy/vim-signature'
+" 支持库，给其他插件用的函数库
+Plug 'xolox/vim-misc'
 
-	" 用于在侧边符号栏显示 git/svn 的 diff
-	Plug 'mhinz/vim-signify'
+" 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
+Plug 'kshenoy/vim-signature'
 
-	" 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
-	" 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
-	Plug 'mh21/errormarker.vim'
+" 用于在侧边符号栏显示 git/svn 的 diff
+Plug 'mhinz/vim-signify'
 
-	" 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
-	Plug 't9md/vim-choosewin'
+" 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
+Plug 'skywind3000/vim-preview'
 
-	" 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
-	Plug 'skywind3000/vim-preview'
+" 移动增强
+Plug 'rhysd/accelerated-jk'
+Plug 'justinmk/vim-sneak'
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+" 全文快速移动，<leader><leader>f{char} 即可触发
+Plug 'easymotion/vim-easymotion'
 
-	" 移动增强
-	Plug 'rhysd/accelerated-jk'
-	Plug 'justinmk/vim-sneak'
-	" 全文快速移动，<leader><leader>f{char} 即可触发
-	Plug 'easymotion/vim-easymotion'
+" Tagbar
+Plug 'majutsushi/tagbar'
+" Git 支持
+Plug 'tpope/vim-fugitive'
 
-	" Tagbar
-	Plug 'majutsushi/tagbar'
-	" Git 支持
-	Plug 'tpope/vim-fugitive'
+" signify 调优
+let g:signify_vcs_list = ['git']
+let g:signify_sign_add               = '+'
+let g:signify_sign_delete            = '_'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change            = '~'
+let g:signify_sign_changedelete      = g:signify_sign_change
 
-	" 使用 ALT+E 来选择窗口
-	nmap <m-e> <Plug>(choosewin)
-
-	let g:startify_session_dir = '~/.vim/session'
-
-	" 使用 <space>ha 清除 errormarker 标注的错误
-	noremap <silent><space>ha :RemoveErrorMarkers<cr>
-
-	" signify 调优
-	let g:signify_vcs_list = ['git']
-	let g:signify_sign_add               = '+'
-	let g:signify_sign_delete            = '_'
-	let g:signify_sign_delete_first_line = '‾'
-	let g:signify_sign_change            = '~'
-	let g:signify_sign_changedelete      = g:signify_sign_change
-
-	" git 仓库使用 histogram 算法进行 diff
-	let g:signify_vcs_cmds = {
-			\ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
-			\}
-endif
-
+" git 仓库使用 histogram 算法进行 diff
+let g:signify_vcs_cmds = {
+	\ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
+	\}
 
 "----------------------------------------------------------------------
 " 增强插件
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'enhanced') >= 0
+" 用 v 选中一个区域后，+/- 按分隔符扩大/缩小选区
+Plug 'terryma/vim-expand-region'
 
-	" 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
-	Plug 'terryma/vim-expand-region'
+" 快速文件搜索
+Plug 'junegunn/fzf'
 
-	" 快速文件搜索
-	Plug 'junegunn/fzf'
+" 给不同语言提供字典补全，插入模式下 c-x c-k 触发
+Plug 'asins/vim-dict'
 
-	" 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-	Plug 'asins/vim-dict'
 
-	" 使用 :FlyGrep 命令进行实时 grep
-	Plug 'wsdjeg/FlyGrep.vim'
+" 使用 :FlyGrep 命令进行实时 grep
+Plug 'wsdjeg/FlyGrep.vim'
+let g:spacevim_data_dir = '~/.vim/cache/'
+nnoremap <Space>s/ :FlyGrep<cr>
 
-	" 使用 :CtrlSF 命令进行模仿 sublime 的 grep
-	Plug 'dyng/ctrlsf.vim'
-
-	" 配对括号和引号自动补全
-	Plug 'Raimondi/delimitMate'
-
-	" 提供 gist 接口
-	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
-	
-	" ALT_+/- 用于按分隔符扩大缩小 v 选区
-	map <m-=> <Plug>(expand_region_expand)
-	map <m--> <Plug>(expand_region_shrink)
-endif
-
+" 配对括号和引号自动补全
+Plug 'Raimondi/delimitMate'
 
 "----------------------------------------------------------------------
 " 自动生成 ctags/gtags，并提供自动索引功能
@@ -231,189 +212,46 @@ endif
 "----------------------------------------------------------------------
 " 文件类型扩展
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'filetypes') >= 0
 
-	" lua 语法高亮增强
-	Plug 'tbastos/vim-lua', { 'for': 'lua' }
+" lua 语法高亮增强
+Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
-	" C++ 语法高亮增强，支持 11/14/17 标准
-	Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
-
-	" 额外语法文件
-	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
-
-	" rust 语法增强
-	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-endif
+" rust 语法增强
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 
 "----------------------------------------------------------------------
 " airline
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'airline') >= 0
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	let g:airline_left_sep = ''
-	let g:airline_left_alt_sep = ''
-	let g:airline_right_sep = ''
-	let g:airline_right_alt_sep = ''
-	let g:airline_powerline_fonts = 0
-	let g:airline_exclude_preview = 1
-	let g:airline_section_b = '%n'
-	let g:airline_theme='deus'
-	let g:airline#extensions#branch#enabled = 0
-	let g:airline#extensions#syntastic#enabled = 0
-	let g:airline#extensions#fugitiveline#enabled = 1
-	let g:airline#extensions#csv#enabled = 0
-	let g:airline#extensions#vimagit#enabled = 0
-endif
-
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+  \ 'colorscheme': 'solarized',
+  \ }
 
 "----------------------------------------------------------------------
 " NERDTree
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'nerdtree') >= 0
-	Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
-	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-	let g:NERDTreeDirArrows = 1
-	let g:NERDTreeHijackNetrw = 0
-	noremap <space>nn :NERDTree<cr>
-	noremap <space>no :NERDTreeFocus<cr>
-	noremap <space>nm :NERDTreeMirror<cr>
-	noremap <space>nt :NERDTreeToggle<cr>
-endif
+Plug 'preservim/nerdtree', { 'on': 'NERDTree' } | Plug 'Xuyuanp/nerdtree-git-plugin'
 
-
-"----------------------------------------------------------------------
-" LanguageTool 语法检查
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'grammer') >= 0
-	Plug 'rhysd/vim-grammarous'
-	noremap <space>rg :GrammarousCheck --lang=en-US --no-move-to-first-error --no-preview<cr>
-	map <space>rr <Plug>(grammarous-open-info-window)
-	map <space>rv <Plug>(grammarous-move-to-info-window)
-	map <space>rs <Plug>(grammarous-reset)
-	map <space>rx <Plug>(grammarous-close-info-window)
-	map <space>rm <Plug>(grammarous-remove-error)
-	map <space>rd <Plug>(grammarous-disable-rule)
-	map <space>rn <Plug>(grammarous-move-to-next-error)
-	map <space>rp <Plug>(grammarous-move-to-previous-error)
-endif
-
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+noremap <space>nn :NERDTree<cr>
+noremap <space>no :NERDTreeFocus<cr>
+noremap <space>nt :NERDTreeToggle<cr>
 
 "----------------------------------------------------------------------
 " ale：动态语法检查
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'ale') >= 0
-	Plug 'w0rp/ale'
-	LoadScript init/plugins/ale.vim
-endif
+Plug 'w0rp/ale'
+LoadScript init/plugins/ale.vim
 
 
 "----------------------------------------------------------------------
 " LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'leaderf') >= 0
-	" 如果 vim 支持 python 则启用  Leaderf
-	if has('python') || has('python3')
-		Plug 'Yggdroot/LeaderF'
-
-		" CTRL+p 打开文件模糊匹配
-		let g:Lf_ShortcutF = '<c-p>'
-
-		" ALT+n 打开 buffer 模糊匹配
-		let g:Lf_ShortcutB = '<m-n>'
-
-		" CTRL+n 打开最近使用的文件 MRU，进行模糊匹配
-		noremap <c-n> :LeaderfMru<cr>
-
-		" ALT+p 打开函数列表，按 i 进入模糊匹配，ESC 退出
-		noremap <m-p> :LeaderfFunction!<cr>
-
-		" ALT+SHIFT+p 打开 tag 列表，i 进入模糊匹配，ESC退出
-		noremap <m-P> :LeaderfBufTag!<cr>
-
-		" ALT+n 打开 buffer 列表进行模糊匹配
-		noremap <m-n> :LeaderfBuffer<cr>
-
-		" ALT+m 全局 tags 模糊匹配
-		noremap <m-m> :LeaderfTag<cr>
-
-		" 最大历史文件保存 2048 个
-		let g:Lf_MruMaxFiles = 2048
-
-		" ui 定制
-		let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-
-		" 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
-		let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-		let g:Lf_WorkingDirectoryMode = 'Ac'
-		let g:Lf_WindowHeight = 0.30
-		let g:Lf_CacheDirectory = expand('~/.vim/cache')
-
-		" 显示绝对路径
-		let g:Lf_ShowRelativePath = 0
-
-		" 隐藏帮助
-		let g:Lf_HideHelp = 1
-
-		" 模糊匹配忽略扩展名
-		let g:Lf_WildIgnore = {
-					\ 'dir': ['.svn','.git','.hg'],
-					\ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-					\ }
-
-		" MRU 文件忽略扩展名
-		let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
-		let g:Lf_StlColorscheme = 'powerline'
-
-		" 禁用 function/buftag 的预览功能，可以手动用 p 预览
-		let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
-
-		" 使用 ESC 键可以直接退出 leaderf 的 normal 模式
-		let g:Lf_NormalMap = {
-				\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-				\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-				\ "Mru": [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-				\ "Tag": [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
-				\ "BufTag": [["<ESC>", ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
-				\ "Function": [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
-				\ }
-
-	else
-		" 不支持 python ，使用 CtrlP 代替
-		Plug 'ctrlpvim/ctrlp.vim'
-
-		" 显示函数列表的扩展插件
-		Plug 'tacahiroy/ctrlp-funky'
-
-		" 忽略默认键位
-		let g:ctrlp_map = ''
-
-		" 模糊匹配忽略
-		let g:ctrlp_custom_ignore = {
-		  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-		  \ 'file': '\v\.(exe|so|dll|mp3|wav|sdf|suo|mht)$',
-		  \ 'link': 'some_bad_symbolic_links',
-		  \ }
-
-		" 项目标志
-		let g:ctrlp_root_markers = ['.project', '.root', '.svn', '.git']
-		let g:ctrlp_working_path = 0
-
-		" CTRL+p 打开文件模糊匹配
-		noremap <c-p> :CtrlP<cr>
-
-		" CTRL+n 打开最近访问过的文件的匹配
-		noremap <c-n> :CtrlPMRUFiles<cr>
-
-		" ALT+p 显示当前文件的函数列表
-		noremap <m-p> :CtrlPFunky<cr>
-
-		" ALT+n 匹配 buffer
-		noremap <m-n> :CtrlPBuffer<cr>
-	endif
-endif
+" 如果 vim 支持 python 则启用  Leaderf
+Plug 'Yggdroot/LeaderF'
+LoadScript init/plugins/leaderf.vim
 
 "----------------------------------------------------------------------
 " Python
@@ -449,34 +287,11 @@ if index(g:bundle_group, 'JavaScript') >= 0
 
     Plug 'prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue'] }
     let g:prettier#exec_cmd_async = 1
-    " max line length that prettier will wrap on
-    let g:prettier#config#print_width = 80
-    " number of spaces per indentation level
-    let g:prettier#config#tab_width = 2
-    " use tabs over spaces
-    let g:prettier#config#use_tabs = 'false'
-    " print semicolons
-    let g:prettier#config#semi = 'true'
-    " single quotes over double quotes
-    let g:prettier#config#single_quote = 'true'
-    " print spaces between brackets
-    let g:prettier#config#bracket_spacing = 'false'
-    " put > on the last line instead of new line
-    let g:prettier#config#jsx_bracket_same_line = 'true'
-    " none|es5|all
-    let g:prettier#config#trailing_comma = 'all'
-    " flow|babylon|typescript|postcss|json|graphql
-    let g:prettier#config#parser = 'babylon'
-    " cli-override|file-override|prefer-file
-    let g:prettier#config#config_precedence = 'prefer-file'
-
-    let g:prettier#autoformat = 0
     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
 endif
 
-
 LoadScript init/plugins/ale.vim
-
+LoadScript init/plugins/tagbar.vim
 
 "----------------------------------------------------------------------
 " 结束插件安装

@@ -3,7 +3,7 @@
 " init-style.vim - 显示样式设置
 "
 " Created by skywind on 2018/05/30
-" Last Modified: 2018/05/30 20:29:07
+" Last Modified: 2020-08-08 09:38
 "
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
