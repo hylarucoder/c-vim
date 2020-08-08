@@ -168,5 +168,36 @@ set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
+" sync with OS clipboard
+if has('linux')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
 
+if has("autocmd")
+  " Highlight TODO, FIXME, NOTE, etc.
+  if v:version > 701
+    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
+    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+  endif
+endif
 
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guifont=DejaVu\ Sans\ Mono:h16
+    " 设置透明度
+    set transparency=8
+    if has("gui_gtk2")   "GTK2
+        set guifont=DejaVu\ Sans\ Mono:h16
+    endif
+    set guioptions-=T
+    set guioptions+=e
+    set guioptions-=r
+    set guioptions-=L
+    set guitablabel=%M\ %t
+    set showtabline=1
+    set linespace=2
+    set noimd
+    set t_Co=256
+endif

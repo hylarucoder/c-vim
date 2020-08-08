@@ -2,8 +2,7 @@
 
 ## 0x00 什么是 CVim 呢？
 
-本项目最初起源于 https://github.com/wklken/k-vim , 后来受下面的项目启发，对这个项目陆陆续续做了一些改进
-
+- skywind3000/vim-init
 - SpaceVim
 - skywind3000/vim
 - rafi/vim-config
@@ -255,3 +254,9 @@ vim --startuptime /tmp/startup.log +q && vim /tmp/startup.log
 ## 0xEE 扩展阅读
 
 * [c-vim](https://github.com/twocucao/c-vim)
+
+TODO
+
+---
+ChangeLog:
+ - **2020-08-08** 重修文字
