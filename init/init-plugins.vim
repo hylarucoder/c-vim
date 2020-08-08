@@ -36,6 +36,12 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 " 默认插件
 "----------------------------------------------------------------------
 
+" 展示开始画面，显示最近编辑过的文件
+Plug 'mhinz/vim-startify'
+
+" 一次性安装一大堆 colorscheme
+Plug 'flazz/vim-colorschemes'
+
 Plug 'ybian/smartim'
 let g:smartim_default = 'com.apple.keylayout.ABC'
 
@@ -62,15 +68,10 @@ Plug 'honza/vim-snippets'
 " 基础插件
 "----------------------------------------------------------------------
 
-" 展示开始画面，显示最近编辑过的文件
-Plug 'mhinz/vim-startify'
 
 " 括号
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
-" 一次性安装一大堆 colorscheme
-Plug 'flazz/vim-colorschemes'
 
 " 支持库，给其他插件用的函数库
 Plug 'xolox/vim-misc'
@@ -81,8 +82,6 @@ Plug 'kshenoy/vim-signature'
 " 用于在侧边符号栏显示 git/svn 的 diff
 Plug 'mhinz/vim-signify'
 
-" 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
-Plug 'skywind3000/vim-preview'
 
 " 移动增强
 Plug 'rhysd/accelerated-jk'
@@ -94,8 +93,6 @@ map T <Plug>Sneak_T
 " 全文快速移动，<leader><leader>f{char} 即可触发
 Plug 'easymotion/vim-easymotion'
 
-" Tagbar
-Plug 'majutsushi/tagbar'
 " Git 支持
 Plug 'tpope/vim-fugitive'
 
@@ -132,47 +129,51 @@ Plug 'Raimondi/delimitMate'
 " 不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root 文件
 " 详细用法见：https://zhuanlan.zhihu.com/p/36279445
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'tags') >= 0
 
-	" 提供 ctags/gtags 后台数据库自动更新功能
-	Plug 'ludovicchabant/vim-gutentags'
+" 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
+Plug 'skywind3000/vim-preview'
 
-	" 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
-	" 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
-	Plug 'skywind3000/gutentags_plus'
+" Tagbar
+Plug 'majutsushi/tagbar'
 
-	" 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
-	let g:gutentags_project_root = ['.root']
-	let g:gutentags_ctags_tagfile = '.tags'
+" 提供 ctags/gtags 后台数据库自动更新功能
+Plug 'ludovicchabant/vim-gutentags'
 
-	" 默认生成的数据文件集中到 ~/.cache/tags 避免污染项目目录，好清理
-	let g:gutentags_cache_dir = expand('~/.cache/tags')
+" 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
+" 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
+Plug 'skywind3000/gutentags_plus'
 
-	" 默认禁用自动生成
-	let g:gutentags_modules = [] 
+" 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
+let g:gutentags_project_root = ['.root']
+let g:gutentags_ctags_tagfile = '.tags'
 
-	" 如果有 ctags 可执行就允许动态生成 ctags 文件
-	if executable('ctags')
-		let g:gutentags_modules += ['ctags']
-	endif
+" 默认生成的数据文件集中到 ~/.cache/tags 避免污染项目目录，好清理
+let g:gutentags_cache_dir = expand('~/.cache/tags')
 
-	" 如果有 gtags 可执行就允许动态生成 gtags 数据库
-	if executable('gtags') && executable('gtags-cscope')
-		let g:gutentags_modules += ['gtags_cscope']
-	endif
+" 默认禁用自动生成
+let g:gutentags_modules = [] 
 
-	" 设置 ctags 的参数
-	let g:gutentags_ctags_extra_args = []
-	let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-	let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-	let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-	" 使用 universal-ctags 的话需要下面这行，请反注释
-	let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
-	" 禁止 gutentags 自动链接 gtags 数据库
-	let g:gutentags_auto_add_gtags_cscope = 0
+" 如果有 ctags 可执行就允许动态生成 ctags 文件
+if executable('ctags')
+	let g:gutentags_modules += ['ctags']
 endif
+
+" 如果有 gtags 可执行就允许动态生成 gtags 数据库
+if executable('gtags') && executable('gtags-cscope')
+	let g:gutentags_modules += ['gtags_cscope']
+endif
+
+" 设置 ctags 的参数
+let g:gutentags_ctags_extra_args = []
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" 使用 universal-ctags 的话需要下面这行，请反注释
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+" 禁止 gutentags 自动链接 gtags 数据库
+let g:gutentags_auto_add_gtags_cscope = 0
 
 
 "----------------------------------------------------------------------
@@ -239,11 +240,11 @@ noremap <space>nt :NERDTreeToggle<cr>
 Plug 'w0rp/ale'
 LoadScript init/plugins/ale.vim
 
-
 "----------------------------------------------------------------------
 " Vim Clap 文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
 LoadScript init/plugins/vim-clap.vim
 
 "----------------------------------------------------------------------
@@ -252,13 +253,13 @@ LoadScript init/plugins/vim-clap.vim
 if index(g:bundle_group, 'Python') >= 0
 	" for python.vim syntax highlight
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
-    Plug 'psf/black'
-    let g:black_virtualenv = "~/.config/black"
     Plug 'tshirtman/vim-cython'
     let g:pymode = 1
     let g:pymode_python = 'python3'
     let g:pymode_rope = 1
     let g:pymode_lint = 0
+    Plug 'psf/black'
+    let g:black_virtualenv = "~/.config/black"
 endif
 
 "----------------------------------------------------------------------
