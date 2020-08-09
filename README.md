@@ -19,8 +19,6 @@
 brew install macvim
 mkdir -p ~/Cystem && cd ~/Cystem
 git clone https://github.com/twocucao/c-vim.git
-chmod a+x ~/Cystem/c-vim/scripts/markdown2ctags.py
-chmod a+x ~/Cystem/c-vim/scripts/rst2ctags.py
 ```
 
 ## Credits
