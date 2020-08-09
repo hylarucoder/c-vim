@@ -201,3 +201,6 @@ if has("gui_running")
     set noimd
     set t_Co=256
 endif
+
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','

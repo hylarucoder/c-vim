@@ -11,9 +11,7 @@
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
-	let g:bundle_group = ['general', 'enhanced', 'filetypes', 'textobj']
-	let g:bundle_group += ['airline', 'nerdtree', 'ale']
-	let g:bundle_group += ['leaderf']
+	let g:bundle_group = ['general', 'filetypes', 'textobj']
 	let g:bundle_group += ['Python', "Rust", "JavaScript", "Writing"]
 endif
 
@@ -50,6 +48,8 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
+" which key
+Plug 'liuchengxu/vim-which-key'
 
 Plug 'maralla/completor.vim'
 Plug 'maralla/completor-neosnippet'
@@ -134,74 +134,46 @@ Plug 'Raimondi/delimitMate'
 Plug 'skywind3000/vim-preview'
 
 " Tagbar
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
+let g:vista#renderer#enable_icon = 1
 
-" 提供 ctags/gtags 后台数据库自动更新功能
-Plug 'ludovicchabant/vim-gutentags'
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
 
-" 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
-" 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
-Plug 'skywind3000/gutentags_plus'
+set statusline+=%{NearestMethodOrFunction()}
 
-" 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
-let g:gutentags_project_root = ['.root']
-let g:gutentags_ctags_tagfile = '.tags'
-
-" 默认生成的数据文件集中到 ~/.cache/tags 避免污染项目目录，好清理
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-" 默认禁用自动生成
-let g:gutentags_modules = [] 
-
-" 如果有 ctags 可执行就允许动态生成 ctags 文件
-if executable('ctags')
-	let g:gutentags_modules += ['ctags']
-endif
-
-" 如果有 gtags 可执行就允许动态生成 gtags 数据库
-if executable('gtags') && executable('gtags-cscope')
-	let g:gutentags_modules += ['gtags_cscope']
-endif
-
-" 设置 ctags 的参数
-let g:gutentags_ctags_extra_args = []
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-" 使用 universal-ctags 的话需要下面这行，请反注释
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
-" 禁止 gutentags 自动链接 gtags 数据库
-let g:gutentags_auto_add_gtags_cscope = 0
-
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 "----------------------------------------------------------------------
 " 文本对象：textobj 全家桶
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'textobj') >= 0
 
-	" 基础插件：提供让用户方便的自定义文本对象的接口
-	Plug 'kana/vim-textobj-user'
+" 基础插件：提供让用户方便的自定义文本对象的接口
+Plug 'kana/vim-textobj-user'
 
-	" indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
-	Plug 'kana/vim-textobj-indent'
+" indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
+Plug 'kana/vim-textobj-indent'
 
-	" 语法文本对象：iy/ay 基于语法的文本对象
-	Plug 'kana/vim-textobj-syntax'
+" 语法文本对象：iy/ay 基于语法的文本对象
+Plug 'kana/vim-textobj-syntax'
 
-	" 函数文本对象：if/af 支持 c/c++/vim/java
-	Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+" 函数文本对象：if/af 支持 c/c++/vim/java
+Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 
-	" 参数文本对象：i,/a, 包括参数或者列表元素
-	Plug 'sgur/vim-textobj-parameter'
+" 参数文本对象：i,/a, 包括参数或者列表元素
+Plug 'sgur/vim-textobj-parameter'
 
-	" 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
-	Plug 'bps/vim-textobj-python', {'for': 'python'}
+" 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
+Plug 'bps/vim-textobj-python', {'for': 'python'}
 
-	" 提供 uri/url 的文本对象，iu/au 表示
-	Plug 'jceb/vim-textobj-uri'
-endif
+" 提供 uri/url 的文本对象，iu/au 表示
+Plug 'jceb/vim-textobj-uri'
 
 
 "----------------------------------------------------------------------
@@ -216,13 +188,19 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 
 "----------------------------------------------------------------------
-" airline
+" statusline
 "----------------------------------------------------------------------
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
   \ 'colorscheme': 'solarized',
-  \ }
-
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste' ],
+	\             [ 'readonly', 'filename', 'modified', 'method' ] ]
+	\ },
+	\ 'component_function': {
+	\   'method': 'NearestMethodOrFunction'
+	\ },
+	\ }
 "----------------------------------------------------------------------
 " NERDTree
 "----------------------------------------------------------------------
@@ -285,7 +263,7 @@ if index(g:bundle_group, 'JavaScript') >= 0
 endif
 
 LoadScript init/plugins/ale.vim
-LoadScript init/plugins/tagbar.vim
+" LoadScript init/plugins/tagbar.vim
 
 "----------------------------------------------------------------------
 " 结束插件安装

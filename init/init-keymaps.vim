@@ -58,16 +58,16 @@ cnoremap <c-_> <c-k>
 "----------------------------------------------------------------------
 " <leader>+数字键 切换tab
 "----------------------------------------------------------------------
-noremap <silent><leader>1 1gt<cr>
-noremap <silent><leader>2 2gt<cr>
-noremap <silent><leader>3 3gt<cr>
-noremap <silent><leader>4 4gt<cr>
-noremap <silent><leader>5 5gt<cr>
-noremap <silent><leader>6 6gt<cr>
-noremap <silent><leader>7 7gt<cr>
-noremap <silent><leader>8 8gt<cr>
-noremap <silent><leader>9 9gt<cr>
-noremap <silent><leader>0 10gt<cr>
+noremap <silent><leader>t1 1gt<cr>
+noremap <silent><leader>t2 2gt<cr>
+noremap <silent><leader>t3 3gt<cr>
+noremap <silent><leader>t4 4gt<cr>
+noremap <silent><leader>t5 5gt<cr>
+noremap <silent><leader>t6 6gt<cr>
+noremap <silent><leader>t7 7gt<cr>
+noremap <silent><leader>t8 8gt<cr>
+noremap <silent><leader>t9 9gt<cr>
+noremap <silent><leader>t0 10gt<cr>
 
 
 "----------------------------------------------------------------------
@@ -304,3 +304,33 @@ else
 				\ '<root>' <cr>
 endif
 
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
+let g:which_key_map =  {}
+let g:which_key_map['f'] = {
+      \ 'name' : '+file' ,
+      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ }
+let g:which_key_map['c'] = {
+      \ 'name' : '+comment' ,
+      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ }
+let g:which_key_map['s'] = {
+      \ 'name' : '+search' ,
+      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ }
+let g:which_key_map['p'] = {
+      \ 'name' : '+project' ,
+      \ 'p' : ['<C-W>w'     , 'find files in current project'],
+      \ 't' : ['<C-W>w'     , 'find files in current project'],
+      \ 'a' : ['<C-W>w'     , 'find files in current project'],
+      \ }
+let g:which_key_map['w'] = {
+      \ 'name' : '+windows' ,
+      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ 'd' : ['<C-W>c'     , 'delete-window']         ,
+      \ '-' : ['<C-W>s'     , 'split-window-below']    ,
+      \ '?' : ['Windows'    , 'fzf-window']            ,
+      \ }
+call which_key#register('<Space>', "g:which_key_map")
