@@ -51,18 +51,9 @@ Plug 'chrisbra/vim-diff-enhanced'
 " which key
 Plug 'liuchengxu/vim-which-key'
 
-Plug 'maralla/completor.vim'
-Plug 'maralla/completor-neosnippet'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" ultisnips {{{
-    let g:UltiSnipsEditSplit           = "vertical"
-    let g:UltiSnipsExpandTrigger       = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-    map <leader>us :UltiSnipsEdit<CR>
-" }}}
+Plug 'honza/vim-snippets'
 
 "----------------------------------------------------------------------
 " 基础插件
@@ -124,31 +115,9 @@ Plug 'asins/vim-dict'
 " 配对括号和引号自动补全
 Plug 'Raimondi/delimitMate'
 
-"----------------------------------------------------------------------
-" 自动生成 ctags/gtags，并提供自动索引功能
-" 不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root 文件
-" 详细用法见：https://zhuanlan.zhihu.com/p/36279445
-"----------------------------------------------------------------------
-
-" 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
-Plug 'skywind3000/vim-preview'
-
-" Tagbar
-" Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
 
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
-
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 "----------------------------------------------------------------------
 " 文本对象：textobj 全家桶
@@ -191,26 +160,45 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " statusline
 "----------------------------------------------------------------------
 Plug 'itchyny/lightline.vim'
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 let g:lightline = {
   \ 'colorscheme': 'solarized',
-	\ 'active': {
-	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'readonly', 'filename', 'modified', 'method' ] ]
-	\ },
-	\ 'component_function': {
-	\   'method': 'NearestMethodOrFunction'
-	\ },
-	\ }
+  \ 'active': {
+  \   'left': [
+  \     [ 'mode', 'paste' ],
+  \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
+  \   ],
+  \   'right':[
+  \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+  \     [ 'blame' ]
+  \   ],
+  \ },
+  \ 'component_function': {
+  \   'blame': 'LightlineGitBlame',
+  \ }
+\ }
+
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
 "----------------------------------------------------------------------
 " NERDTree
 "----------------------------------------------------------------------
-Plug 'preservim/nerdtree', { 'on': 'NERDTree' } | Plug 'Xuyuanp/nerdtree-git-plugin'
-
+Plug 'preservim/nerdtree', { 'on': 'NERDTree' }
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-noremap <space>nn :NERDTree<cr>
-noremap <space>no :NERDTreeFocus<cr>
-noremap <space>nt :NERDTreeToggle<cr>
+Plug 'liuchengxu/nerdtree-dash'
 
 "----------------------------------------------------------------------
 " ale：动态语法检查
@@ -222,8 +210,7 @@ LoadScript init/plugins/ale.vim
 " Vim Clap 文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-
-LoadScript init/plugins/vim-clap.vim
+Plug 'vn-ki/coc-clap'
 
 "----------------------------------------------------------------------
 " Python
@@ -241,31 +228,11 @@ if index(g:bundle_group, 'Python') >= 0
 endif
 
 "----------------------------------------------------------------------
-" JavaScript
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'JavaScript') >= 0
-	" javascript
-    Plug 'pangloss/vim-javascript'
-    Plug 'posva/vim-vue'
-    let g:vue_disable_pre_processors=1
-
-    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-    autocmd FileType vue syntax sync fromstart
-
-    " Plug 'leafgarland/typescript-vim'
-    Plug 'Quramy/tsuquyomi'
-    let g:tsuquyomi_use_vimproc = 1
-    let g:javascript_plugin_flow = 1
-
-    Plug 'prettier/vim-prettier', {'do': 'yarn install','for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue'] }
-    let g:prettier#exec_cmd_async = 1
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
-endif
-
-LoadScript init/plugins/ale.vim
-" LoadScript init/plugins/tagbar.vim
-
-"----------------------------------------------------------------------
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
+
+LoadScript init/plugins/nerdtree.vim
+LoadScript init/plugins/coc.vim
+LoadScript init/plugins/coc-snippet.vim
+LoadScript init/plugins/vim-clap.vim

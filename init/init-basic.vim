@@ -183,24 +183,7 @@ if has("autocmd")
   endif
 endif
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guifont=DejaVu\ Sans\ Mono:h16
-    " 设置透明度
-    set transparency=8
-    if has("gui_gtk2")   "GTK2
-        set guifont=DejaVu\ Sans\ Mono:h16
-    endif
-    set guioptions-=T
-    set guioptions+=e
-    set guioptions-=r
-    set guioptions-=L
-    set guitablabel=%M\ %t
-    set showtabline=1
-    set linespace=2
-    set noimd
-    set t_Co=256
-endif
+set guifont=FiraCode\ Nerd\ Font\ Mono:h16
 
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
