@@ -307,24 +307,28 @@ endif
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
+highlight WhichKeyFloating cterm=NONE ctermfg=14 ctermbg=0 gui=NONE guifg=#93a1a1 guibg=#002931
 let g:which_key_map =  {}
 let g:which_key_map['f'] = {
       \ 'name' : '+file' ,
       \ 'w' : ['<C-W>w'     , 'other-window']          ,
       \ }
 let g:which_key_map['c'] = {
-      \ 'name' : '+comment' ,
+      \ 'name' : '+coc/clap' ,
       \ 'w' : ['<C-W>w'     , 'other-window']          ,
       \ }
 let g:which_key_map['s'] = {
       \ 'name' : '+search' ,
       \ 'w' : ['<C-W>w'     , 'other-window']          ,
       \ }
+let g:which_key_map['g'] = {
+      \ 'name' : '+goto' ,
+      \ 'd' : ['<Plug>(coc-definition)'     , 'go to definition']          ,
+      \ 'y' : ['<Plug>(coc-type-definition)'     , 'go to type definition']          ,
+      \ }
 let g:which_key_map['p'] = {
       \ 'name' : '+project' ,
-      \ 'p' : ['<C-W>w'     , 'find files in current project'],
-      \ 't' : ['<C-W>w'     , 'find files in current project'],
-      \ 'a' : ['<C-W>w'     , 'find files in current project'],
+      \ 'p' : ['Clap'     , 'use vim clap'],
       \ }
 let g:which_key_map['w'] = {
       \ 'name' : '+windows' ,
