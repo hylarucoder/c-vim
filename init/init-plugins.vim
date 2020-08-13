@@ -172,7 +172,7 @@ set statusline+=%{NearestMethodOrFunction()}
 " you can add the following line to your vimrc
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 let g:lightline = {
-  \ 'colorscheme': 'solarized',
+  \ 'colorscheme': 'seoul256',
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
@@ -210,6 +210,8 @@ LoadScript init/plugins/ale.vim
 " Vim Clap 文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+let g:clap_layout = { 'relative': 'editor' }
+let g:clap_theme = 'solarized_dark'
 Plug 'vn-ki/coc-clap'
 
 "----------------------------------------------------------------------
