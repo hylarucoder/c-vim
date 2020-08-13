@@ -328,9 +328,7 @@ let g:which_key_map['g'] = {
       \ }
 let g:which_key_map['p'] = {
       \ 'name' : '+project' ,
-      \ 'p' : ['<C-W>w'     , 'find files in current project'],
-      \ 't' : ['<C-W>w'     , 'find files in current project'],
-      \ 'a' : ['<C-W>w'     , 'find files in current project'],
+      \ 'p' : ['Clap'     , 'use vim clap'],
       \ }
 let g:which_key_map['w'] = {
       \ 'name' : '+windows' ,

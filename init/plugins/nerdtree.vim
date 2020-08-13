@@ -19,3 +19,5 @@ autocmd BufEnter * call SyncTree()
 noremap <space>nn :NERDTree<cr>
 noremap <space>no :NERDTreeFocus<cr>
 noremap <space>nt :NERDTreeToggle<cr>
+au VimEnter *  NERDTree
+
