@@ -200,11 +200,17 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTree' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'liuchengxu/nerdtree-dash'
 
+
 "----------------------------------------------------------------------
 " ale：动态语法检查
 "----------------------------------------------------------------------
 Plug 'w0rp/ale'
 LoadScript init/plugins/ale.vim
+
+"----------------------------------------------------------------------
+" polyglot：所有语言
+"----------------------------------------------------------------------
+Plug 'sheerun/vim-polyglot'
 
 "----------------------------------------------------------------------
 " Vim Clap 文件模糊匹配，tags/函数名 选择
@@ -219,12 +225,7 @@ Plug 'vn-ki/coc-clap'
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'Python') >= 0
 	" for python.vim syntax highlight
-    Plug 'python-mode/python-mode', { 'branch': 'develop' }
     Plug 'tshirtman/vim-cython'
-    let g:pymode = 1
-    let g:pymode_python = 'python3'
-    let g:pymode_rope = 1
-    let g:pymode_lint = 0
     Plug 'psf/black'
     let g:black_virtualenv = "~/.config/black"
 endif
