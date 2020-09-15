@@ -26,10 +26,11 @@ exec 'set rtp+='.s:home
 " 将 ~/.vim 目录加入 runtimepath (有时候 vim 不会自动帮你加入）
 set rtp+=~/.vim
 
-
 "----------------------------------------------------------------------
 " 模块加载
 "----------------------------------------------------------------------
+let g:python3_host_prog='/usr/local/bin/python3'
+
 
 " 加载基础配置
 LoadScript init/init-basic.vim
@@ -48,6 +49,3 @@ LoadScript init/init-style.vim
 
 " 自定义按键
 LoadScript init/init-keymaps.vim
-
-
-

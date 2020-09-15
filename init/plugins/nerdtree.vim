@@ -15,9 +15,10 @@ endfunction
 
 " Highlight currently open buffer in NERDTree
 autocmd BufEnter * call SyncTree()
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 noremap <space>nn :NERDTree<cr>
 noremap <space>no :NERDTreeFocus<cr>
 noremap <space>nt :NERDTreeToggle<cr>
-au VimEnter *  NERDTree
 

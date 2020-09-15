@@ -12,6 +12,7 @@ let g:coc_global_extensions = [
   \ 'coc-yaml', 
   \ 'coc-snippets', 
   \ 'coc-highlight', 
+  \ 'coc-tabnine', 
   \ ]
 
 """文档"""
