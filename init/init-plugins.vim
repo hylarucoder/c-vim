@@ -40,8 +40,6 @@ Plug 'mhinz/vim-startify'
 " 一次性安装一大堆 colorscheme
 Plug 'flazz/vim-colorschemes'
 
-Plug 'ybian/smartim'
-let g:smartim_default = 'com.apple.keylayout.ABC'
 
 Plug 'junegunn/vim-easy-align'
 

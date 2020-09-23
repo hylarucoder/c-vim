@@ -195,50 +195,60 @@ highlight WhichKeyFloating cterm=NONE ctermfg=14 ctermbg=0 gui=NONE guifg=#93a1a
 
 let g:which_key_map =  {}
 let g:which_key_map['f'] = {
-      \ 'name' : '+file' ,
-      \ 'h' : ['Startify', 'home-buffer'],
-      \ 'w' : ['<C-W>w',   'other-window'],
+      \ 'name' : '+file       -- 文件相关' ,
+      \ 'h' : ['Startify',  'go home'],
+      \ 'n' : [':NERDTree', 'nerdtree'],
+      \ 'r' : [':%s/',      'replace current buffer'],
       \ }
 
 let g:which_key_map['c'] = {
-      \ 'name' : '+coc/clap' ,
+      \ 'name' : '+coc/clap   -- coc/clap 相关' ,
       \ 'c' : [':Clap commits', 'git commits'],
       \ 'f' : [':Clap files'  , 'git files'],
       \ 's' : [':Clap grep2'  , 'search by text'],
       \ 't' : [':Clap tags'   , 'tags'],
+      \ 'r' : [':CocRestart'  , 'coc restart'],
       \ }
 
 let g:which_key_map['s'] = {
-      \ 'name' : '+search' ,
-      \ 'w' : ['<C-W>w'     , 'other-window'],
+      \ 'name' : '+search     -- 搜索相关' ,
+      \ 's' : [':Clap grep2'  , 'search by text'],
       \ }
+
 let g:which_key_map['g'] = {
-      \ 'name' : '+goto' ,
-      \ 'd' : ['<Plug>(coc-definition)',      'go to definition'],
-      \ 'y' : ['<Plug>(coc-type-definition)', 'go to type definition'],
+      \ 'name' : '+goto       -- 跳转相关' ,
+      \ 'd':  ['<Plug>(coc-definition)',            'go to definition'],
+      \ 'y':  ['<Plug>(coc-type-definition)',       'go to type definition'],
+      \ 'i':  ['<Plug>(coc-implementation)',        'go to implementation'],
+      \ 'r':  ['<Plug>(coc-rename)',                'go to rename'],
+      \ 'R':  ['<Plug>(coc-references)',            'go to references'],
+      \ '[':  ['<Plug>(coc-diagnostic-prev)',       'go to diagnostic prev'],
+      \ ']':  ['<Plug>(coc-diagnostic-next)',       'go to diagnostic next'],
+      \ 'p':  ['<Plug>(coc-diagnostic-prev-error)', 'go to diagnostic prev error'],
+      \ 'n':  ['<Plug>(coc-diagnostic-next-error)', 'go to diagnostic next error'],
       \ }
 
 let g:which_key_map['t'] = {
-      \ 'name' : '+text' ,
-      \ 'a' : ['<Plug>(EasyAlign)', 'text align'],
-      \ 's' : [':Clap grep',        'use vim clap'],
-      \ 'S' : [':Clap grep',        'use vim clap'],
-      \ 'p' : [':Clap',             'use vim clap'],
+      \ 'name' : '+text       -- 文本技',
+      \ 'a' : ['<Plug>(EasyAlign)',          'text align'],
+      \ 's' : [':Clap grep',                 'use vim clap'],
+      \ 'S' : [':Clap grep',                 'use vim clap'],
+      \ 'p' : [':Clap',                      'use vim clap'],
       \ }
 
 let g:which_key_map['p'] = {
-      \ 'name' : '+project' ,
-      \ 'f' : [':Clap files', 'find file in project files'],
-      \ 's' : [':Clap grep <currentword>',  'grep current word in current buffer'],
-      \ 'S' : [':Clap grep <currentword>',  'grep current word in project'],
-      \ 'p' : [':Clap',       'use vim clap'],
-      \ 'w' : [':Clap grep',  'use vim clap'],
-      \ 'W' : [':Clap grep',  'use vim clap'],
-      \ '?' : [':Clap',       'use vim clap'],
+      \ 'name' : '+project    -- 项目相关',
+      \ 'f' : [':Clap files',                'find file in project files'],
+      \ 's' : [':Clap grep',                 'grep current word in current buffer'],
+      \ 'S' : [':Clap grep',                 'grep current word in project'],
+      \ 'p' : [':Clap',                      'use vim clap'],
+      \ 'w' : [':Clap grep ++query=<cword>', 'use vim clap'],
+      \ 'W' : [':Clap grep ++query=@visual', 'use vim clap'],
+      \ '?' : [':Clap',                      'use vim clap'],
       \ }
 
 let g:which_key_map['w'] = {
-      \ 'name' : '+windows' ,
+      \ 'name' : '+windows   -- 窗口相关' ,
       \ '-' : ['<C-W>s',     'split-window-below'],
       \ '|' : ['<C-W>v',     'split-window-right'],
       \ 't1' : ['1gt<cr>',    'move tab 1'],
