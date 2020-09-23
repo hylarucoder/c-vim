@@ -11,7 +11,7 @@
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
-	let g:bundle_group = ['general', 'filetypes', 'textobj']
+	let g:bundle_group = ['textobj']
 	let g:bundle_group += ['Python', "Rust", "JavaScript", "Writing"]
 endif
 
@@ -40,8 +40,8 @@ Plug 'mhinz/vim-startify'
 " 一次性安装一大堆 colorscheme
 Plug 'flazz/vim-colorschemes'
 
-Plug 'ybian/smartim'
-let g:smartim_default = 'com.apple.keylayout.ABC'
+
+Plug 'junegunn/vim-easy-align'
 
 " 表格对齐，使用命令 Tabularize
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
@@ -50,6 +50,8 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'chrisbra/vim-diff-enhanced'
 " which key
 Plug 'liuchengxu/vim-which-key'
+
+let g:which_key_use_floating_win = 1
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
