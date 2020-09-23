@@ -56,21 +56,6 @@ cnoremap <c-_> <c-k>
 
 
 "----------------------------------------------------------------------
-" <leader>+数字键 切换tab
-"----------------------------------------------------------------------
-noremap <silent><leader>t1 1gt<cr>
-noremap <silent><leader>t2 2gt<cr>
-noremap <silent><leader>t3 3gt<cr>
-noremap <silent><leader>t4 4gt<cr>
-noremap <silent><leader>t5 5gt<cr>
-noremap <silent><leader>t6 6gt<cr>
-noremap <silent><leader>t7 7gt<cr>
-noremap <silent><leader>t8 8gt<cr>
-noremap <silent><leader>t9 9gt<cr>
-noremap <silent><leader>t0 10gt<cr>
-
-
-"----------------------------------------------------------------------
 " ALT+N 切换 tab
 "----------------------------------------------------------------------
 noremap <silent><m-1> :tabn 1<cr>
@@ -95,33 +80,6 @@ inoremap <silent><m-9> <ESC>:tabn 9<cr>
 inoremap <silent><m-0> <ESC>:tabn 10<cr>
 
 
-" MacVim 允许 CMD+数字键快速切换标签
-if has("gui_macvim")
-	set macmeta
-	noremap <silent><d-1> :tabn 1<cr>
-	noremap <silent><d-2> :tabn 2<cr>
-	noremap <silent><d-3> :tabn 3<cr>
-	noremap <silent><d-4> :tabn 4<cr>
-	noremap <silent><d-5> :tabn 5<cr>
-	noremap <silent><d-6> :tabn 6<cr>
-	noremap <silent><d-7> :tabn 7<cr>
-	noremap <silent><d-8> :tabn 8<cr>
-	noremap <silent><d-9> :tabn 9<cr>
-	noremap <silent><d-0> :tabn 10<cr>
-	inoremap <silent><d-1> <ESC>:tabn 1<cr>
-	inoremap <silent><d-2> <ESC>:tabn 2<cr>
-	inoremap <silent><d-3> <ESC>:tabn 3<cr>
-	inoremap <silent><d-4> <ESC>:tabn 4<cr>
-	inoremap <silent><d-5> <ESC>:tabn 5<cr>
-	inoremap <silent><d-6> <ESC>:tabn 6<cr>
-	inoremap <silent><d-7> <ESC>:tabn 7<cr>
-	inoremap <silent><d-8> <ESC>:tabn 8<cr>
-	inoremap <silent><d-9> <ESC>:tabn 9<cr>
-	inoremap <silent><d-0> <ESC>:tabn 10<cr>
-endif
-
-
-
 "----------------------------------------------------------------------
 " 缓存：插件 unimpaired 中定义了 [b, ]b 来切换缓存
 "----------------------------------------------------------------------
@@ -130,66 +88,7 @@ noremap <silent> <leader>bp :bp<cr>
 
 
 "----------------------------------------------------------------------
-" TAB：创建，关闭，上一个，下一个，左移，右移
-" 其实还可以用原生的 CTRL+PageUp, CTRL+PageDown 来切换标签
-"----------------------------------------------------------------------
-
-noremap <silent> <leader>tc :tabnew<cr>
-noremap <silent> <leader>tq :tabclose<cr>
-noremap <silent> <leader>tn :tabnext<cr>
-noremap <silent> <leader>tp :tabprev<cr>
-noremap <silent> <leader>to :tabonly<cr>
-
-
-" 左移 tab
-function! Tab_MoveLeft()
-	let l:tabnr = tabpagenr() - 2
-	if l:tabnr >= 0
-		exec 'tabmove '.l:tabnr
-	endif
-endfunc
-
-" 右移 tab
-function! Tab_MoveRight()
-	let l:tabnr = tabpagenr() + 1
-	if l:tabnr <= tabpagenr('$')
-		exec 'tabmove '.l:tabnr
-	endif
-endfunc
-
-noremap <silent><leader>tl :call Tab_MoveLeft()<cr>
-noremap <silent><leader>tr :call Tab_MoveRight()<cr>
-noremap <silent><m-left> :call Tab_MoveLeft()<cr>
-noremap <silent><m-right> :call Tab_MoveRight()<cr>
-
-
-"----------------------------------------------------------------------
-" ALT 键移动增强
-"----------------------------------------------------------------------
-
-" ALT+h/l 快速左右按单词移动（正常模式+插入模式）
-noremap <m-h> b
-noremap <m-l> w
-inoremap <m-h> <c-left>
-inoremap <m-l> <c-right>
-
-" ALT+j/k 逻辑跳转下一行/上一行（按 wrap 逻辑换行进行跳转） 
-noremap <m-j> gj
-noremap <m-k> gk
-inoremap <m-j> <c-\><c-o>gj
-inoremap <m-k> <c-\><c-o>gk
-
-" 命令模式下的相同快捷
-cnoremap <m-h> <c-left>
-cnoremap <m-l> <c-right>
-
-" ALT+y 删除到行末
-noremap <m-y> d$
-inoremap <m-y> <c-\><c-o>d$
-
-
-"----------------------------------------------------------------------
-" 窗口切换：ALT+SHIFT+hjkl
+" 窗口切换：CTRL+hjkl
 "----------------------------------------------------------------------
 
 nnoremap <C-J> <C-W><C-J>
@@ -229,12 +128,6 @@ nnoremap <silent> <F6> :AsyncRun -cwd=<root> -raw make test <cr>
 " 更新 cmake
 nnoremap <silent> <F4> :AsyncRun -cwd=<root> cmake . <cr>
 
-" Windows 下支持直接打开新 cmd 窗口运行
-if has('win32') || has('win64')
-	nnoremap <silent> <F8> :AsyncRun -cwd=<root> -mode=4 make run <cr>
-endif
-
-
 "----------------------------------------------------------------------
 " F5 运行当前文件：根据文件类型判断方法，并且输出到 quickfix 窗口
 "----------------------------------------------------------------------
@@ -269,15 +162,6 @@ function! ExecuteFile()
 	else
 		return
 	endif
-	" Windows 下打开新的窗口 (-mode=4) 运行程序，其他系统在 quickfix 运行
-	" -raw: 输出内容直接显示到 quickfix window 不匹配 errorformat
-	" -save=2: 保存所有改动过的文件
-	" -cwd=$(VIM_FILEDIR): 运行初始化目录为文件所在目录
-	if has('win32') || has('win64')
-		exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=4 '. cmd
-	else
-		exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=0 '. cmd
-	endif
 endfunc
 
 
@@ -308,33 +192,57 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 highlight WhichKeyFloating cterm=NONE ctermfg=14 ctermbg=0 gui=NONE guifg=#93a1a1 guibg=#002931
+
 let g:which_key_map =  {}
 let g:which_key_map['f'] = {
       \ 'name' : '+file' ,
-      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ 'h' : ['Startify', 'home-buffer'],
+      \ 'w' : ['<C-W>w',   'other-window'],
       \ }
+
 let g:which_key_map['c'] = {
       \ 'name' : '+coc/clap' ,
-      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ 'c' : [':Clap commits', 'git commits'],
+      \ 'f' : [':Clap files'  , 'git files'],
+      \ 's' : [':Clap grep2'  , 'search by text'],
+      \ 't' : [':Clap tags'   , 'tags'],
       \ }
+
 let g:which_key_map['s'] = {
       \ 'name' : '+search' ,
-      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ 'w' : ['<C-W>w'     , 'other-window'],
       \ }
 let g:which_key_map['g'] = {
       \ 'name' : '+goto' ,
-      \ 'd' : ['<Plug>(coc-definition)'     , 'go to definition']          ,
-      \ 'y' : ['<Plug>(coc-type-definition)'     , 'go to type definition']          ,
+      \ 'd' : ['<Plug>(coc-definition)',      'go to definition'],
+      \ 'y' : ['<Plug>(coc-type-definition)', 'go to type definition'],
       \ }
+
+let g:which_key_map['t'] = {
+      \ 'name' : '+text' ,
+      \ 'a' : ['<Plug>(EasyAlign)', 'text align'],
+      \ 's' : [':Clap grep',        'use vim clap'],
+      \ 'S' : [':Clap grep',        'use vim clap'],
+      \ 'p' : [':Clap',             'use vim clap'],
+      \ }
+
 let g:which_key_map['p'] = {
       \ 'name' : '+project' ,
-      \ 'p' : ['Clap'     , 'use vim clap'],
+      \ 'f' : [':Clap files', 'find file in project files'],
+      \ 's' : [':Clap grep <currentword>',  'grep current word in current buffer'],
+      \ 'S' : [':Clap grep <currentword>',  'grep current word in project'],
+      \ 'p' : [':Clap',       'use vim clap'],
+      \ 'w' : [':Clap grep',  'use vim clap'],
+      \ 'W' : [':Clap grep',  'use vim clap'],
+      \ '?' : [':Clap',       'use vim clap'],
       \ }
+
 let g:which_key_map['w'] = {
       \ 'name' : '+windows' ,
-      \ 'w' : ['<C-W>w'     , 'other-window']          ,
-      \ 'd' : ['<C-W>c'     , 'delete-window']         ,
-      \ '-' : ['<C-W>s'     , 'split-window-below']    ,
-      \ '?' : ['Windows'    , 'fzf-window']            ,
+      \ '-' : ['<C-W>s',     'split-window-below'],
+      \ '|' : ['<C-W>v',     'split-window-right'],
+      \ 't1' : ['1gt<cr>',    'move tab 1'],
+      \ 't2' : ['2gt<cr>',    'move tab 2'],
+      \ '?' : ['Windows',    'fzf-window'],
       \ }
 call which_key#register('<Space>', "g:which_key_map")
