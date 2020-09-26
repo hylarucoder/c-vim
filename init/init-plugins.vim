@@ -40,31 +40,22 @@ Plug 'mhinz/vim-startify'
 " 一次性安装一大堆 colorscheme
 Plug 'flazz/vim-colorschemes'
 
-
+" 对齐
 Plug 'junegunn/vim-easy-align'
-
-" 表格对齐，使用命令 Tabularize
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
-" which key
+
+" Which Key
 Plug 'liuchengxu/vim-which-key'
 
 let g:which_key_use_floating_win = 1
 
+" Completer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'honza/vim-snippets'
 
-"----------------------------------------------------------------------
-" 基础插件
-"----------------------------------------------------------------------
-
-
-" 括号
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " 支持库，给其他插件用的函数库
 Plug 'xolox/vim-misc'
@@ -91,6 +82,10 @@ let g:signify_vcs_cmds = {
 
 " 移动增强
 Plug 'rhysd/accelerated-jk'
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
+" 
 Plug 'justinmk/vim-sneak'
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
@@ -113,6 +108,10 @@ Plug 'junegunn/fzf'
 
 " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
 Plug 'asins/vim-dict'
+
+" 括号
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " 配对括号和引号自动补全
 Plug 'Raimondi/delimitMate'
@@ -226,8 +225,6 @@ Plug 'vn-ki/coc-clap'
 " Python
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'Python') >= 0
-	" for python.vim syntax highlight
-    Plug 'tshirtman/vim-cython'
     Plug 'psf/black'
     let g:black_virtualenv = "~/.config/black"
 endif
