@@ -2,15 +2,28 @@
 
 ## 0x00 什么是 CVim 呢？
 
-CVim 最早基于 k-vim 进行配置，现基于 skywind3000/vim-init Vim 框架进行二次配置
+CVim 最早基于 k-vim 配置的自用 vim 配置，现基于 skywind3000/vim-init 框架
 
 ### 优势
 
 - Vim, not Vim like Plugin
+- 更现代化的编辑界面
+  - 开始页面 via. vim-startify
+  - 文件侧边栏 via. Nerdtree
+  - 标签侧边栏 via. Vista
+  - 漂浮窗 via vim-clap
+    - ctrl + p 文件搜索
+    - option + p 文件搜索
+  - Sidebar via
+    - vim-signature
+    - vim-signify
+  - 命令提示 via. vim-which-key
 - 更现代化的编辑，如
-  - ctrl + p 文件搜索
-  - option + p 文件搜索
-  - Space 万能命令
+  - Enhenced Basic Keys
+    - j/k via accelerated
+    - f/F/t/T via sneak
+  - Enhenced Select
+    - 缩进选择
 - For TypeScript/Python/Golang FullStack Engineer
   - Python
   - Golang
@@ -26,9 +39,9 @@ CVim 最早基于 k-vim 进行配置，现基于 skywind3000/vim-init Vim 框架
 
 ### 文本定位
 
-- h/j/k/l
-- ctrl+f/b/u/d
-- gg G
+- `h/j/k/l`
+- `ctrl+f/b/u/d`
+- `gg` `G`
 - w/W e/E
 - `;`   重复上次查找操作
 - `gi`  返回上次修改地
@@ -131,6 +144,9 @@ g/start/+1,/end/-1 sort n
 # 删除 html 标签
 
 :%s/<\_.\{-1,\}>//g
+
+# 移除每行第一个空格之后的字符
+:%s/ .*//
 ```
 
 ```
@@ -144,6 +160,7 @@ g/start/+1,/end/-1 sort n
 :g/pattern/t$
 :g/pattern/m$
 :s/ \{2,}/ /g
+
 ```
 
 ## 0x07 代码补全与 Snippet
@@ -156,7 +173,14 @@ g/start/+1,/end/-1 sort n
 
 ### UltiSnips
 
-## 0x08 编程语言的支持
+## 0x07 Tags
+
+```
+brew tap universal-ctags/universal-ctags
+brew install --with-jansson --HEAD universal-ctags/universal-ctags/universal-ctags
+```
+
+## 0x08 编程语言
 
 ### 8.1 Python / Django / Flask
 
@@ -188,8 +212,6 @@ vim --startuptime /tmp/startup.log +q && vim /tmp/startup.log
 ## 0xEE 扩展阅读
 
 - [c-vim](https://github.com/twocucao/c-vim)
-
-TODO
 
 ---
 
