@@ -119,6 +119,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
 
+Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
+
 
 "----------------------------------------------------------------------
 " 文本对象：textobj 全家桶
@@ -144,6 +146,9 @@ Plug 'bps/vim-textobj-python', {'for': 'python'}
 
 " 提供 uri/url 的文本对象，iu/au 表示
 Plug 'jceb/vim-textobj-uri'
+
+Plug 'tpope/vim-abolish'
+
 
 
 "----------------------------------------------------------------------

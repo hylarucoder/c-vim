@@ -188,8 +188,6 @@ else
 				\ '<root>' <cr>
 endif
 
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 highlight WhichKeyFloating cterm=NONE ctermfg=14 ctermbg=0 gui=NONE guifg=#93a1a1 guibg=#002931
 
@@ -211,8 +209,32 @@ let g:which_key_map['c'] = {
       \ }
 
 let g:which_key_map['s'] = {
-      \ 'name' : '+search     -- 搜索相关' ,
-      \ 's' : [':Clap grep2'  , 'search by text'],
+      \ 'name' : '+search     -- 搜索相关',
+      \ '/' : [':Clap history',              'history'],
+      \ ';' : [':Clap commands',             'commands'],
+      \ 'a' : [':Clap ag',                   'text Ag'],
+      \ 'B' : [':Clap buffers',              'open buffers'],
+      \ 'c' : [':Clap commits',              'commits'],
+      \ 'C' : [':Clap bcommits',             'buffer commits'],
+      \ 'f' : [':Clap files',                'files'],
+      \ 'h' : [':Clap history',              'file history'],
+      \ 'H' : [':Clap history:',             'command history'],
+      \ 'l' : [':Clap blines',               'Lines in the current buffer'],
+      \ 'L' : [':Clap lines',                'lines'] ,
+      \ 'm' : [':Clap marks',                'marks'] ,
+      \ 'M' : [':Clap maps',                 'normal maps'] ,
+      \ 'p' : [':Clap helptags',             'help tags'] ,
+      \ 'P' : [':Clap tags',                 'project tags'],
+      \ 's' : [':Clap Snippets',             'snippets'],
+      \ 'S' : [':Clap colors',               'color schemes'],
+      \ 't' : [':Clap btags',                'buffer tags'],
+      \ 'T' : [':Clap proj_tags',            'Tags in the current project'],
+      \ 'w' : [':Clap grep ++query=<cword>', 'search windows'],
+      \ 'v' : [':Clap grep ++query=@visual', 'search windows'],
+      \ 'y' : [':Clap filetypes',            'file types'],
+      \ 'z' : [':Clap fzf',                  'FZF'],
+      \ 'r' : [':Clap grep',                 'search by text'],
+      \ 'R' : [':Clap grep2',                'search by text'],
       \ }
 
 let g:which_key_map['g'] = {
@@ -256,3 +278,7 @@ let g:which_key_map['w'] = {
       \ '?' : ['Windows',    'fzf-window'],
       \ }
 call which_key#register('<Space>', "g:which_key_map")
+
+
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
