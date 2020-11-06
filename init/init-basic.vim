@@ -142,7 +142,7 @@ if has('folding')
 	set fdm=indent
 
 	" 默认打开所有缩进
-	set foldlevel=2
+	set foldlevel=0
 endif
 
 
