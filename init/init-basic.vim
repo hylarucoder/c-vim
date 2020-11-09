@@ -185,5 +185,5 @@ endif
 
 set guifont=FiraCode\ Nerd\ Font\ Mono:h16
 
-let g:mapleader = "\<Space>"
+let g:mapleader = ","
 let g:maplocalleader = ','
