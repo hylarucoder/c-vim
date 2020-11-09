@@ -1,15 +1,18 @@
 call quickui#menu#reset()
 
 call quickui#menu#install('&File', [
+		\ [ "&Home", 'Startify' ],
+		\ [ "--", '' ],
 		\ [ "&Open \t(:w)", 'echo 0' ],
 		\ [ "&Save \t(:w)", 'write' ],
 		\ [ "--", '' ],
-		\ [ "Leaderf &File", 'vim clap'],
-		\ [ "Save &As", 'echo 4' ],
-		\ [ "Save All", 'echo 5' ],
+		\ [ "Leaderf &File", 'Leaderf file'],
+		\ [ "Leaderf &Buffer", 'Leaderf buffer'],
+		\ [ "LeaderF &Mru", 'Leaderf mru --regexMode', 'Open recently accessed files'],
 		\ [ "--", '' ],
-		\ [ "E&xit\tAlt+x", 'echo 6' ],
-		\ [ "Home Screen", 'Startify' ],
+		\ [ "Open &Finder", '!open .' ],
+		\ [ "--", '' ],
+		\ [ "&Reload Vimrc", 'source ~/.config/nvim/init.vim' ],
 		\ ])
 
 call quickui#menu#install('&Edit', [
@@ -28,15 +31,16 @@ call quickui#menu#install('&View', [
 		\ [ '&Tag Sidebar', 'Vista!!', 'Tags侧边栏' ],
 		\ ])
 
-call quickui#menu#install('&Navigator', [
-		\ [ '&Copy', 'echo 1', 'help 1' ],
-		\ [ '&Paste', 'echo 2', 'help 2' ],
-		\ [ '&NERDTree', 'nerdtree', '文件侧边栏' ],
+" tags 相关
+call quickui#menu#install('&Navigate', [
+		\ [ "&File", 'Leaderf file'],
+		\ [ "&Buffer Tags", 'Leaderf bufTag'],
+		\ [ "&Last Edit Line", '`.'],
 		\ ])
 
 call quickui#menu#install('&Code', [
-		\ [ '&Copy', 'echo 1', 'help 1' ],
-		\ [ '&Paste', 'echo 2', 'help 2' ],
+		\ [ '&Copyright', 'echo 1', 'help 1' ],
+		\ [ '&Snippets', 'echo 2', 'help 2' ],
 		\ [ '&NERDTree', 'nerdtree', '文件侧边栏' ],
 		\ ])
 
@@ -62,8 +66,8 @@ call quickui#menu#install('&Plugin', [
 		\ ["Plugin &Update", "PlugUpdate", "Update plugin"],
 		\ ])
 
-call quickui#menu#install('&VCS', [
-		\ [ '&Copy', 'echo 1', 'help 1' ],
+call quickui#menu#install('&Git', [
+		\ [ '&Blame', 'Gblame', '谁修改了代码' ],
 		\ [ '&Paste', 'echo 2', 'help 2' ],
 		\ [ '&NERDTree', 'nerdtree', '文件侧边栏' ],
 		\ ])
