@@ -1,13 +1,10 @@
-" clear all the menus
 call quickui#menu#reset()
 
-" install a 'File' menu, use [text, command] to represent an item.
 call quickui#menu#install('&File', [
-		\ [ "&New File\tCtrl+n", 'echo 0' ],
-		\ [ "&Open File\t(F3)", 'echo 1' ],
-		\ [ "&Close", 'echo 2' ],
+		\ [ "&Open \t(:w)", 'echo 0' ],
+		\ [ "&Save \t(:w)", 'write' ],
 		\ [ "--", '' ],
-		\ [ "&Save\tCtrl+s", 'echo 3'],
+		\ [ "Leaderf &File", 'vim clap'],
 		\ [ "Save &As", 'echo 4' ],
 		\ [ "Save All", 'echo 5' ],
 		\ [ "--", '' ],
@@ -15,10 +12,6 @@ call quickui#menu#install('&File', [
 		\ [ "Home Screen", 'Startify' ],
 		\ ])
 
-" items containing tips, tips will display in the cmdline
-" 复制粘贴cut
-" Find
-" Find Usage
 call quickui#menu#install('&Edit', [
 		\ [ '&Copy', 'echo 1', 'help 1' ],
 		\ [ '&Paste', 'echo 2', 'help 2' ],
@@ -32,7 +25,7 @@ call quickui#menu#install('&Edit', [
 
 call quickui#menu#install('&View', [
 		\ [ '&File Explorer', 'nerdtree', '文件侧边栏' ],
-		\ [ '&Tag Sidebar', 'Vista', 'Tags侧边栏' ],
+		\ [ '&Tag Sidebar', 'Vista!!', 'Tags侧边栏' ],
 		\ ])
 
 call quickui#menu#install('&Navigator', [
@@ -53,10 +46,20 @@ call quickui#menu#install('&Run', [
 		\ [ '&NERDTree', 'nerdtree', '文件侧边栏' ],
 		\ ])
 
-call quickui#menu#install('&Tools', [
-		\ [ '&Copy', 'echo 1', 'help 1' ],
-		\ [ '&Paste', 'echo 2', 'help 2' ],
-		\ [ '&NERDTree', 'nerdtree', '文件侧边栏' ],
+call quickui#menu#install('&Plugin', [
+		\ ["&NERDTree\t<space>tn", 'NERDTreeToggle', 'toggle nerdtree'],
+		\ ['&Tagbar', '', 'toggle tagbar'],
+		\ ["&Choose Window/Tab\tAlt+e", "ChooseWin", "fast switch win/tab with vim-choosewin"],
+		\ ["-"],
+		\ ["&Browse in github\trhubarb", "Gbrowse", "using tpope's rhubarb to open browse and view the file"],
+		\ ["&Startify", "Startify", "using tpope's rhubarb to open browse and view the file"],
+		\ ["&Gist", "Gist", "open gist with mattn/gist-vim"],
+		\ ["&Edit Note", "Note", "edit note with vim-notes"],
+		\ ["&Display Calendar", "Calendar", "display a calender"],
+		\ ['Toggle &Vista', 'Vista!!', ''],
+		\ ["-"],
+		\ ["Plugin &List", "PlugList", "Update list"],
+		\ ["Plugin &Update", "PlugUpdate", "Update plugin"],
 		\ ])
 
 call quickui#menu#install('&VCS', [
@@ -65,33 +68,33 @@ call quickui#menu#install('&VCS', [
 		\ [ '&NERDTree', 'nerdtree', '文件侧边栏' ],
 		\ ])
 
-call quickui#menu#install('&Clap/Coc', [
-		\ [ '&Commits', 'Clap commits', 'git commits' ],
-		\ [ '&Files', 'Clap files', 'git files' ],
-		\ [ '&Greps', 'Clap grep2', 'search by text' ],
-		\ [ '&Tags', 'Clap tags', 'search by tags' ],
+call quickui#menu#install('&Leaderf/Coc', [
+		\ [ '&Commits', 'Leaderf commits', 'git commits' ],
+		\ [ '&Files', 'Leaderf files', 'git files' ],
+		\ [ '&Greps', 'Leaderf grep2', 'search by text' ],
+		\ [ '&Tags', 'Leaderf tags', 'search by tags' ],
 		\ ])
 
 call quickui#menu#install('&Search', [
-		\ [ '&History', 'Clap commits', 'git commits' ],
-		\ [ '&Commands', 'Clap files', 'git files' ],
-		\ [ '&Ag', 'Clap grep2', 'search by text' ],
-		\ [ '&Buffers', 'Clap tags', 'search by tags' ],
-		\ [ '&Commits', 'Clap tags', 'search by tags' ],
-		\ [ '&BCommits', 'Clap tags', 'search by tags' ],
-		\ [ '&BLines', 'Clap tags', 'search by tags' ],
-		\ [ '&Marks', 'Clap tags', 'search by tags' ],
+		\ [ '&History', 'Leaderf commits', 'git commits' ],
+		\ [ '&Commands', 'Leaderf files', 'git files' ],
+		\ [ '&Ag', 'Leaderf grep2', 'search by text' ],
+		\ [ '&Buffers', 'Leaderf tags', 'search by tags' ],
+		\ [ '&Commits', 'Leaderf tags', 'search by tags' ],
+		\ [ '&BCommits', 'Leaderf tags', 'search by tags' ],
+		\ [ '&BLines', 'Leaderf tags', 'search by tags' ],
+		\ [ '&Marks', 'Leaderf tags', 'search by tags' ],
 		\ ])
 
 call quickui#menu#install('&Goto', [
-		\ [ '&History', 'Clap commits', 'git commits' ],
-		\ [ '&Commands', 'Clap files', 'git files' ],
-		\ [ '&Ag', 'Clap grep2', 'search by text' ],
-		\ [ '&Buffers', 'Clap tags', 'search by tags' ],
-		\ [ '&Commits', 'Clap tags', 'search by tags' ],
-		\ [ '&BCommits', 'Clap tags', 'search by tags' ],
-		\ [ '&BLines', 'Clap tags', 'search by tags' ],
-		\ [ '&Marks', 'Clap tags', 'search by tags' ],
+		\ [ '&History', 'Leaderf commits', 'git commits' ],
+		\ [ '&Commands', 'Leaderf files', 'git files' ],
+		\ [ '&Ag', 'Leaderf grep2', 'search by text' ],
+		\ [ '&Buffers', 'Leaderf tags', 'search by tags' ],
+		\ [ '&Commits', 'Leaderf tags', 'search by tags' ],
+		\ [ '&BCommits', 'Leaderf tags', 'search by tags' ],
+		\ [ '&BLines', 'Leaderf tags', 'search by tags' ],
+		\ [ '&Marks', 'Leaderf tags', 'search by tags' ],
 		\ ])
 
 call quickui#menu#install("&Option", [
