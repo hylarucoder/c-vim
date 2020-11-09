@@ -46,16 +46,10 @@ Plug 'junegunn/vim-easy-align'
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
 
-" Which Key
-Plug 'liuchengxu/vim-which-key'
-
-let g:which_key_use_floating_win = 1
-
 " Completer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'honza/vim-snippets'
-
 
 " 支持库，给其他插件用的函数库
 Plug 'xolox/vim-misc'
@@ -119,6 +113,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
 
+Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
+
 
 "----------------------------------------------------------------------
 " 文本对象：textobj 全家桶
@@ -145,6 +141,9 @@ Plug 'bps/vim-textobj-python', {'for': 'python'}
 " 提供 uri/url 的文本对象，iu/au 表示
 Plug 'jceb/vim-textobj-uri'
 
+Plug 'tpope/vim-abolish'
+
+
 
 "----------------------------------------------------------------------
 " 文件类型扩展
@@ -155,7 +154,6 @@ Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
 " rust 语法增强
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-
 
 "----------------------------------------------------------------------
 " statusline
@@ -213,6 +211,8 @@ LoadScript init/plugins/ale.vim
 "----------------------------------------------------------------------
 Plug 'sheerun/vim-polyglot'
 
+Plug 'skywind3000/vim-quickui'
+
 "----------------------------------------------------------------------
 " Vim Clap 文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
@@ -238,3 +238,5 @@ LoadScript init/plugins/nerdtree.vim
 LoadScript init/plugins/coc.vim
 LoadScript init/plugins/coc-snippet.vim
 LoadScript init/plugins/vim-clap.vim
+LoadScript init/plugins/vim-quickui.vim
+
