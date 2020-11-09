@@ -287,5 +287,7 @@ set tabline=%!Vim_NeatTabLine()
 set guitablabel=%{Vim_NeatGuiTabLabel()}
 set guitabtooltip=%{Vim_NeatGuiTabTip()}
 
+" 暂时激活mouse
+set mouse=a
 
 
