@@ -214,12 +214,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'skywind3000/vim-quickui'
 
 "----------------------------------------------------------------------
-" Vim Clap 文件模糊匹配，tags/函数名 选择
+" LeaderF 文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-let g:clap_layout = { 'relative': 'editor' }
-let g:clap_theme = 'solarized_dark'
-Plug 'vn-ki/coc-clap'
+
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 "----------------------------------------------------------------------
 " Python
@@ -237,6 +235,6 @@ call plug#end()
 LoadScript init/plugins/nerdtree.vim
 LoadScript init/plugins/coc.vim
 LoadScript init/plugins/coc-snippet.vim
-LoadScript init/plugins/vim-clap.vim
+LoadScript init/plugins/vim-leaderf.vim
 LoadScript init/plugins/vim-quickui.vim
 
