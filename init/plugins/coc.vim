@@ -2,10 +2,7 @@
 let g:coc_global_extensions = [
   \ 'coc-eslint', 
   \ 'coc-git', 
-  \ 'coc-highlight', 
-  \ 'coc-imselect', 
   \ 'coc-json', 
-  \ 'coc-pairs',
   \ 'coc-prettier', 
   \ 'coc-python', 
   \ 'coc-rls', 

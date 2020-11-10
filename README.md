@@ -16,7 +16,7 @@
 ## 安装
 
 ```
-brew install macvim
+brew install neovim --head
 mkdir -p ~/Cystem && cd ~/Cystem
 git clone https://github.com/twocucao/c-vim.git
 ```
