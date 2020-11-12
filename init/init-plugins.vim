@@ -204,6 +204,7 @@ Plug 'skywind3000/vim-quickui'
 "----------------------------------------------------------------------
 
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
 let g:clap_layout = { 'relative': 'editor' }
 let g:clap_theme = 'solarized_dark'
 
@@ -221,9 +222,6 @@ endif
 call plug#end()
 
 LoadScript init/plugins/nerdtree.vim
-autocmd BufEnter * lua require'completion'.on_attach()
-" LoadScript init/plugins/coc.vim
-" LoadScript init/plugins/coc-snippet.vim
 LoadScript init/plugins/vim-clap.vim
 LoadScript init/plugins/vim-quickui.vim
 
@@ -246,3 +244,5 @@ set completeopt=menuone,noinsert,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
+
+autocmd BufEnter *.c,*.h,*.cpp,*.hpp,*.md,*.lua,*.js,*.ts,*.sh lua require'completion'.on_attach()
