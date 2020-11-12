@@ -58,7 +58,9 @@ Plug 'junegunn/vim-easy-align'
 Plug 'chrisbra/vim-diff-enhanced'
 
 " Completer
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-lua/completion-nvim'
+Plug 'aca/completion-tabnine', { 'do': './install.sh' }
+
 
 Plug 'honza/vim-snippets'
 
@@ -176,33 +178,6 @@ endfunction
 
 set statusline+=%{NearestMethodOrFunction()}
 
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-let g:lightline = {
-  \ 'colorscheme': 'seoul256',
-  \ 'active': {
-  \   'left': [
-  \     [ 'mode', 'paste' ],
-  \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
-  \   ],
-  \   'right':[
-  \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
-  \     [ 'blame' ]
-  \   ],
-  \ },
-  \ 'component_function': {
-  \   'blame': 'LightlineGitBlame',
-  \ }
-\ }
-
-function! LightlineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
-endfunction
 "----------------------------------------------------------------------
 " NERDTree
 "----------------------------------------------------------------------
@@ -246,8 +221,28 @@ endif
 call plug#end()
 
 LoadScript init/plugins/nerdtree.vim
-LoadScript init/plugins/coc.vim
-LoadScript init/plugins/coc-snippet.vim
+autocmd BufEnter * lua require'completion'.on_attach()
+" LoadScript init/plugins/coc.vim
+" LoadScript init/plugins/coc-snippet.vim
 LoadScript init/plugins/vim-clap.vim
 LoadScript init/plugins/vim-quickui.vim
 
+" vimrc
+let g:completion_chain_complete_list = {
+    \ 'default': [
+    \    {'complete_items': ['lsp', 'snippet', 'tabnine' ]},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \]
+\}
+let g:completion_enable_snippet = 'UltiSnips'
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
