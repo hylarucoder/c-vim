@@ -60,9 +60,20 @@ Plug 'chrisbra/vim-diff-enhanced'
 " Completer
 Plug 'nvim-lua/completion-nvim'
 Plug 'aca/completion-tabnine', { 'do': './install.sh' }
-
-
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+" diagnostic
+Plug 'nvim-lua/diagnostic-nvim'
+" language server protocol
+Plug 'neovim/nvim-lspconfig'
+
+
+" lua support
+Plug 'tjdevries/nlua.nvim'
+Plug 'euclidianAce/BetterLua.vim'
+
+
 
 " 支持库，给其他插件用的函数库
 Plug 'xolox/vim-misc'
@@ -245,4 +256,9 @@ set completeopt=menuone,noinsert,noselect
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-autocmd BufEnter *.c,*.h,*.cpp,*.hpp,*.md,*.lua,*.js,*.ts,*.sh lua require'completion'.on_attach()
+autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"

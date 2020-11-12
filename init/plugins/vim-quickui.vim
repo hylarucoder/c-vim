@@ -125,7 +125,7 @@ noremap <space><space> :call quickui#menu#open()<cr>
 
 let g:context_menu_k = [
 		\ ["&Peek Definition\tAlt+;", 'call quickui#tools#preview_tag("")'],
-		\ ["S&earch in Project\t\\cx", 'exec "silent! GrepCode! " . expand("<cword>")'],
+		\ ["S&earch in Project\t\\cx", 'Clap grep ++query=<cword>'],
 		\ [ "--", ],
 		\ [ "Find &Definition\t\\cg", 'call MenuHelp_Fscope("g")', 'GNU Global search g'],
 		\ [ "Find &Symbol\t\\cs", 'call MenuHelp_Fscope("s")', 'GNU Gloal search s'],
