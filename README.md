@@ -29,8 +29,9 @@ git clone https://github.com/twocucao/c-vim.git
 - skywind3000/vim
 - rafi/vim-config
 
-## ChangeLog
-
-- **2017-08-10** 修改 YCM 至 NeoComplete
-- **2020-08-04** 迁移配置框架到 skywind3000/vim-init
-- **2020-08-08** 重修文字
+---
+ChangeLog:
+ - **2017-08-10** 修改 YCM 至 NeoComplete
+ - **2020-08-04** 迁移配置框架到 skywind3000/vim-init
+ - **2020-08-08** 重修文字
+ - **2020-11-12** 重修文字

@@ -58,9 +58,22 @@ Plug 'junegunn/vim-easy-align'
 Plug 'chrisbra/vim-diff-enhanced'
 
 " Completer
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+Plug 'nvim-lua/completion-nvim'
+Plug 'aca/completion-tabnine', { 'do': './install.sh' }
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+" diagnostic
+Plug 'nvim-lua/diagnostic-nvim'
+" language server protocol
+Plug 'neovim/nvim-lspconfig'
+
+
+" lua support
+Plug 'tjdevries/nlua.nvim'
+Plug 'euclidianAce/BetterLua.vim'
+
+
 
 " 支持库，给其他插件用的函数库
 Plug 'xolox/vim-misc'
@@ -176,33 +189,6 @@ endfunction
 
 set statusline+=%{NearestMethodOrFunction()}
 
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-let g:lightline = {
-  \ 'colorscheme': 'seoul256',
-  \ 'active': {
-  \   'left': [
-  \     [ 'mode', 'paste' ],
-  \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
-  \   ],
-  \   'right':[
-  \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
-  \     [ 'blame' ]
-  \   ],
-  \ },
-  \ 'component_function': {
-  \   'blame': 'LightlineGitBlame',
-  \ }
-\ }
-
-function! LightlineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
-endfunction
 "----------------------------------------------------------------------
 " NERDTree
 "----------------------------------------------------------------------
@@ -229,6 +215,7 @@ Plug 'skywind3000/vim-quickui'
 "----------------------------------------------------------------------
 
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
 let g:clap_layout = { 'relative': 'editor' }
 let g:clap_theme = 'solarized_dark'
 
@@ -246,8 +233,32 @@ endif
 call plug#end()
 
 LoadScript init/plugins/nerdtree.vim
-LoadScript init/plugins/coc.vim
-LoadScript init/plugins/coc-snippet.vim
 LoadScript init/plugins/vim-clap.vim
 LoadScript init/plugins/vim-quickui.vim
 
+" vimrc
+let g:completion_chain_complete_list = {
+    \ 'default': [
+    \    {'complete_items': ['lsp', 'snippet', 'tabnine' ]},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \]
+\}
+let g:completion_enable_snippet = 'UltiSnips'
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
