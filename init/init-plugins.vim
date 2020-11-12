@@ -35,7 +35,18 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 "----------------------------------------------------------------------
 
 " 展示开始画面，显示最近编辑过的文件
-Plug 'mhinz/vim-startify'
+Plug 'glepnir/dashboard-nvim'
+
+let g:dashboard_custom_shortcut={
+	\ 'last_session'       : '<Leader> s l',
+	\ 'find_history'       : '<Leader> f h',
+	\ 'find_file'          : '<Leader> f f',
+	\ 'new_file'           : '<Leader> c n',
+	\ 'change_colorscheme' : '<Leader> t c',
+	\ 'find_word'          : '<Leader> f a',
+	\ 'book_marks'         : '<Leader> f b',
+	\ }
+
 
 " 一次性安装一大堆 colorscheme
 Plug 'flazz/vim-colorschemes'
