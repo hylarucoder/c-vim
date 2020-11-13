@@ -5,15 +5,6 @@
 " Created by skywind on 2018/05/31
 " Last Modified: 2020-08-08 09:38:50
 "======================================================================
-" vim: set ts=4 sw=4 tw=78 noet :
-
-"----------------------------------------------------------------------
-" 默认情况下的分组，可以再前面覆盖之
-"----------------------------------------------------------------------
-if !exists('g:bundle_group')
-	let g:bundle_group = ['textobj']
-	let g:bundle_group += ['Python', "Rust", "JavaScript", "Writing"]
-endif
 
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
@@ -236,7 +227,7 @@ let g:black_virtualenv = "~/.config/black"
 "----------------------------------------------------------------------
 call plug#end()
 
-LoadScript init/plugins/nerdtree.vim
+LoadScript init/plugins/lua-tree.vim
 LoadScript init/plugins/vim-clap.vim
 LoadScript init/plugins/vim-quickui.vim
 
@@ -267,85 +258,4 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
-
-let g:mapleader = "\<Space>"
-let g:maplocalleader = ','
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-let g:which_key_use_floating_win = 1
-
-
-" Define prefix dictionary
-let g:which_key_map =  {}
-
-" Second level dictionaries:
-" 'name' is a special field. It will define the name of the group, e.g., leader-f is the "+file" group.
-" Unnamed groups will show a default empty string.
-
-" =======================================================
-" Create menus based on existing mappings
-" =======================================================
-" You can pass a descriptive text to an existing mapping.
-
-let g:which_key_map.f = { 'name' : '+file' }
-
-nnoremap <silent> <leader>fs :update<CR>
-let g:which_key_map.f.s = 'save-file'
-
-nnoremap <silent> <leader>fd :e $MYVIMRC<CR>
-let g:which_key_map.f.d = 'open-vimrc'
-
-nnoremap <silent> <leader>oq  :copen<CR>
-nnoremap <silent> <leader>ol  :lopen<CR>
-let g:which_key_map.o = {
-      \ 'name' : '+open',
-      \ 'q' : 'open-quickfix'    ,
-      \ 'l' : 'open-locationlist',
-      \ }
-
-" =======================================================
-" Create menus not based on existing mappings:
-" =======================================================
-" Provide commands(ex-command, <Plug>/<C-W>/<C-d> mapping, etc.)
-" and descriptions for the existing mappings.
-"
-" Note:
-" Some complicated ex-cmd may not work as expected since they'll be
-" feed into `feedkeys()`, in which case you have to define a decicated
-" Command or function wrapper to make it work with vim-which-key.
-" Ref issue #126, #133 etc.
-let g:which_key_map.b = {
-      \ 'name' : '+buffer' ,
-      \ '1' : ['b1'        , 'buffer 1']        ,
-      \ '2' : ['b2'        , 'buffer 2']        ,
-      \ 'd' : ['bd'        , 'delete-buffer']   ,
-      \ 'f' : ['bfirst'    , 'first-buffer']    ,
-      \ 'h' : ['Startify'  , 'home-buffer']     ,
-      \ 'l' : ['blast'     , 'last-buffer']     ,
-      \ 'n' : ['bnext'     , 'next-buffer']     ,
-      \ 'p' : ['bprevious' , 'previous-buffer'] ,
-      \ '?' : ['Buffers'   , 'fzf-buffer']      ,
-      \ }
-
-let g:which_key_map.l = {
-      \ 'name' : '+lsp',
-      \ 'f' : ['spacevim#lang#util#Format()'          , 'formatting']       ,
-      \ 'r' : ['spacevim#lang#util#FindReferences()'  , 'references']       ,
-      \ 'R' : ['spacevim#lang#util#Rename()'          , 'rename']           ,
-      \ 's' : ['spacevim#lang#util#DocumentSymbol()'  , 'document-symbol']  ,
-      \ 'S' : ['spacevim#lang#util#WorkspaceSymbol()' , 'workspace-symbol'] ,
-      \ 'g' : {
-        \ 'name': '+goto',
-        \ 'd' : ['spacevim#lang#util#Definition()'     , 'definition']      ,
-        \ 't' : ['spacevim#lang#util#TypeDefinition()' , 'type-definition'] ,
-        \ 'i' : ['spacevim#lang#util#Implementation()' , 'implementation']  ,
-        \ },
-      \ }
-
-" highlight WhichKey          Function
-" highlight WhichKeySeperator DiffAdded
-" highlight WhichKeyGroup     Keyword
-" highlight WhichKeyDesc      Identifier
-highlight WhichKeyFloating ctermbg=232
-highlight WhichKeyDesc      ctermbg=111
 
