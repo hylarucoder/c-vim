@@ -1,3 +1,4 @@
+local global = require("cvim.global")
 local vim = vim
 
 local wildignores = {
@@ -96,3 +97,6 @@ local bw_local = {
 }
 
 for name, value in pairs(bw_local) do vim.o[name] = value end
+
+vim.g.mapleader = "<Space>"
+vim.g.maplocalleader = ","

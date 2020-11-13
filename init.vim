@@ -9,7 +9,7 @@ else
 	let s:loaded = 1
 endif
 
-lua require("lua.core.main")
+lua require("lua.cvim").bootstrap()
 
 " 取得本文件所在的目录
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
