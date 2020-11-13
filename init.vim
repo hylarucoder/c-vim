@@ -36,8 +36,6 @@ autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
 
 set guifont=FiraCode\ Nerd\ Font\ Mono:h16
 
-let g:mapleader = ","
-let g:maplocalleader = ','
 
 " 打开文件时恢复上一次光标所在位置
 autocmd BufReadPost *
