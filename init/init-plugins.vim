@@ -21,6 +21,7 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
 let g:vista#renderer#enable_icon = 1
 
 
@@ -68,7 +69,8 @@ set completeopt=menuone,noinsert,noselect
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()
+" autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()
+autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"

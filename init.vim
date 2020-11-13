@@ -71,31 +71,7 @@ augroup InitFileTypesGroup
 	" quickfix 隐藏行号
 	au FileType qf setlocal nonumber
 
-	" 强制对某些扩展名的 filetype 进行纠正
-	au BufNewFile,BufRead *.as setlocal filetype=actionscript
-	au BufNewFile,BufRead *.pro setlocal filetype=prolog
-	au BufNewFile,BufRead *.es setlocal filetype=erlang
-	au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
-	au BufNewFile,BufRead *.vl setlocal filetype=verilog
-
 augroup END
-
-
-" 总是显示状态栏
-set laststatus=2
-
-" 总是显示行号
-set number
-
-" 右下角显示命令
-set showcmd
-
-" 插入模式在状态栏下面显示 -- INSERT --，
-" 先注释掉，默认已经为真了，如果这里再设置一遍会影响 echodoc 插件
-" set showmode
-
-" 水平切割窗口时，默认在右边显示新窗口
-set splitright
 
 
 "----------------------------------------------------------------------

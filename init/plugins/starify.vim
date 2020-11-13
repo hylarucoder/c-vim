@@ -1,6 +1,6 @@
 noremap <space>ht :Startify<cr>
 noremap <space>hy :tabnew<cr>:Startify<cr>
-" Don't change to directory when selecting a file
+
 let g:startify_session_dir = '~/.vim/session'
 let g:startify_files_number = 5
 let g:startify_change_to_dir = 0
