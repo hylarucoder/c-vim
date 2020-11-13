@@ -1,11 +1,3 @@
-"======================================================================
-"
-" init-plugins.vim - 
-"
-" Created by skywind on 2018/05/31
-" Last Modified: 2020-08-08 09:38:50
-"======================================================================
-
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
 "----------------------------------------------------------------------
@@ -220,7 +212,6 @@ Plug 'nvim-lua/telescope.nvim'
 " Python
 "----------------------------------------------------------------------
 Plug 'psf/black'
-let g:black_virtualenv = "~/.config/black"
 
 "----------------------------------------------------------------------
 " 结束插件安装
@@ -230,6 +221,8 @@ call plug#end()
 LoadScript init/plugins/lua-tree.vim
 LoadScript init/plugins/vim-clap.vim
 LoadScript init/plugins/vim-quickui.vim
+
+let g:black_virtualenv = "~/.config/black"
 
 " vimrc
 let g:completion_chain_complete_list = {

@@ -108,3 +108,5 @@ for name, value in pairs(bw_local) do
   vim.o[name] = value
 end
 
+
+
