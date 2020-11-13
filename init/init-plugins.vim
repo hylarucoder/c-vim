@@ -13,7 +13,6 @@ endfunction
 
 set statusline+=%{NearestMethodOrFunction()}
 
-LoadScript init/plugins/ale.vim
 LoadScript init/plugins/vim-quickui.vim
 
 " Use <Tab> and <S-Tab> to navigate through popup menu

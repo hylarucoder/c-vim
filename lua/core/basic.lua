@@ -80,8 +80,7 @@ vim.g.clipboard = {
 vim.g.python_host_prog = "/usr/bin/python"
 vim.g.python3_host_prog = "/usr/local/bin/python3"
 
-for name, value in pairs(global_local) do vim.o[name] =
-  value end
+for name, value in pairs(global_local) do vim.o[name] = value end
 
 local bw_local = {
   -- 关闭自动换行
