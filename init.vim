@@ -325,3 +325,5 @@ set tabline=%!Vim_NeatTabLine()
 set guitablabel=%{Vim_NeatGuiTabLabel()}
 set guitabtooltip=%{Vim_NeatGuiTabTip()}
 
+autocmd BufWrite *.lua call LuaFormat()
+
