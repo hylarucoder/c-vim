@@ -1,10 +1,5 @@
 "======================================================================
-"
-" init.vim - initialize config
-"
-" Created by skywind on 2018/05/30
-" Last Modified: 2018/05/30 18:26:34
-"
+" require init.lua
 "======================================================================
 
 " 防止重复加载
@@ -49,3 +44,6 @@ LoadScript init/init-style.vim
 
 " 自定义按键
 LoadScript init/init-keymaps.vim
+
+set t_8f=^[[38;2;%lu;%lu;%lum
+set t_8b=^[[48;2;%lu;%lu;%lum
