@@ -1,17 +1,3 @@
-" signify 调优
-let g:signify_vcs_list = ['git']
-let g:signify_sign_add               = '+'
-let g:signify_sign_delete            = '_'
-let g:signify_sign_delete_first_line = '‾'
-let g:signify_sign_change            = '~'
-let g:signify_sign_changedelete      = g:signify_sign_change
-
-" git 仓库使用 histogram 算法进行 diff
-let g:signify_vcs_cmds = {
-	\ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
-	\}
-
-
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 
@@ -19,10 +5,6 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
-
-let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
-let g:vista#renderer#enable_icon = 1
 
 
 function! NearestMethodOrFunction() abort
@@ -32,22 +14,8 @@ endfunction
 set statusline+=%{NearestMethodOrFunction()}
 
 LoadScript init/plugins/ale.vim
-
-"----------------------------------------------------------------------
-" Vim Clap 文件模糊匹配，tags/函数名 选择
-"----------------------------------------------------------------------
-
-" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-
-let g:clap_layout = { 'relative': 'editor' }
-let g:clap_theme = 'solarized_dark'
-
-LoadScript init/plugins/starify.vim
-LoadScript init/plugins/lua-tree.vim
-LoadScript init/plugins/vim-clap.vim
 LoadScript init/plugins/vim-quickui.vim
 
-let g:black_virtualenv = "~/.config/black"
 
 " vimrc
 let g:completion_chain_complete_list = {
@@ -77,4 +45,54 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
+
+nnoremap <C-n> :LuaTreeToggle<CR>
+nnoremap <leader>r :LuaTreeRefresh<CR>
+nnoremap <leader>n :LuaTreeFindFile<CR>
+
+noremap <space>ht :Startify<cr>
+noremap <space>hy :tabnew<cr>:Startify<cr>
+
+let g:startify_session_dir = '~/.vim/session'
+let g:startify_files_number = 5
+let g:startify_change_to_dir = 0
+let g:startify_custom_header = [ ]
+let g:startify_relative_path = 1
+let g:startify_use_env = 1
+function! s:list_commits()
+	let git = 'git -C ' . getcwd()
+	let commits = systemlist(git . ' log --oneline | head -n5')
+	let git = 'G' . git[1:]
+	return map(commits, '{"line": matchstr(v:val, "\\s\\zs.*"), "cmd": "'. git .' show ". matchstr(v:val, "^\\x\\+") }')
+endfunction
+" Custom startup list, only show MRU from current directory/project
+let g:startify_lists = [
+\  { 'type': 'dir',       'header': [ 'Files '. getcwd() ] },
+\  { 'type': function('s:list_commits'), 'header': [ 'Recent Commits' ] },
+\  { 'type': 'sessions',  'header': [ 'Sessions' ]       },
+\  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ]      },
+\  { 'type': 'commands',  'header': [ 'Commands' ]       },
+\ ]
+
+let g:startify_commands = [
+\   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
+\   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
+\ ]
+map <c-p> :lua require'telescope.builtin'.find_files{}<cr>
+map <m-p> :Clap grep2<cr>
+
+" -- Fuzzy find over git files in your directory
+" require('telescope.builtin').git_files()
+
+" -- Grep files as you type (requires rg currently)
+" require('telescope.builtin').live_grep()
+
+" -- Use builtin LSP to request references under cursor. Fuzzy find over results.
+" require('telescope.builtin').lsp_references()
+
+" -- Convert currently quickfixlist to telescope
+" require('telescope.builtin').quickfix()
+
+" -- Convert currently loclist to telescope
+" require('telescope.builtin').loclist()
 
