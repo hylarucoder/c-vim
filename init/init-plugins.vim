@@ -221,6 +221,10 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 let g:clap_layout = { 'relative': 'editor' }
 let g:clap_theme = 'solarized_dark'
 
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
+
 "----------------------------------------------------------------------
 " Python
 "----------------------------------------------------------------------
