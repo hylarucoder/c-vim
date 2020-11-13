@@ -1,6 +1,7 @@
 local global = require('core.global')
 local vim = vim
 
+-- 基础 vim 配置
 local global_local = {
   -- 设置 Backspace 键模式
   bs             = "eol,start,indent";
@@ -41,6 +42,14 @@ local global_local = {
   -- 高亮搜索内容
   hlsearch       = true;
   wrapscan       = true;
+  backup         = false;
+  writebackup    = false;
+  undofile       = true;
+  swapfile       = false;
+  showcmd        = false;
+  cmdheight      = 2;
+  cmdwinheight   = 5;
+  laststatus     = 2;
 
 }
 
@@ -65,11 +74,19 @@ end
 
 local bw_local = {
   -- 关闭自动换行
-  wrap       = false;
-  foldenable = true;
-  foldmethod = "indent";
+  wrap        = false;
+  linebreak   = true;
+  number      = true;
+  foldenable  = true;
+  foldmethod  = "indent";
+  expandtab   = true;
+  tabstop     = 2;
+  shiftwidth  = 2;
+  softtabstop = -1;
 }
 
 for name, value in pairs(bw_local) do
   vim.o[name] = value
 end
+
+-- plugins

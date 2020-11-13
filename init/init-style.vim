@@ -1,32 +1,8 @@
-"======================================================================
-"
-" init-style.vim - 显示样式设置
-"
-" Created by skywind on 2018/05/30
-" Last Modified: 2020-08-08 09:38
-"
-"======================================================================
-" vim: set ts=4 sw=4 tw=78 noet :
-
-
-"----------------------------------------------------------------------
-" 显示设置
-"----------------------------------------------------------------------
-
 " 总是显示状态栏
 set laststatus=2
 
 " 总是显示行号
 set number
-
-" 总是显示侧边栏（用于显示 mark/gitdiff/诊断信息）
-set signcolumn=yes
-
-" 总是显示标签栏
-set showtabline=2
-
-" 设置显示制表符等隐藏字符
-set list
 
 " 右下角显示命令
 set showcmd
@@ -76,17 +52,11 @@ hi! clear SpellBad
 hi! clear SpellCap
 hi! clear SpellRare
 hi! clear SpellLocal
-if has('gui_running')
-	hi! SpellBad gui=undercurl guisp=red
-	hi! SpellCap gui=undercurl guisp=blue
-	hi! SpellRare gui=undercurl guisp=magenta
-	hi! SpellRare gui=undercurl guisp=cyan
-else
-	hi! SpellBad term=standout ctermfg=1 term=underline cterm=underline
-	hi! SpellCap term=underline cterm=underline
-	hi! SpellRare term=underline cterm=underline
-	hi! SpellLocal term=underline cterm=underline
-endif
+
+hi! SpellBad term=standout ctermfg=1 term=underline cterm=underline
+hi! SpellCap term=underline cterm=underline
+hi! SpellRare term=underline cterm=underline
+hi! SpellLocal term=underline cterm=underline
 
 " 去掉 sign column 的白色背景
 hi! SignColumn guibg=NONE ctermbg=NONE
@@ -111,27 +81,6 @@ if has('terminal') && exists(':terminal') == 2
 		augroup END
 	endif
 endif
-
-
-"----------------------------------------------------------------------
-" quickfix 设置，隐藏行号
-"----------------------------------------------------------------------
-augroup VimInitStyle
-	au!
-	au FileType qf setlocal nonumber
-augroup END
-
-
-"----------------------------------------------------------------------
-" 标签栏文字风格：默认为零，GUI 模式下空间大，按风格 3显示
-" 0: filename.txt
-" 2: 1 - filename.txt
-" 3: [1] filename.txt
-"----------------------------------------------------------------------
-if has('gui_running')
-	let g:config_vim_tab_style = 3
-endif
-
 
 "----------------------------------------------------------------------
 " 终端下的 tabline
@@ -287,5 +236,3 @@ set tabline=%!Vim_NeatTabLine()
 set guitablabel=%{Vim_NeatGuiTabLabel()}
 set guitabtooltip=%{Vim_NeatGuiTabTip()}
 
-" 暂时激活mouse
-" set mouse=a

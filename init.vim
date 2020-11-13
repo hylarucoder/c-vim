@@ -26,17 +26,12 @@ set rtp+=~/.vim
 "----------------------------------------------------------------------
 " 模块加载
 "----------------------------------------------------------------------
-let g:python3_host_prog='/usr/local/bin/python3'
-
 
 " 加载基础配置
 LoadScript init/init-basic.vim
 
 " 加载扩展配置
 LoadScript init/init-config.vim
-
-" 设定 tabsize
-LoadScript init/init-tabsize.vim
 
 " 插件加载
 LoadScript init/init-plugins.vim
