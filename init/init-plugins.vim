@@ -190,11 +190,10 @@ endfunction
 set statusline+=%{NearestMethodOrFunction()}
 
 "----------------------------------------------------------------------
-" NERDTree
+" File Explorer
 "----------------------------------------------------------------------
-Plug 'preservim/nerdtree', { 'on': 'NERDTree' }
-Plug 'ryanoasis/vim-devicons'
-Plug 'liuchengxu/nerdtree-dash'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 
 
 "----------------------------------------------------------------------
@@ -222,10 +221,8 @@ let g:clap_theme = 'solarized_dark'
 "----------------------------------------------------------------------
 " Python
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'Python') >= 0
-    Plug 'psf/black'
-    let g:black_virtualenv = "~/.config/black"
-endif
+Plug 'psf/black'
+let g:black_virtualenv = "~/.config/black"
 
 "----------------------------------------------------------------------
 " 结束插件安装
