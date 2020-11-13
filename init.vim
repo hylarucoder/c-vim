@@ -17,12 +17,6 @@ let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 " 定义一个命令用来加载文件
 command! -nargs=1 LoadScript exec 'so '.s:home.'/'.'<args>'
 
-" 将 vim-init 目录加入 runtimepath
-exec 'set rtp+='.s:home
-
-" 将 ~/.vim 目录加入 runtimepath (有时候 vim 不会自动帮你加入）
-set rtp+=~/.vim
-
 "----------------------------------------------------------------------
 " 模块加载
 "----------------------------------------------------------------------
@@ -42,8 +36,6 @@ autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
 
 set guifont=FiraCode\ Nerd\ Font\ Mono:h16
 
-let g:mapleader = ","
-let g:maplocalleader = ','
 
 " 打开文件时恢复上一次光标所在位置
 autocmd BufReadPost *
@@ -77,31 +69,7 @@ augroup InitFileTypesGroup
 	" quickfix 隐藏行号
 	au FileType qf setlocal nonumber
 
-	" 强制对某些扩展名的 filetype 进行纠正
-	au BufNewFile,BufRead *.as setlocal filetype=actionscript
-	au BufNewFile,BufRead *.pro setlocal filetype=prolog
-	au BufNewFile,BufRead *.es setlocal filetype=erlang
-	au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
-	au BufNewFile,BufRead *.vl setlocal filetype=verilog
-
 augroup END
-
-
-" 总是显示状态栏
-set laststatus=2
-
-" 总是显示行号
-set number
-
-" 右下角显示命令
-set showcmd
-
-" 插入模式在状态栏下面显示 -- INSERT --，
-" 先注释掉，默认已经为真了，如果这里再设置一遍会影响 echodoc 插件
-" set showmode
-
-" 水平切割窗口时，默认在右边显示新窗口
-set splitright
 
 
 "----------------------------------------------------------------------
@@ -324,4 +292,6 @@ endfunc
 set tabline=%!Vim_NeatTabLine()
 set guitablabel=%{Vim_NeatGuiTabLabel()}
 set guitabtooltip=%{Vim_NeatGuiTabTip()}
+
+autocmd BufWrite *.lua call LuaFormat()
 
