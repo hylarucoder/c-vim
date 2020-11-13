@@ -1,4 +1,4 @@
-lua require("core.main")
+lua require("lua.core.main")
 
 "======================================================================
 " require init.lua
