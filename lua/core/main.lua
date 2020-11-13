@@ -1,6 +1,25 @@
 local global = require('core.global')
 local vim = vim
 
+local wildignores = {
+  "*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib",
+  "*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex",
+  "*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz    ",
+  "*DS_Store*,*.ipch",
+  "*.gem",
+  "*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso",
+  "*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**",
+  "*/.nx/**,*.app,*.git,.git",
+  "*.wav,*.mp3,*.ogg,*.pcm",
+  "*.mht,*.suo,*.sdf,*.jnlp",
+  "*.chm,*.epub,*.pdf,*.mobi,*.ttf",
+  "*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc",
+  "*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps",
+  "*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu",
+  "*.gba,*.sfc,*.078,*.nds,*.smd,*.smc",
+  "*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android"
+}
+
 -- 基础 vim 配置
 local global_local = {
   -- 设置 Backspace 键模式
@@ -31,7 +50,7 @@ local global_local = {
   fileencodings  = "ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1";
   clipboard      = "unnamedplus";
   wildignorecase = true;
-  wildignore     = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**";
+  wildignore     = table.concat(wildignores, ",");
   -- 搜索时忽略大小写
   ignorecase     = true;
   -- 智能搜索大小写判断，默认忽略大小写，除非搜索内容包含大写字母
@@ -89,4 +108,3 @@ for name, value in pairs(bw_local) do
   vim.o[name] = value
 end
 
--- plugins

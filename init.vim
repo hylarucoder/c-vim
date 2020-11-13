@@ -1,5 +1,3 @@
-lua require("lua.core.main")
-
 "======================================================================
 " require init.lua
 "======================================================================
@@ -10,6 +8,8 @@ if get(s:, 'loaded', 0) != 0
 else
 	let s:loaded = 1
 endif
+
+lua require("lua.core.main")
 
 " 取得本文件所在的目录
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
@@ -44,3 +44,12 @@ LoadScript init/init-keymaps.vim
 
 set t_8f=^[[38;2;%lu;%lu;%lum
 set t_8b=^[[48;2;%lu;%lu;%lum
+
+" Highlight TODO, FIXME, NOTE, etc.
+autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
+autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+
+set guifont=FiraCode\ Nerd\ Font\ Mono:h16
+
+let g:mapleader = ","
+let g:maplocalleader = ','
