@@ -1,14 +1,3 @@
-let g:dashboard_custom_shortcut={
-	\ 'last_session'       : '<Leader> s l',
-	\ 'find_history'       : '<Leader> f h',
-	\ 'find_file'          : '<Leader> f f',
-	\ 'new_file'           : '<Leader> c n',
-	\ 'change_colorscheme' : '<Leader> t c',
-	\ 'find_word'          : '<Leader> f a',
-	\ 'book_marks'         : '<Leader> f b',
-	\ }
-
-
 " signify 调优
 let g:signify_vcs_list = ['git']
 let g:signify_sign_add               = '+'
@@ -52,6 +41,7 @@ LoadScript init/plugins/ale.vim
 let g:clap_layout = { 'relative': 'editor' }
 let g:clap_theme = 'solarized_dark'
 
+LoadScript init/plugins/starify.vim
 LoadScript init/plugins/lua-tree.vim
 LoadScript init/plugins/vim-clap.vim
 LoadScript init/plugins/vim-quickui.vim

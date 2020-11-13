@@ -126,29 +126,33 @@ end
 
 -- Example usageplug {'julia', { g = {default_julia_version = '1.1'} }}
 plug("~/.vim/bundles", {
-  -- 展示开始画面，显示最近编辑过的文件
-  "glepnir/dashboard-nvim",
+  -- 开始画面
+  "mhinz/vim-startify",
+  -- 菜单
   "skywind3000/vim-quickui",
+  -- 自定义菜单/命令
   "liuchengxu/vim-which-key",
+  -- popup
   "nvim-lua/popup.nvim",
+  -- lua utils
   "nvim-lua/plenary.nvim",
+  -- telescope.nvim
   "nvim-lua/telescope.nvim",
+  -- icon font
   "kyazdani42/nvim-web-devicons",
+  -- file explorer
   "kyazdani42/nvim-tree.lua",
-  "sheerun/vim-polyglot",
+  -- status bar
   "itchyny/lightline.vim",
-  "w0rp/ale",
-  "psf/black",
-  "norcalli/nvim-colorizer.lua", -- Completer
+  -- Completer
   "nvim-lua/completion-nvim",
   {"aca/completion-tabnine", ["do"] = "./install.sh"}, -- 侧边栏增强
   "SirVer/ultisnips",
   "honza/vim-snippets", -- 侧边栏增强
-  "liuchengxu/vista.vim",
-  {
-    "wfxr/minimap.vim",
-    ["do"] = ":!cargo install --locked code-minimap"
-  }, -- 文本技
+  -- >> 文本技
+  -- 用 v 选中一个区域后，+/- 按分隔符扩大/缩小选区
+  "terryma/vim-expand-region",
+  -- 对齐
   "junegunn/vim-easy-align",
   -- Diff 增强，支持 histogram / patience 等更科学的 diff 算法
   "chrisbra/vim-diff-enhanced",
@@ -169,29 +173,32 @@ plug("~/.vim/bundles", {
   {"bps/vim-textobj-python", ["for"] = {"python"}},
   -- " 提供 uri/url 的文本对象，iu/au 表示
   "jceb/vim-textobj-uri",
-  "tpope/vim-abolish", -- 编程语言支持
+  "tpope/vim-abolish",
+  -- syntax enhanced
+  "sheerun/vim-polyglot",
+  -- linter
+  "w0rp/ale",
+  "psf/black",
+  "norcalli/nvim-colorizer.lua",
+  "liuchengxu/vista.vim",
   "neovim/nvim-lspconfig",
-  "nvim-lua/diagnostic-nvim", -- lua support
-  "tjdevries/nlua.nvim",
-  "euclidianAce/BetterLua.vim",
-
-  -- 支持库，给其他插件用的函数库
-  "xolox/vim-misc",
-
-  -- 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
-  "kshenoy/vim-signature", -- 用于在侧边符号栏显示 git/svn 的 diff
-  "mhinz/vim-signify", -- 移动增强
+  "nvim-lua/diagnostic-nvim",
+  "tpope/vim-fugitive",
+  "mhinz/vim-signify", 
+  -- 移动增强
   "rhysd/accelerated-jk",
   "justinmk/vim-sneak",
   -- 全文快速移动，<leader><leader>f{char} 即可触发
-  "easymotion/vim-easymotion", -- Git 支持
-  "tpope/vim-fugitive",
-  -- 用 v 选中一个区域后，+/- 按分隔符扩大/缩小选区
-  "terryma/vim-expand-region",
+  "easymotion/vim-easymotion", 
   -- 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-  "asins/vim-dict", -- 括号
-  "luochen1990/rainbow", -- 配对括号和引号自动补全
-  "Raimondi/delimitMate", -- " lua 语法高亮增强
+  "asins/vim-dict", 
+  -- 括号
+  "luochen1990/rainbow", 
+  -- 配对括号和引号自动补全
+  "Raimondi/delimitMate",
+  -- lua support
+  "tjdevries/nlua.nvim",
+  "euclidianAce/BetterLua.vim",
   {"tbastos/vim-lua", ["for"] = {"lua"}},
   "andrejlevkovitch/vim-lua-format", -- " rust 语法增强
   {"rust-lang/rust.vim", ["for"] = {"rust"}}
