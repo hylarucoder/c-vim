@@ -52,10 +52,9 @@ plug("~/.vim/bundles", {
   "nvim-lua/diagnostic-nvim",
 
   -- >>>> 移动增强 <<<< --
+  -- s for /?, one char for FfTt
   "justinmk/vim-sneak",
   "rhysd/accelerated-jk",
-  -- 全文快速移动，<leader><leader>f{char} 即可触发
-  "easymotion/vim-easymotion",
 
   -- >>>> 文本技 <<<< --
   -- Diff 增强，支持 histogram / patience 等更科学的 diff 算法
@@ -171,3 +170,103 @@ vim.ale_linters = {
   java = {"javac"},
   javascript = {"eslint"}
 }
+
+vim.g.quickui_show_tip = 1
+
+local function init_quickui()
+  vim.fn["quickui#menu#reset"]()
+
+  -- File
+  vim.fn["quickui#menu#install"]("&File", {
+    {"&Home", "Startify"},
+    {"--", ""},
+    {"&Open \t(:w)", "echo 0"},
+    {"&Save \t(:w)", "write"},
+    {"--", ""},
+    {"Leaderf &File", "Leaderf file"},
+    {"Leaderf &Buffer", "Leaderf buffer"},
+    {"LeaderF &Mru", "Leaderf mru --regexMode", "Open recently accessed files"},
+    {"--", ""},
+    {"Open &Finder", "!open ."},
+    {"--", ""},
+    {"&Reload Vimrc", "source ~/.config/nvim/init.vim"}
+  })
+
+  -- Edit
+  vim.fn["quickui#menu#install"]("&Edit", {
+    {"&Copy", "Startify"},
+    {"&Paste", "Startify"},
+    {"--", ""},
+    {"Open &Finder", "!open ."},
+    {"--", ""},
+    {"&Reload Vimrc", "source ~/.config/nvim/init.vim"}
+  })
+
+  -- View
+  vim.fn["quickui#menu#install"]("&Edit", {
+    {"&Explorer", "Startify", "侧边栏"},
+    -- View
+    {"&Tagbar", "Vista!!"}
+  })
+
+  -- Navigate
+  vim.fn["quickui#menu#install"]("&Code", {
+    {"&Copyright", "Startify", "侧边栏"},
+    -- View
+    {"&Tagbar", "Startify"}
+  })
+  -- Git
+  vim.fn["quickui#menu#install"]("&Git", {
+    {"&Copyright", "Startify", "侧边栏"},
+    -- View
+    {"&Tagbar", "Startify"}
+  })
+  -- Option
+  vim.fn["quickui#menu#install"]("&Option", {
+    {"Set &Spell %{&spell? \"Off\":\"On\"}", "set spell!"},
+    {"Set &Cursor Line %{&cursorline? \"Off\":\"On\"}", "set cursorline!"},
+    {"Set &Paste %{&paste? \"Off\":\"On\"}", "set paste!"}
+  })
+  -- Help
+  vim.fn["quickui#menu#install"]("H&elp", {
+    {"&Cheatsheet", "help index", ""},
+    {"T&ips", "help tips", ""},
+    {"--", ""},
+    {"&Tutorial", "help tutor", ""},
+    {"&Quick Reference", "help quickref", ""},
+    {"&Summary", "help summary", ""}
+  })
+end
+
+init_quickui()
+
+vim.g.context_menu_k = {
+  {"&Peek Definition\tAlt+;", "call quickui#tools#preview_tag(\"\")"},
+  {"S&earch in Project\t\\cx", "Clap grep ++query=<cword>"},
+  {"--"},
+  {"Find &Definition\t\\cg", "call MenuHelp_Fscope(\"g\")", "GNU Global search g"},
+  {"Find &Symbol\t\\cs", "call MenuHelp_Fscope(\"s\")", "GNU Gloal search s"},
+  {"Find &Called by\t\\cd", "call MenuHelp_Fscope(\"d\")", "GNU Global search d"},
+  {"Find C&alling\t\\cc", "call MenuHelp_Fscope(\"c\")", "GNU Global search c"},
+  {"Find &From Ctags\t\\cz", "call MenuHelp_Fscope(\"z\")", "GNU Global search c"},
+  {"--"},
+  {"Goto D&efinition\t(YCM)", "YcmCompleter GoToDefinitionElseDeclaration"},
+  {"Goto &References\t(YCM)", "YcmCompleter GoToReferences"},
+  {"Get D&oc\t(YCM)", "YcmCompleter GetDoc"},
+  {"Get &Type\t(YCM)", "YcmCompleter GetTypeImprecise"},
+  {"--"},
+  {"Dash &Help", "call asclib#utils#dash_ft(&ft, expand(\"<cword>\"))"},
+  {"Cpp&man", "exec \"Cppman \" . expand(\"<cword>\")", "", "c,cpp"},
+  {"P&ython Doc", "call quickui#tools#python_help(\"\")", "python"}
+}
+
+vim.g.which_key_use_floating_win = 1
+
+local which_key_map = {
+  o = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
+  b = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
+  l = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
+  r = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}}
+}
+
+vim.g.which_key_map = which_key_map
