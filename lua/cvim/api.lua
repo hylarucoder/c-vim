@@ -1,26 +1,40 @@
 local vim = vim
 
 local api = {}
+local menu = {}
+api.menu = menu
 
-local motion = {}
-
-api.motion = motion
-
-function motion.j()
+function menu.File()
 
 end
 
-function motion.k()
+local file = {}
+api.file = file
+
+local buffer = {}
+api.buffer = buffer
+
+local code = {}
+
+local view = {}
+
+local git = {}
+
+local search = {}
+
+function search.files()
 
 end
 
-function motion.f()
+function search.git_files()
 
 end
 
-function motion.F()
+local go = {}
 
-end
+local option = {}
+
+local help = {}
 
 function api.init()
 end

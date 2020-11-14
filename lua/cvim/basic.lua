@@ -98,5 +98,7 @@ local bw_local = {
 
 for name, value in pairs(bw_local) do vim.o[name] = value end
 
-vim.g.mapleader = "<Space>"
-vim.g.maplocalleader = ","
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = "menuone,noinsert,noselect"
+-- Avoid showing message extra message when using completion
+vim.o.shortmess = "c"
