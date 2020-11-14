@@ -52,10 +52,9 @@ plug("~/.vim/bundles", {
   "nvim-lua/diagnostic-nvim",
 
   -- >>>> 移动增强 <<<< --
+  -- s for /?, one char for FfTt
   "justinmk/vim-sneak",
   "rhysd/accelerated-jk",
-  -- 全文快速移动，<leader><leader>f{char} 即可触发
-  "easymotion/vim-easymotion",
 
   -- >>>> 文本技 <<<< --
   -- Diff 增强，支持 histogram / patience 等更科学的 diff 算法
