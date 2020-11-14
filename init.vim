@@ -9,11 +9,6 @@ else
 	let s:loaded = 1
 endif
 
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-
-" Avoid showing message extra message when using completion
-set shortmess+=c
 
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ","
@@ -30,6 +25,29 @@ map T <Plug>Sneak_T
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+
+let g:completion_chain_complete_list = {
+   \   'default' : {
+   \     'default': [
+   \       {'complete_items': ['lsp', 'snippet', 'buffers']},
+   \       {'mode': '<c-p>'},
+   \       {'mode': '<c-n>'}],
+   \     'comment': [
+   \       {'complete_items': ['buffers']}],
+   \     'string': [
+   \       {'complete_items': ['path']}],
+   \   }
+   \ }
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+
+autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
 
 " Statusline
 function! LspStatus() abort
@@ -45,8 +63,6 @@ endfunction
 noremap <leader><leader> :call quickui#menu#open()<cr>
 autocmd FileType lua,vim nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_file, {})<cr>
 autocmd FileType LuaTree nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_lua_explorer, {})<cr>
-
-
 
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>

@@ -3,10 +3,6 @@ local lsp_status = require("lsp-status")
 local lsp = require("nvim_lsp")
 local completion = require("completion")
 
-vim.g.completion_chain_complete_list = {
-  default = {{complete_items = {"lsp", "snippet", "tabnine"}}, {mode = "<c-p>"}, {mode = "<c-n>"}},
-  lua = {{complete_items = {"lsp", "snippet", "tabnine"}}, {mode = "<c-p>"}, {mode = "<c-n>"}}
-}
 vim.g.completion_enable_snippet = "UltiSnips"
 
 lsp_status.register_progress()
@@ -21,7 +17,6 @@ local function capabilities_vim(client)
 end
 
 lsp.vimls.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
-lsp.sumneko_lua.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
 lsp.pyls.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
 lsp.gopls.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
 lsp.jsonls.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
@@ -29,3 +24,22 @@ lsp.vuels.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
 lsp.sqlls.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
 lsp.rust_analyzer.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
 lsp.dockerls.setup {on_attach = on_attach_vim, capabilities = capabilities_vim}
+
+require("nvim_lsp").sumneko_lua.setup()
+
+local function custom_nvim_lspconfig_attach(client)
+end
+
+require("nlua.lsp.nvim").setup(require("nvim_lsp"), {
+  on_attach = custom_nvim_lspconfig_attach,
+
+  -- Include globals you want to tell the LSP are real :)
+  globals = {
+    -- Colorbuddy
+    "Color",
+    "c",
+    "Group",
+    "g",
+    "s"
+  }
+})

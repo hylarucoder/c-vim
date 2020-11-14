@@ -49,7 +49,6 @@ plug("~/.vim/bundles", {
   "Raimondi/delimitMate",
   -- language server
   "neovim/nvim-lspconfig",
-  "nvim-lua/diagnostic-nvim",
   "nvim-lua/lsp-status.nvim",
 
   -- >>>> 移动增强 <<<< --
@@ -81,7 +80,8 @@ plug("~/.vim/bundles", {
 
   -- >>>> Syntax Highlight <<<< --
   "luochen1990/rainbow",
-  "sheerun/vim-polyglot",
+  "nvim-treesitter/nvim-treesitter",
+
   "norcalli/nvim-colorizer.lua",
   -- >>>> Linter <<<< --
   "w0rp/ale",
