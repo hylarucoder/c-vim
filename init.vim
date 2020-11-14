@@ -9,10 +9,16 @@ else
 	let s:loaded = 1
 endif
 
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ","
 
-lua require("lua.cvim").bootstrap()
+lua require("cvim").bootstrap()
 " 似乎放在 lua 里不生效
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
@@ -24,11 +30,23 @@ map T <Plug>Sneak_T
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+
+" Statusline
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
+endfunction
+
 " autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()
-autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
 
 noremap <leader><leader> :call quickui#menu#open()<cr>
-nnoremap <silent>K :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
+autocmd FileType lua,vim nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_file, {})<cr>
+autocmd FileType LuaTree nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_lua_explorer, {})<cr>
+
+
 
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
@@ -53,39 +71,6 @@ autocmd BufReadPost *
 	\	 exe "normal! g`\"" |
 	\ endif
 
-"----------------------------------------------------------------------
-" 文件类型微调
-"----------------------------------------------------------------------
-augroup InitFileTypesGroup
-
-	" 清除同组的历史 autocommand
-	au!
-
-	" C/C++ 文件使用 // 作为注释
-	au FileType c,cpp setlocal commentstring=//\ %s
-
-	" markdown 允许自动换行
-	au FileType markdown setlocal wrap
-
-	" lisp 进行微调
-	au FileType lisp setlocal ts=8 sts=2 sw=2 et
-
-	" scala 微调
-	au FileType scala setlocal sts=4 sw=4 noet
-
-	" haskell 进行微调
-	au FileType haskell setlocal et
-
-	" quickfix 隐藏行号
-	au FileType qf setlocal nonumber
-
-augroup END
-
-
-"----------------------------------------------------------------------
-" 颜色主题：色彩文件位于 colors 目录中
-"----------------------------------------------------------------------
-
 " 设置黑色背景
 set background=dark
 
@@ -97,10 +82,6 @@ color neosolarized
 
 
 autocmd BufWrite *.lua call LuaFormat()
-
-"----------------------------------------------------------------------
-" 更改样式
-"----------------------------------------------------------------------
 
 " 更清晰的错误标注：默认一片红色背景，语法高亮都被搞没了
 " 只显示红色或者蓝色下划线或者波浪线
@@ -127,19 +108,6 @@ hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
 
 
 "----------------------------------------------------------------------
-" 终端设置，隐藏行号和侧边栏
-"----------------------------------------------------------------------
-if has('terminal') && exists(':terminal') == 2
-	if exists('##TerminalOpen')
-		augroup VimUnixTerminalGroup
-			au! 
-			au TerminalOpen * setlocal nonumber signcolumn=no
-		augroup END
-	endif
-endif
-
-
-"----------------------------------------------------------------------
 " INSERT 模式下使用 EMACS 键位
 "----------------------------------------------------------------------
 inoremap <c-a> <home>
@@ -150,8 +118,6 @@ inoremap <c-_> <c-k>
 
 "----------------------------------------------------------------------
 " 设置 CTRL+HJKL 移动光标（INSERT 模式偶尔需要移动的方便些）
-" 使用 SecureCRT/XShell 等终端软件需设置：Backspace sends delete
-" 详见：http://www.skywind.me/blog/archives/2021
 "----------------------------------------------------------------------
 noremap <C-h> <left>
 noremap <C-j> <down>
