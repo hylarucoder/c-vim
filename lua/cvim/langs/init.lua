@@ -9,6 +9,11 @@ vim.g.completion_chain_complete_list = {
 
 vim.g.completion_enable_snippet = "UltiSnips"
 
+vim.g.UltiSnipsExpandTrigger = "<tab>"
+vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
+vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
+vim.g.UltiSnipsEditSplit = "vertical"
+
 require("cvim.langs.docker")
 require("cvim.langs.golang")
 require("cvim.langs.javascript")
