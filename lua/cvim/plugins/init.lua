@@ -232,20 +232,17 @@ end
 init_quickui()
 
 vim.g.quickui_color_scheme = "solarized"
+
 vim.g.context_menu_file = {
-  {"&Peek Definition\tAlt+;", "call quickui#tools#preview_tag(\"\")"},
-  {"S&earch in Project\t\\cx", "Clap grep ++query=<cword>"},
+  {"S&earch in Project", ":lua require'telescope.builtin'.grep_string{search = \"<cword>\"}"},
   {"--"},
-  {"Find &Definition\t\\cg", "call MenuHelp_Fscope(\"g\")", "GNU Global search g"},
-  {"Find &Symbol\t\\cs", "call MenuHelp_Fscope(\"s\")", "GNU Gloal search s"},
-  {"Find &Called by\t\\cd", "call MenuHelp_Fscope(\"d\")", "GNU Global search d"},
-  {"Find C&alling\t\\cc", "call MenuHelp_Fscope(\"c\")", "GNU Global search c"},
-  {"Find &From Ctags\t\\cz", "call MenuHelp_Fscope(\"z\")", "GNU Global search c"},
+  {"Find &Definition", "lua vim.lsp.buf.declaration()<CR>"},
+  {"Find &References", "lua vim.lsp.buf.references()<CR>"},
+  {"Find &Symbol", "lua vim.lsp.buf.document_symbol()<CR>"},
   {"--"},
-  {"Goto D&efinition\t(YCM)", "YcmCompleter GoToDefinitionElseDeclaration"},
-  {"Goto &References\t(YCM)", "YcmCompleter GoToReferences"},
-  {"Get D&oc\t(YCM)", "YcmCompleter GetDoc"},
-  {"Get &Type\t(YCM)", "YcmCompleter GetTypeImprecise"},
+  {"Format", "lua vim.lsp.buf.formatting()<CR>"},
+  {"Rename", "lua vim.lsp.buf.rename()<CR>"},
+  {"Action", "lua vim.lsp.buf.code_action()<CR>"},
   {"--"},
   {"Dash &Help", "call asclib#utils#dash_ft(&ft, expand(\"<cword>\"))"},
   {"Cpp&man", "exec \"Cppman \" . expand(\"<cword>\")", "", "c,cpp"},
