@@ -24,7 +24,6 @@ plug("~/.vim/bundles", {
   "mhinz/vim-startify",
   -- 自定义菜单/命令
   "skywind3000/vim-quickui",
-  "liuchengxu/vim-which-key",
 
   -- lua utils
   "nvim-lua/popup.nvim",
@@ -45,6 +44,7 @@ plug("~/.vim/bundles", {
   "asins/vim-dict",
   -- 配对括号和引号自动补全
   "Raimondi/delimitMate",
+  "mg979/vim-visual-multi",
   -- language server
   "neovim/nvim-lspconfig",
   "nvim-lua/lsp-status.nvim",
@@ -232,23 +232,19 @@ end
 init_quickui()
 
 vim.g.quickui_color_scheme = "solarized"
+
 vim.g.context_menu_file = {
-  {"&Peek Definition\tAlt+;", "call quickui#tools#preview_tag(\"\")"},
-  {"S&earch in Project\t\\cx", "Clap grep ++query=<cword>"},
+  {"S&earch in Project", ":lua require'telescope.builtin'.grep_string{search = \"<cword>\"}"},
   {"--"},
-  {"Find &Definition\t\\cg", "call MenuHelp_Fscope(\"g\")", "GNU Global search g"},
-  {"Find &Symbol\t\\cs", "call MenuHelp_Fscope(\"s\")", "GNU Gloal search s"},
-  {"Find &Called by\t\\cd", "call MenuHelp_Fscope(\"d\")", "GNU Global search d"},
-  {"Find C&alling\t\\cc", "call MenuHelp_Fscope(\"c\")", "GNU Global search c"},
-  {"Find &From Ctags\t\\cz", "call MenuHelp_Fscope(\"z\")", "GNU Global search c"},
+  {"Find &Definition", ":lua vim.lsp.buf.declaration()<CR>"},
+  {"Find &References", ":lua vim.lsp.buf.references()<CR>"},
+  {"Find &Symbol", ":lua vim.lsp.buf.document_symbol()<CR>"},
   {"--"},
-  {"Goto D&efinition\t(YCM)", "YcmCompleter GoToDefinitionElseDeclaration"},
-  {"Goto &References\t(YCM)", "YcmCompleter GoToReferences"},
-  {"Get D&oc\t(YCM)", "YcmCompleter GetDoc"},
-  {"Get &Type\t(YCM)", "YcmCompleter GetTypeImprecise"},
+  {"Format", ":lua vim.lsp.buf.formatting()<CR>"},
+  {"Rename", ":lua vim.lsp.buf.rename()<CR>"},
+  {"Action", ":lua vim.lsp.buf.code_action()<CR>"},
   {"--"},
-  {"Dash &Help", "call asclib#utils#dash_ft(&ft, expand(\"<cword>\"))"},
-  {"Cpp&man", "exec \"Cppman \" . expand(\"<cword>\")", "", "c,cpp"},
+  {"Dash &Help", ":open! dash-plugin://keys=python&query=expand(\"<cword>\")"},
   {"P&ython Doc", "call quickui#tools#python_help(\"\")", "python"}
 }
 
@@ -261,14 +257,3 @@ vim.g.context_menu_lua_explorer = {
   {"Refresh", "R"},
   {"S&earch in Project\t\\cx", "Clap grep ++query=<cword>"}
 }
-
-vim.g.which_key_use_floating_win = 1
-
-local which_key_map = {
-  o = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  b = {name = "+buffer", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  l = {name = "+language", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  r = {name = "+rename", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}}
-}
-
-vim.g.which_key_map = which_key_map

@@ -20,48 +20,15 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
-
-let g:completion_enable_snippet = "UltiSnips"
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" set completeopt-=preview
-set completeopt=menuone,noinsert,noselect
-
-" use omni completion provided by lsp
-" autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-set omnifunc=v:lua.vim.lsp.omnifunc
-" Set completeopt to have a better completion experience
-
-" Avoid showing message extra message when using completion
-set shortmess+=c
-
-
 autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
-autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()
 
-" Statusline
-" function! LspStatus() abort
-"   if luaeval('#vim.lsp.buf_get_clients() > 0')
-"     return luaeval("require('lsp-status').status()")
-"   endif
-" 
-"   return ''
-" endfunction
-
-
-noremap <leader><leader> :call quickui#menu#open()<cr>
+noremap <space> :call quickui#menu#open()<cr>
 autocmd FileType lua,vim nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_file, {})<cr>
 autocmd FileType LuaTree nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_lua_explorer, {})<cr>
-
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-
-highlight WhichKeyFloating ctermbg=232
-highlight WhichKeyDesc      ctermbg=111
-
 
 set t_8f=^[[38;2;%lu;%lu;%lum
 set t_8b=^[[48;2;%lu;%lu;%lum
@@ -165,5 +132,3 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-

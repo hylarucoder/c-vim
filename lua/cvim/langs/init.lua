@@ -7,6 +7,8 @@ vim.g.completion_chain_complete_list = {
   }
 }
 
+vim.g.completion_enable_snippet = "UltiSnips"
+
 require("cvim.langs.docker")
 require("cvim.langs.golang")
 require("cvim.langs.javascript")

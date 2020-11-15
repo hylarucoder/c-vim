@@ -97,3 +97,7 @@ local bw_local = {
 }
 
 for name, value in pairs(bw_local) do vim.o[name] = value end
+
+vim.o.completeopt = "menuone,noinsert,noselect"
+vim.o.omnifunc = "v:lua.vim.lsp.omnifunc"
+vim.o.shortmess = "c"
