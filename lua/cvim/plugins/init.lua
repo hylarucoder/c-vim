@@ -24,7 +24,6 @@ plug("~/.vim/bundles", {
   "mhinz/vim-startify",
   -- 自定义菜单/命令
   "skywind3000/vim-quickui",
-  "liuchengxu/vim-which-key",
 
   -- lua utils
   "nvim-lua/popup.nvim",
@@ -45,6 +44,7 @@ plug("~/.vim/bundles", {
   "asins/vim-dict",
   -- 配对括号和引号自动补全
   "Raimondi/delimitMate",
+  "mg979/vim-visual-multi",
   -- language server
   "neovim/nvim-lspconfig",
   "nvim-lua/lsp-status.nvim",
@@ -236,16 +236,15 @@ vim.g.quickui_color_scheme = "solarized"
 vim.g.context_menu_file = {
   {"S&earch in Project", ":lua require'telescope.builtin'.grep_string{search = \"<cword>\"}"},
   {"--"},
-  {"Find &Definition", "lua vim.lsp.buf.declaration()<CR>"},
-  {"Find &References", "lua vim.lsp.buf.references()<CR>"},
-  {"Find &Symbol", "lua vim.lsp.buf.document_symbol()<CR>"},
+  {"Find &Definition", ":lua vim.lsp.buf.declaration()<CR>"},
+  {"Find &References", ":lua vim.lsp.buf.references()<CR>"},
+  {"Find &Symbol", ":lua vim.lsp.buf.document_symbol()<CR>"},
   {"--"},
-  {"Format", "lua vim.lsp.buf.formatting()<CR>"},
-  {"Rename", "lua vim.lsp.buf.rename()<CR>"},
-  {"Action", "lua vim.lsp.buf.code_action()<CR>"},
+  {"Format", ":lua vim.lsp.buf.formatting()<CR>"},
+  {"Rename", ":lua vim.lsp.buf.rename()<CR>"},
+  {"Action", ":lua vim.lsp.buf.code_action()<CR>"},
   {"--"},
-  {"Dash &Help", "call asclib#utils#dash_ft(&ft, expand(\"<cword>\"))"},
-  {"Cpp&man", "exec \"Cppman \" . expand(\"<cword>\")", "", "c,cpp"},
+  {"Dash &Help", ":open! dash-plugin://keys=python&query=expand(\"<cword>\")"},
   {"P&ython Doc", "call quickui#tools#python_help(\"\")", "python"}
 }
 
@@ -258,14 +257,3 @@ vim.g.context_menu_lua_explorer = {
   {"Refresh", "R"},
   {"S&earch in Project\t\\cx", "Clap grep ++query=<cword>"}
 }
-
-vim.g.which_key_use_floating_win = 1
-
-local which_key_map = {
-  o = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  b = {name = "+buffer", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  l = {name = "+language", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  r = {name = "+rename", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}}
-}
-
-vim.g.which_key_map = which_key_map
