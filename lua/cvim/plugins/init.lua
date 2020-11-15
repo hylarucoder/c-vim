@@ -49,7 +49,7 @@ plug("~/.vim/bundles", {
   "Raimondi/delimitMate",
   -- language server
   "neovim/nvim-lspconfig",
-  "nvim-lua/diagnostic-nvim",
+  "nvim-lua/lsp-status.nvim",
 
   -- >>>> 移动增强 <<<< --
   -- s for /?, one char for FfTt
@@ -80,7 +80,8 @@ plug("~/.vim/bundles", {
 
   -- >>>> Syntax Highlight <<<< --
   "luochen1990/rainbow",
-  "sheerun/vim-polyglot",
+  "nvim-treesitter/nvim-treesitter",
+
   "norcalli/nvim-colorizer.lua",
   -- >>>> Linter <<<< --
   "w0rp/ale",
@@ -141,11 +142,6 @@ vim.g.startify_lists = {
 }
 
 vim.g.startify_commands = {{up = {"Update Plugins", ":PlugUpdate"}}, {ug = {"Upgrade Plugin Manager", ":PlugUpgrade"}}}
-
-vim.g.completion_chain_complete_list = {
-  default = {{complete_items = {"lsp", "snippet", "tabnine"}}, {mode = "<c-p>"}, {mode = "<c-n>"}}
-}
-vim.g.completion_enable_snippet = "UltiSnips"
 
 vim.g.ale_completion_delay = 500
 vim.g.ale_echo_delay = 20
@@ -240,7 +236,8 @@ end
 
 init_quickui()
 
-vim.g.context_menu_k = {
+vim.g.quickui_color_scheme = "solarized"
+vim.g.context_menu_file = {
   {"&Peek Definition\tAlt+;", "call quickui#tools#preview_tag(\"\")"},
   {"S&earch in Project\t\\cx", "Clap grep ++query=<cword>"},
   {"--"},
@@ -260,13 +257,23 @@ vim.g.context_menu_k = {
   {"P&ython Doc", "call quickui#tools#python_help(\"\")", "python"}
 }
 
+vim.g.context_menu_lua_explorer = {
+  {"Cre&ate", "a"},
+  {"&Edit", "<C-v>"},
+  {"&Tab", "<C-v>"},
+  {"Toggle ignored", "I"},
+  {"Toggle dotfiles", "H"},
+  {"Refresh", "R"},
+  {"S&earch in Project\t\\cx", "Clap grep ++query=<cword>"}
+}
+
 vim.g.which_key_use_floating_win = 1
 
 local which_key_map = {
   o = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  b = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  l = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
-  r = {name = "+open", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}}
+  b = {name = "+buffer", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
+  l = {name = "+language", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}},
+  r = {name = "+rename", ["1"] = {"b1", "buffer 1"}, ["2"] = {"b2", "buffer 1"}}
 }
 
 vim.g.which_key_map = which_key_map
