@@ -17,7 +17,6 @@ end
 
 -- Example usageplug {'julia', { g = {default_julia_version = '1.1'} }}
 plug("~/.vim/bundles", {
-  "svermeulen/vimpeccable",
   -- >>>> Appearance <<<< --
   -- icon font
   "kyazdani42/nvim-web-devicons",
@@ -32,7 +31,6 @@ plug("~/.vim/bundles", {
   "nvim-lua/plenary.nvim",
   -- fuzzfinder
   "nvim-lua/telescope.nvim",
-  {"liuchengxu/vim-clap", ["do"] = ":Clap install-binary!"},
   -- file explorer
   "kyazdani42/nvim-tree.lua",
   -- tagbar
@@ -116,9 +114,6 @@ vim.g.signify_vcs_cmds = {git = "git diff --no-color --diff-algorithm=histogram 
 vim.g.rainbow_active = 1 -- "set to 0 if you want to enable it later via :RainbowToggle
 
 vim.g["vista#renderer#enable_icon"] = 1
-
-vim.g.clap_layout = {relative = "editor"}
-vim.g.clap_theme = "solarized_dark"
 
 vim.g.black_virtualenv = "~/.config/black"
 

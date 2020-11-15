@@ -6,5 +6,6 @@ function cvim.bootstrap()
   require("cvim.plugins")
   require("cvim.keymaps")
   require("cvim.layers")
+  require("cvim.langs")
 end
 return cvim
