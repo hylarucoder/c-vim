@@ -4,9 +4,9 @@
 
 " 防止重复加载
 if get(s:, 'loaded', 0) != 0
-	finish
+  finish
 else
-	let s:loaded = 1
+  let s:loaded = 1
 endif
 
 
@@ -21,21 +21,23 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 
+let g:completion_enable_snippet = "UltiSnips"
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+
+set omnifunc=v:lua.vim.lsp.omnifunc
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-
 let g:completion_chain_complete_list = {
    \   'default' : {
    \     'default': [
-   \       {'complete_items': ['lsp', 'snippet', 'buffers']},
+   \       {'complete_items': ['lsp', 'snippet', 'tabnine']},
    \       {'mode': '<c-p>'},
    \       {'mode': '<c-n>'}],
    \     'comment': [
@@ -45,20 +47,18 @@ let g:completion_chain_complete_list = {
    \   }
    \ }
 
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
-
 autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
+autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()
 
 " Statusline
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
+" function! LspStatus() abort
+"   if luaeval('#vim.lsp.buf_get_clients() > 0')
+"     return luaeval("require('lsp-status').status()")
+"   endif
+" 
+"   return ''
+" endfunction
 
-  return ''
-endfunction
-
-" autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()
 
 noremap <leader><leader> :call quickui#menu#open()<cr>
 autocmd FileType lua,vim nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_file, {})<cr>
@@ -169,8 +169,9 @@ noremap <silent> <leader>bp :bp<cr>
 "----------------------------------------------------------------------
 " 窗口切换：CTRL+hjkl
 "----------------------------------------------------------------------
-
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+
