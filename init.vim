@@ -26,26 +26,18 @@ let g:completion_enable_snippet = "UltiSnips"
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" set completeopt-=preview
+set completeopt=menuone,noinsert,noselect
+
+" use omni completion provided by lsp
+" autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 set omnifunc=v:lua.vim.lsp.omnifunc
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-let g:completion_chain_complete_list = {
-   \   'default' : {
-   \     'default': [
-   \       {'complete_items': ['lsp', 'snippet', 'tabnine']},
-   \       {'mode': '<c-p>'},
-   \       {'mode': '<c-n>'}],
-   \     'comment': [
-   \       {'complete_items': ['buffers']}],
-   \     'string': [
-   \       {'complete_items': ['path']}],
-   \   }
-   \ }
 
 autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
 autocmd BufEnter *.c,*.h,*.cpp,*.md,*.go,*.tsx,*.ts,*.js,*.jsx,*.lua,*.sh,*.py,*.toml,*.html,*.css,*.scss,*.less,*.json,*.yml lua require'completion'.on_attach()

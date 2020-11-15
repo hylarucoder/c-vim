@@ -1,0 +1,11 @@
+snippet init "init module" a
+
+local ${1:module} = {}
+
+function $1.func()
+	$0
+end
+
+return $1
+
+endsnippet
