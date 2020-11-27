@@ -79,6 +79,7 @@ function manager.init()
     "tpope/vim-abolish",
 
     -- >>>> Syntax Highlight <<<< --
+    "sheerun/vim-polyglot",
     "luochen1990/rainbow",
     "nvim-treesitter/nvim-treesitter",
 

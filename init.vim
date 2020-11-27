@@ -9,6 +9,22 @@ else
   let s:loaded = 1
 endif
 
+augroup filetypedetect
+  au BufNewFile,BufRead *.sh              setf sh.cpl
+  au BufNewFile,BufRead *.yml             setf yaml.cpl
+  au BufNewFile,BufRead *.yaml            setf yaml.cpl
+  au BufNewFile,BufRead *.toml            setf toml.cpl
+  au BufNewFile,BufRead *.rc              setf javascript.cpl
+
+  au BufNewFile,BufRead *.ts              setf typescript,cpl
+  au BufNewFile,BufRead *.json		        setf json.cpl
+
+  au BufNewFile,BufRead *.lua				      setf lua.cpl
+  au BufNewFile,BufRead *.md				      setf markdown.cpl
+  au BufNewFile,BufRead	*.wiki			      setf vimwiki.cpl
+  au BufNewFile,BufRead supervisor*.conf  setf dosini.cpl
+augroup END
+
 
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ","
@@ -27,9 +43,10 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
 
 noremap <space> :call quickui#menu#open()<cr>
-autocmd FileType lua,vim nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_file, {})<cr>
+autocmd FileType cpl nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_file, {})<cr>
 autocmd FileType LuaTree nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_lua_explorer, {})<cr>
 
+" tmux hack
 set t_8f=^[[38;2;%lu;%lu;%lum
 set t_8b=^[[48;2;%lu;%lu;%lum
 
@@ -132,3 +149,5 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+
