@@ -1,4 +1,5 @@
 local vim = vim;
+local quickui = require("cvim.plugins.quickui")
 
 local nmap = function(key, value)
   vim.fn.nvim_set_keymap("n", key, value, {noremap = true, silent = true});
@@ -15,6 +16,11 @@ vim.api.nvim_set_keymap("n", "k", "<Plug>(accelerated_jk_gk)", {})
 
 nmap("<c-n>", ":LuaTreeToggle<cr>")
 map("<c-p>", ":lua require'telescope.builtin'.find_files{}<cr>")
+
+-- quick ui
+quickui.init_menu()
+nmap("<space>", ":call quickui#menu#open()<cr>")
+
 -- " -- Fuzzy find over git files in your directory
 -- " require('telescope.builtin').git_files()
 
