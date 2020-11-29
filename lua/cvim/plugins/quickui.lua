@@ -1,6 +1,9 @@
-vim.g.quickui_show_tip = 1
+local quickui = {}
 
-local function init_quickui()
+vim.g.quickui_show_tip = 1
+vim.g.quickui_color_scheme = "solarized"
+
+function quickui.init_menu()
   vim.fn["quickui#menu#reset"]()
 
   -- File
@@ -69,30 +72,24 @@ local function init_quickui()
   })
 end
 
-init_quickui()
+function quickui.call_context_menu()
+  vim.g.context_menu_file = {
+    {"S&earch in Project", ":lua require'telescope.builtin'.grep_string{search = \"<cword>\"}"},
+    {"--"},
+    {"Find &Definition", ":lua vim.lsp.buf.declaration()<CR>"},
+    {"Find &References", ":lua vim.lsp.buf.references()<CR>"},
+    {"Find &Symbol", ":lua vim.lsp.buf.document_symbol()<CR>"},
+    {"--"},
+    {"Format", ":lua vim.lsp.buf.formatting()<CR>"},
+    {"Rename", ":lua vim.lsp.buf.rename()<CR>"},
+    {"Action", ":lua vim.lsp.buf.code_action()<CR>"},
+    {"--"},
+    {"Dash &Help", ":open! dash-plugin://keys=python&query=expand(\"<cword>\")"},
+    {"P&ython Doc", "call quickui#tools#python_help(\"\")", "python"}
+  }
+  vim.api.nvim_exec([[
+call quickui#tools#clever_context('k', g:context_menu_file, {})
+]], true)
+end
 
-vim.g.quickui_color_scheme = "solarized"
-
-vim.g.context_menu_file = {
-  {"S&earch in Project", ":lua require'telescope.builtin'.grep_string{search = \"<cword>\"}"},
-  {"--"},
-  {"Find &Definition", ":lua vim.lsp.buf.declaration()<CR>"},
-  {"Find &References", ":lua vim.lsp.buf.references()<CR>"},
-  {"Find &Symbol", ":lua vim.lsp.buf.document_symbol()<CR>"},
-  {"--"},
-  {"Format", ":lua vim.lsp.buf.formatting()<CR>"},
-  {"Rename", ":lua vim.lsp.buf.rename()<CR>"},
-  {"Action", ":lua vim.lsp.buf.code_action()<CR>"},
-  {"--"},
-  {"Dash &Help", ":open! dash-plugin://keys=python&query=expand(\"<cword>\")"},
-  {"P&ython Doc", "call quickui#tools#python_help(\"\")", "python"}
-}
-
-vim.g.context_menu_lua_explorer = {
-  {"Cre&ate", "a"},
-  {"&Edit", "<C-v>"},
-  {"&Tab", "<C-v>"},
-  {"Toggle ignored", "I"},
-  {"Toggle dotfiles", "H"},
-  {"Refresh", "R"}
-}
+return quickui

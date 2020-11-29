@@ -9,7 +9,18 @@ else
   let s:loaded = 1
 endif
 
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:ruby_host_prog = exepath('neovim-ruby-host')
+let g:node_host_prog = '/usr/local/lib/node_modules/neovim/bin/cli.js'
+
 augroup filetypedetect
+  au BufNewFile,BufRead *.zshrc,*.zsh,*.zsh-theme,*.functions,*.aliases set filetype=sh
+  au BufRead,BufNewFile *.svg             setf svg
+  au BufRead,BufNewFile *.haml            setf haml
+  au BufRead,BufNewFile *.txt		          setf text
+  au BufRead,BufNewFile *.vim             setf vim,cpl
+
   au BufNewFile,BufRead *.sh              setf sh.cpl
   au BufNewFile,BufRead *.yml             setf yaml.cpl
   au BufNewFile,BufRead *.yaml            setf yaml.cpl
@@ -42,9 +53,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
 
-noremap <space> :call quickui#menu#open()<cr>
-autocmd FileType cpl nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_file, {})<cr>
-autocmd FileType LuaTree nnoremap <buffer> <silent>K :call quickui#tools#clever_context('k', g:context_menu_lua_explorer, {})<cr>
+autocmd FileType vim,py,rb,lua,md nnoremap <buffer> <silent>K :lua require('cvim.plugins.quickui').call_context_menu()<cr>
 
 " tmux hack
 set t_8f=^[[38;2;%lu;%lu;%lum

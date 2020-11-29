@@ -30,6 +30,12 @@ ln -sfv `pwd`  ~/.config/nvim
 - skywind3000/vim
 - rafi/vim-config
 
+## Debug
+
+```
+export NVIM_PYTHON_LOG_FILE=${HOME}/.nvim-python.log
+```
+
 ---
 ChangeLog:
  - **2017-08-10** 修改 YCM 至 NeoComplete
