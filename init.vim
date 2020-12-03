@@ -16,7 +16,7 @@ let g:node_host_prog = '/usr/local/lib/node_modules/neovim/bin/cli.js'
 
 augroup filetypedetect
   au BufNewFile,BufRead *.zshrc,*.zsh,*.zsh-theme,*.functions,*.aliases set filetype=sh
-  au BufRead,BufNewFile *.py              setf py
+  au BufRead,BufNewFile *.py              setf python
   au BufRead,BufNewFile *.svg             setf svg
   au BufRead,BufNewFile *.haml            setf haml
   au BufRead,BufNewFile *.txt		          setf text
