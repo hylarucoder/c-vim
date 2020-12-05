@@ -20,10 +20,10 @@ class Limit:
     @pynvim.autocmd("BufEnter", pattern="*.py", eval='expand("<afile>")', sync=True)
     def autocmd_handler(self, filename):
         self._increment_calls()
-        self.vim.current.line = "Autocmd: Called %s times, file: %s" % (
-            self.calls,
-            filename,
-        )
+        # self.vim.current.line = "Autocmd: Called %s times, file: %s" % (
+        #     self.calls,
+        #     filename,
+        # )
 
     @pynvim.function("Func")
     def function_handler(self, args):

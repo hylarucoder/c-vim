@@ -16,24 +16,25 @@ let g:node_host_prog = '/usr/local/lib/node_modules/neovim/bin/cli.js'
 
 augroup filetypedetect
   au BufNewFile,BufRead *.zshrc,*.zsh,*.zsh-theme,*.functions,*.aliases set filetype=sh
+  au BufRead,BufNewFile *.py              setf python
   au BufRead,BufNewFile *.svg             setf svg
   au BufRead,BufNewFile *.haml            setf haml
   au BufRead,BufNewFile *.txt		          setf text
-  au BufRead,BufNewFile *.vim             setf vim,cpl
+  au BufRead,BufNewFile *.vim             setf vim
 
-  au BufNewFile,BufRead *.sh              setf sh.cpl
-  au BufNewFile,BufRead *.yml             setf yaml.cpl
-  au BufNewFile,BufRead *.yaml            setf yaml.cpl
-  au BufNewFile,BufRead *.toml            setf toml.cpl
-  au BufNewFile,BufRead *.rc              setf javascript.cpl
+  au BufNewFile,BufRead *.sh              setf sh
+  au BufNewFile,BufRead *.yml             setf yaml
+  au BufNewFile,BufRead *.yaml            setf yaml
+  au BufNewFile,BufRead *.toml            setf toml
+  au BufNewFile,BufRead *.rc              setf javascript
 
-  au BufNewFile,BufRead *.ts              setf typescript,cpl
-  au BufNewFile,BufRead *.json		        setf json.cpl
+  au BufNewFile,BufRead *.ts              setf typescript
+  au BufNewFile,BufRead *.json		        setf json
 
-  au BufNewFile,BufRead *.lua				      setf lua.cpl
-  au BufNewFile,BufRead *.md				      setf markdown.cpl
-  au BufNewFile,BufRead	*.wiki			      setf vimwiki.cpl
-  au BufNewFile,BufRead supervisor*.conf  setf dosini.cpl
+  au BufNewFile,BufRead *.lua				      setf lua
+  au BufNewFile,BufRead *.md				      setf markdown
+  au BufNewFile,BufRead	*.wiki			      setf vimwiki
+  au BufNewFile,BufRead supervisor*.conf  setf dosini
 augroup END
 
 
