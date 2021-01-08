@@ -82,6 +82,7 @@ function manager.init()
     "sheerun/vim-polyglot",
     "luochen1990/rainbow",
     "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter-textobjects",
 
     "norcalli/nvim-colorizer.lua",
     -- >>>> Linter <<<< --
