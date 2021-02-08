@@ -6,10 +6,13 @@ vim.g.startify_use_env = 1
 
 vim.g.startify_lists = {
   {type = "dir", header = {"Files "}}, -- . getcwd()  },
-  -- {type = "function('s:list_commits')", header = {"Recent Commits"}},
   {type = "sessions", header = {"Sessions"}},
   {type = "bookmarks", header = {"Bookmarks"}},
   {type = "commands", header = {"Commands"}}
 }
 
-vim.g.startify_commands = {{up = {"Update Plugins", ":PlugUpdate"}}, {ug = {"Upgrade Plugin Manager", ":PlugUpgrade"}}}
+vim.g.startify_commands = {
+  {pc = {"Plugins Compile", ":PackerCompile"}},
+  {pi = {"Plugins Install", ":PackerInstall"}},
+  {pu = {"Plugins Upgrade", ":PackerSync"}}
+}
