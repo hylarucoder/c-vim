@@ -20,18 +20,8 @@ end
 function manager.init()
   plug("~/.vim/bundles", {
     -- >>>> Appearance <<<< --
-    -- icon font
-    "kyazdani42/nvim-web-devicons",
-    -- 开始画面
-    "mhinz/vim-startify",
-    -- 自定义菜单/命令
-    "skywind3000/vim-quickui",
 
-    -- lua utils
-    "nvim-lua/popup.nvim",
-    "nvim-lua/plenary.nvim",
     -- fuzzfinder
-    "nvim-lua/telescope.nvim",
     -- file explorer
     "kyazdani42/nvim-tree.lua",
     -- tagbar
