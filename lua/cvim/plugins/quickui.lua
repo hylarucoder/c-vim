@@ -24,16 +24,15 @@ function quickui.init_menu()
     {"&Copy", "Startify"},
     {"&Paste", "Startify"},
     {"--", ""},
-    {"Open &Finder", "!open ."},
-    {"--", ""},
-    {"&Reload Vimrc", "source ~/.config/nvim/init.vim"}
+    -- snippet
+    {"&UltiSnip", "UltiSnipsEdit", "另存为UltiSnips"}
   })
 
   -- View
-  vim.fn["quickui#menu#install"]("&Edit", {
+  vim.fn["quickui#menu#install"]("&View", {
     {"&Explorer", "Startify", "侧边栏"},
     -- View
-    {"&Tagbar", "Vista!!"}
+    {"&Tagbar", "Tarbar"}
   })
 
   -- Code
@@ -45,8 +44,22 @@ function quickui.init_menu()
   })
   -- Git
   vim.fn["quickui#menu#install"]("&Git", {
-    {"&Copyright", "Startify", "侧边栏"},
+    {"G&Blame", "Gblame", "Git Blame"},
     -- View
+    {"&Tagbar", "Startify"}
+  })
+  -- Search
+  vim.fn["quickui#menu#install"]("&Search", {
+    {"G&Blame", "Gblame", "Git Blame"},
+    -- View
+    {"--", ""},
+    {"Tasks", "lua require('telescope').extensions.asynctasks.all()"},
+    {"Find files", "lua require('telescope.builtin').find_files()"},
+    {"Live grep", "lua require('telescope.builtin').live_grep()"},
+    {"Buffers", "lua require('telescope.builtin').buffers()"},
+    {"Help Tags", "lua require('telescope.builtin').help_tags()"},
+    {"Tree Sitter", "lua require('telescope.builtin').treesitter()"},
+    {"--", ""},
     {"&Tagbar", "Startify"}
   })
   -- Option
