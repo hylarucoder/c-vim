@@ -53,6 +53,13 @@ return require("packer").startup(function()
   use {"honza/vim-snippets"}
   use {"neovim/nvim-lspconfig"}
 
+  use {"skywind3000/asynctasks.vim"}
+  use {"skywind3000/asyncrun.vim"}
+
+  use {"nvim-telescope/telescope-github.nvim"}
+  use {"GustavoKatel/telescope-asynctasks.nvim"}
+
+  use {"rmagatti/auto-session"}
   -- use {"aca/completion-tabnine", ["do"] = "./install.sh"}
   -- motion
   use {"rhysd/accelerated-jk"}

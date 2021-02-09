@@ -43,6 +43,18 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/ale"
   },
+  ["asyncrun.vim"] = {
+    loaded = true,
+    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/asyncrun.vim"
+  },
+  ["asynctasks.vim"] = {
+    loaded = true,
+    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/asynctasks.vim"
+  },
+  ["auto-session"] = {
+    loaded = true,
+    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/auto-session"
+  },
   black = {
     loaded = true,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/black"
@@ -111,6 +123,14 @@ _G.packer_plugins = {
   tagbar = {
     loaded = true,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/tagbar"
+  },
+  ["telescope-asynctasks.nvim"] = {
+    loaded = true,
+    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/telescope-asynctasks.nvim"
+  },
+  ["telescope-github.nvim"] = {
+    loaded = true,
+    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/telescope-github.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
