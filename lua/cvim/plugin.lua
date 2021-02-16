@@ -60,7 +60,7 @@ return require("packer").startup(function()
   use {"GustavoKatel/telescope-asynctasks.nvim"}
 
   use {"rmagatti/auto-session"}
-  -- use {"aca/completion-tabnine", ["do"] = "./install.sh"}
+  -- use {"aca/completion-tabnine", run = "./install.sh"}
   -- motion
   use {"rhysd/accelerated-jk"}
   use {"junegunn/vim-easy-align"}
@@ -76,18 +76,24 @@ return require("packer").startup(function()
   use {"norcalli/nvim-colorizer.lua"}
   use {"sheerun/vim-polyglot"}
   use {"tpope/vim-abolish"}
-  use {"w0rp/ale"}
+  use {
+    "w0rp/ale",
+    ft = {"sh", "zsh", "bash", "c", "cpp", "cmake", "html", "markdown", "racket", "vim", "tex"},
+    cmd = "ALEEnable",
+    config = "vim.cmd[[ALEEnable]]"
+  }
   -- vcs
   use {"mhinz/vim-signify", {"tpope/vim-fugitive", cmd = {"Gblame", "Gpull", "Gpush", "Gstatus"}}}
 
   -- treesitter
-  use {"nvim-treesitter/nvim-treesitter"}
+  use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
   use {"nvim-treesitter/nvim-treesitter-textobjects"}
+  use {"anott03/nvim-lspinstall"}
 
   -- lua
-  -- use {"tbastos/vim-lua", ["for"] = {"lua"}},
-  use {"tjdevries/nlua.nvim"}
-  use {"euclidianAce/BetterLua.vim"}
+  use {"tbastos/vim-lua", ft = {"lua"}}
+  -- use {"tjdevries/nlua.nvim"}
+  -- use {"euclidianAce/BetterLua.vim"}
   use {"andrejlevkovitch/vim-lua-format"}
   -- python
   use {"psf/black"}

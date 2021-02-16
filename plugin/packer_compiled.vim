@@ -31,17 +31,15 @@ local function try_loadstring(s, component, name)
 end
 
 _G.packer_plugins = {
-  ["BetterLua.vim"] = {
-    loaded = true,
-    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/BetterLua.vim"
-  },
   ["accelerated-jk"] = {
     loaded = true,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/accelerated-jk"
   },
   ale = {
-    loaded = true,
-    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/ale"
+    commands = { "ALEEnable" },
+    config = { "vim.cmd[[ALEEnable]]" },
+    loaded = false,
+    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/opt/ale"
   },
   ["asyncrun.vim"] = {
     loaded = true,
@@ -76,10 +74,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
-  ["nlua.nvim"] = {
-    loaded = true,
-    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/nlua.nvim"
-  },
   ["nvim-colorizer.lua"] = {
     loaded = true,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
@@ -87,6 +81,10 @@ _G.packer_plugins = {
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+  },
+  ["nvim-lspinstall"] = {
+    loaded = true,
+    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/nvim-lspinstall"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
@@ -165,6 +163,10 @@ _G.packer_plugins = {
     loaded = false,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/opt/vim-fugitive"
   },
+  ["vim-lua"] = {
+    loaded = false,
+    path = "/Users/twocucao/.local/share/nvim/site/pack/packer/opt/vim-lua"
+  },
   ["vim-lua-format"] = {
     loaded = true,
     path = "/Users/twocucao/.local/share/nvim/site/pack/packer/start/vim-lua-format"
@@ -199,11 +201,28 @@ _G.packer_plugins = {
 try_loadstring("\27LJ\2\n≈\3\0\0\3\0\27\0(6\0\0\0'\2\1\0B\0\2\2'\1\3\0=\1\2\0'\1\5\0=\1\4\0005\1\b\0005\2\a\0=\2\t\0015\2\n\0=\2\v\0015\2\f\0=\2\r\0015\2\14\0=\2\15\0015\2\16\0=\2\17\0015\2\18\0=\2\19\1=\1\6\0005\1\21\0004\2\0\0=\2\t\0014\2\0\0=\2\v\0015\2\22\0=\2\r\0015\2\23\0=\2\15\0014\2\0\0=\2\17\0014\2\0\0=\2\19\1=\1\20\0005\1\25\0=\1\24\0009\1\26\0B\1\1\1K\0\1\0\vstatus\1\2\0\0\bfzf\15extensions\1\2\0\0\rlocation\1\2\0\0\rfilename\1\0\0\22inactive_sections\14lualine_z\1\2\0\0\rlocation\14lualine_y\1\2\0\0\rprogress\14lualine_x\1\4\0\0\rencoding\15fileformat\rfiletype\14lualine_c\1\2\0\0\rfilename\14lualine_b\1\2\0\0\vbranch\14lualine_a\1\0\0\1\2\0\0\tmode\rsections\6|\14separator\19solarized_dark\ntheme\flualine\frequire\0", "config", "lualine.nvim")
 
 -- Command lazy-loads
-vim.cmd [[command! -nargs=* -range -bang -complete=file Gpush lua require("packer.load")({'vim-fugitive'}, { cmd = "Gpush", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
-vim.cmd [[command! -nargs=* -range -bang -complete=file Gstatus lua require("packer.load")({'vim-fugitive'}, { cmd = "Gstatus", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 vim.cmd [[command! -nargs=* -range -bang -complete=file Gblame lua require("packer.load")({'vim-fugitive'}, { cmd = "Gblame", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 vim.cmd [[command! -nargs=* -range -bang -complete=file Gpull lua require("packer.load")({'vim-fugitive'}, { cmd = "Gpull", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
+vim.cmd [[command! -nargs=* -range -bang -complete=file Gpush lua require("packer.load")({'vim-fugitive'}, { cmd = "Gpush", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
+vim.cmd [[command! -nargs=* -range -bang -complete=file Gstatus lua require("packer.load")({'vim-fugitive'}, { cmd = "Gstatus", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
+vim.cmd [[command! -nargs=* -range -bang -complete=file ALEEnable lua require("packer.load")({'ale'}, { cmd = "ALEEnable", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Filetype lazy-loads
+vim.cmd [[au FileType html ++once lua require("packer.load")({'ale'}, { ft = "html" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'ale'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType c ++once lua require("packer.load")({'ale'}, { ft = "c" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'ale'}, { ft = "tex" }, _G.packer_plugins)]]
+vim.cmd [[au FileType lua ++once lua require("packer.load")({'vim-lua'}, { ft = "lua" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vim ++once lua require("packer.load")({'ale'}, { ft = "vim" }, _G.packer_plugins)]]
+vim.cmd [[au FileType racket ++once lua require("packer.load")({'ale'}, { ft = "racket" }, _G.packer_plugins)]]
+vim.cmd [[au FileType sh ++once lua require("packer.load")({'ale'}, { ft = "sh" }, _G.packer_plugins)]]
+vim.cmd [[au FileType zsh ++once lua require("packer.load")({'ale'}, { ft = "zsh" }, _G.packer_plugins)]]
+vim.cmd [[au FileType bash ++once lua require("packer.load")({'ale'}, { ft = "bash" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cpp ++once lua require("packer.load")({'ale'}, { ft = "cpp" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cmake ++once lua require("packer.load")({'ale'}, { ft = "cmake" }, _G.packer_plugins)]]
+vim.cmd("augroup END")
 END
 
 catch
