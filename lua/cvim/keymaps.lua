@@ -2,11 +2,11 @@ local vim = vim;
 local quickui = require("cvim.plugins.quickui")
 
 local nmap = function(key, value)
-  vim.fn.nvim_set_keymap("n", key, value, {noremap = true, silent = true});
+  vim.api.nvim_set_keymap("n", key, value, {noremap = true, silent = true});
 end
 
 local map = function(key, value)
-  vim.fn.nvim_set_keymap("", key, value, {noremap = true, silent = true});
+  vim.api.nvim_set_keymap("", key, value, {noremap = true, silent = true});
 end
 
 -- nmap("j", "<Plug>(accelerated_jk_gj)")
