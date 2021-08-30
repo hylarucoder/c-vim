@@ -14,8 +14,18 @@ vim.cmd [[packadd packer.nvim]]
 return require("packer").startup(function()
   -- Packer can manage itself as an optional plugin
   use {"wbthomason/packer.nvim", opt = true}
+  use {"lewis6991/impatient.nvim"}
   -- Search
   use {"nvim-lua/telescope.nvim", requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}}
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function()
+      require"telescope".load_extension("frecency")
+    end,
+    requires = {"tami5/sql.nvim"}
+  }
+
   use {"skywind3000/vim-quickui"}
   -- UI
   use {"kyazdani42/nvim-web-devicons"}
@@ -56,14 +66,44 @@ return require("packer").startup(function()
   use {"SirVer/ultisnips"}
   use {"honza/vim-snippets"}
   use {"neovim/nvim-lspconfig"}
+  use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+
+  -- Install nvim-cmp, and buffer source as a dependency
+  -- use {
+  --   "hrsh7th/nvim-cmp",
+  --   requires = {
+  --     "hrsh7th/vim-vsnip",
+  --     "hrsh7th/cmp-buffer",
+  --   }
+  -- }
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
 
   use {"skywind3000/asynctasks.vim"}
   use {"skywind3000/asyncrun.vim"}
 
   use {"nvim-telescope/telescope-github.nvim"}
   use {"GustavoKatel/telescope-asynctasks.nvim"}
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
 
-  use {"rmagatti/auto-session"}
+  -- use {"rmagatti/auto-session"}
   -- use {"aca/completion-tabnine", run = "./install.sh"}
   -- motion
   use {"rhysd/accelerated-jk"}
