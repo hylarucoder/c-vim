@@ -14,10 +14,11 @@ vim.cmd [[packadd packer.nvim]]
 return require("packer").startup(function()
   -- Packer can manage itself as an optional plugin
   use {"wbthomason/packer.nvim", opt = true}
-  use {"lewis6991/impatient.nvim"}
+  use "lewis6991/impatient.nvim"
   -- Search
   use {"nvim-lua/telescope.nvim", requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}}
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {"nvim-telescope/telescope-github.nvim"}
+  use {"GustavoKatel/telescope-asynctasks.nvim"}
   use {
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
@@ -26,10 +27,12 @@ return require("packer").startup(function()
     requires = {"tami5/sql.nvim"}
   }
 
-  use {"skywind3000/vim-quickui"}
+  use "skywind3000/vim-quickui"
   -- UI
-  use {"kyazdani42/nvim-web-devicons"}
-  use {"mhinz/vim-startify"}
+  use "kyazdani42/nvim-web-devicons"
+  use "mhinz/vim-startify"
+  use "folke/lsp-colors.nvim"
+
   use {
     "hoob3rt/lualine.nvim",
     requires = {"kyazdani42/nvim-web-devicons", opt = true},
@@ -61,21 +64,13 @@ return require("packer").startup(function()
       }
     end
   }
-  use {"nvim-lua/completion-nvim"}
+  use {"hrsh7th/nvim-cmp", requires = {"hrsh7th/vim-vsnip", "hrsh7th/cmp-buffer"}}
   use {"nvim-lua/lsp-status.nvim"}
   use {"SirVer/ultisnips"}
   use {"honza/vim-snippets"}
   use {"neovim/nvim-lspconfig"}
-  use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+  use {"akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons"}
 
-  -- Install nvim-cmp, and buffer source as a dependency
-  -- use {
-  --   "hrsh7th/nvim-cmp",
-  --   requires = {
-  --     "hrsh7th/vim-vsnip",
-  --     "hrsh7th/cmp-buffer",
-  --   }
-  -- }
   use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
@@ -91,34 +86,19 @@ return require("packer").startup(function()
   use {"skywind3000/asynctasks.vim"}
   use {"skywind3000/asyncrun.vim"}
 
-  use {"nvim-telescope/telescope-github.nvim"}
-  use {"GustavoKatel/telescope-asynctasks.nvim"}
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    },
-    config = function()
-      require('gitsigns').setup()
-    end
-  }
-
   -- use {"rmagatti/auto-session"}
-  -- use {"aca/completion-tabnine", run = "./install.sh"}
   -- motion
   use {"rhysd/accelerated-jk"}
   use {"junegunn/vim-easy-align"}
   use {"justinmk/vim-sneak"}
 
   use {"Raimondi/delimitMate"}
-  use {"asins/vim-dict"}
-  use {"kyazdani42/nvim-tree.lua"}
-
+  use {"kyazdani42/nvim-tree.lua", cmd = {"NvimTreeToggle", "NvimTreeOpen"}, requires = "kyazdani42/nvim-web-devicons"}
   use {"preservim/tagbar"}
 
   use {"luochen1990/rainbow"}
   use {"norcalli/nvim-colorizer.lua"}
-  use {"sheerun/vim-polyglot"}
+  -- use {"sheerun/vim-polyglot"}
   use {"tpope/vim-abolish"}
   use {
     "w0rp/ale",
@@ -127,7 +107,13 @@ return require("packer").startup(function()
     config = "vim.cmd[[ALEEnable]]"
   }
   -- vcs
-  use {"mhinz/vim-signify", {"tpope/vim-fugitive", cmd = {"Gblame", "Gpull", "Gpush", "Gstatus"}}}
+  use {
+    "lewis6991/gitsigns.nvim",
+    requires = {"nvim-lua/plenary.nvim"},
+    config = function()
+      require("gitsigns").setup()
+    end
+  }
 
   -- treesitter
   use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
