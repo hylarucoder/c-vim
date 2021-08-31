@@ -10,7 +10,7 @@ else
 endif
 
 let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_prog = '/opt/homebrew/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
 let g:ruby_host_prog = exepath('neovim-ruby-host')
 let g:node_host_prog = '/usr/local/lib/node_modules/neovim/bin/cli.js'
 
@@ -52,7 +52,6 @@ map T <Plug>Sneak_T
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-autocmd BufReadPre,BufNewFile * lua require'completion'.on_attach()
 
 autocmd FileType vim,py,rb,lua,md nnoremap <buffer> <silent>K :lua require('cvim.plugins.quickui').call_context_menu()<cr>
 
@@ -65,7 +64,6 @@ autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\
 autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
 
 set guifont=FiraCode\ Nerd\ Font\ Mono:h16
-
 
 " 打开文件时恢复上一次光标所在位置
 autocmd BufReadPost *
@@ -80,7 +78,7 @@ set background=dark
 set t_Co=256
 
 " 设置颜色主题，会在所有 runtimepaths 的 colors 目录寻找同名配置
-color neosolarized
+color gruvbox
 
 
 autocmd BufWrite *.lua call LuaFormat()
