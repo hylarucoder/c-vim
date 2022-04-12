@@ -160,3 +160,6 @@ nnoremap <C-H> <C-W><C-H>
 
 
 autocmd BufWritePost plugin.lua PackerCompile
+autocmd BufWritePost *.md %!autocorrect %
+nnoremap gp :silent %!autocorrect %<CR>
+
