@@ -86,7 +86,14 @@ return require("packer").startup(function()
   use {"skywind3000/asynctasks.vim"}
   use {"skywind3000/asyncrun.vim"}
 
-  -- use {"rmagatti/auto-session"}
+  use({
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    module = "persistence",
+    config = function()
+      require("persistence").setup()
+    end
+  })
   -- motion
   use {"rhysd/accelerated-jk"}
   use {"junegunn/vim-easy-align"}
