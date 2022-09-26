@@ -9,8 +9,6 @@ local map = function(key, value)
   vim.api.nvim_set_keymap("", key, value, {noremap = true, silent = true});
 end
 
--- nmap("j", "<Plug>(accelerated_jk_gj)")
--- nmap("k", "<Plug>(accelerated_jk_gk)")
 vim.api.nvim_set_keymap("n", "j", "<Plug>(accelerated_jk_gj)", {})
 vim.api.nvim_set_keymap("n", "k", "<Plug>(accelerated_jk_gk)", {})
 

@@ -16,7 +16,16 @@ return require("packer").startup(function()
   use {"wbthomason/packer.nvim", opt = true}
   use "lewis6991/impatient.nvim"
   -- Search
-  use {"nvim-lua/telescope.nvim", requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}}
+  use {
+    "nvim-lua/telescope.nvim", requires = {
+    "nvim-lua/popup.nvim",
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-live-grep-args.nvim",
+  },
+    config = function()
+        require("telescope").load_extension("live_grep_args")
+    end
+  }
   use {"nvim-telescope/telescope-github.nvim"}
   use {"GustavoKatel/telescope-asynctasks.nvim"}
   use {
@@ -26,6 +35,7 @@ return require("packer").startup(function()
     end,
     requires = {"tami5/sql.nvim"}
   }
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
   use "skywind3000/vim-quickui"
   -- UI
@@ -95,13 +105,15 @@ return require("packer").startup(function()
     end
   })
   -- motion
-  use {"rhysd/accelerated-jk"}
+  use {"rainbowhxch/accelerated-jk.nvim"}
+
   use {"junegunn/vim-easy-align"}
   use {"justinmk/vim-sneak"}
 
   use {"Raimondi/delimitMate"}
   use {"kyazdani42/nvim-tree.lua", cmd = {"NvimTreeToggle", "NvimTreeOpen"}, requires = "kyazdani42/nvim-web-devicons"}
   use {"preservim/tagbar"}
+  use {"tversteeg/registers.nvim"}
 
   use {"luochen1990/rainbow"}
   use {"norcalli/nvim-colorizer.lua"}
