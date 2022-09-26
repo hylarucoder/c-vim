@@ -22,6 +22,27 @@ git clone https://github.com/twocucao/c-vim.git
 ln -sfv `pwd`  ~/.config/nvim
 ```
 
+## neovim
+
+```bash
+brew tap homebrew/cask-fonts
+brew search nerd-font
+brew install --cask font-victor-mono-nerd-font
+brew install --cask font-iosevka-nerd-font-mono
+brew install --cask font-hack-nerd-font
+brew install --cask font-fira-code
+
+brew install vint shellcheck jsonlint yamllint
+brew install tflint ansible-lint tidy-html5 proselint write-good
+yarn global add markdownlint-cli eslint jshint stylelint sass-lint
+pip3 install --user pycodestyle pyflakes flake8
+brew install rg
+brew install zoxide
+brew install fzf
+
+```
+
+
 ## Credits
 
 - skywind3000/vim-init

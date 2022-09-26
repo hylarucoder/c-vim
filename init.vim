@@ -10,7 +10,7 @@ else
 endif
 
 let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
 let g:ruby_host_prog = exepath('neovim-ruby-host')
 let g:node_host_prog = '/usr/local/lib/node_modules/neovim/bin/cli.js'
 
@@ -158,8 +158,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-
 autocmd BufWritePost plugin.lua PackerCompile
-autocmd BufWritePost *.md %!autocorrect %
-nnoremap gp :silent %!autocorrect %<CR>
+" autocmd BufWritePost *.md %!autocorrect %
+" nnoremap gp :silent %!autocorrect %<CR>
 
