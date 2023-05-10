@@ -17,7 +17,7 @@ return require("packer").startup(function()
   use "lewis6991/impatient.nvim"
   -- Search
   use {
-    "nvim-lua/telescope.nvim", requires = {
+    "nvim-telescope/telescope.nvim", requires = {
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-live-grep-args.nvim",
@@ -43,9 +43,10 @@ return require("packer").startup(function()
   use "mhinz/vim-startify"
   use "folke/lsp-colors.nvim"
 
+  -- Builtin LSP
   use {
     "hoob3rt/lualine.nvim",
-    requires = {"kyazdani42/nvim-web-devicons", opt = true},
+    requires = {"nvim-tree/nvim-web-devicons", opt = true},
     config = function()
       require("lualine").setup {
         options = {
@@ -113,7 +114,6 @@ return require("packer").startup(function()
   use {"Raimondi/delimitMate"}
   use {"kyazdani42/nvim-tree.lua", cmd = {"NvimTreeToggle", "NvimTreeOpen"}, requires = "kyazdani42/nvim-web-devicons"}
   use {"preservim/tagbar"}
-  use {"tversteeg/registers.nvim"}
 
   use {"luochen1990/rainbow"}
   use {"norcalli/nvim-colorizer.lua"}
@@ -134,18 +134,53 @@ return require("packer").startup(function()
     end
   }
 
-  -- treesitter
-  use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-  use {"nvim-treesitter/nvim-treesitter-textobjects"}
+  -- Syntax highlighting
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      config = function()
+          require'nvim-treesitter.configs'.setup {
+              ensure_installed = { },
+              sync_install = false,
+              auto_install = true,
+              ignore_install = { },
+
+              highlight = {
+                  enable = true,
+                  disable = { },
+                  disable = function(lang, buf)
+                      local max_filesize = 100 * 1024 -- 100 KB
+                      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                      if ok and stats and stats.size > max_filesize then
+                          return true
+                      end
+                  end,
+                  additional_vim_regex_highlighting = false,
+              },
+          }
+      end
+  }
   use {"anott03/nvim-lspinstall"}
 
   -- lua
   use {"tbastos/vim-lua", ft = {"lua"}}
   -- use {"tjdevries/nlua.nvim"}
   -- use {"euclidianAce/BetterLua.vim"}
-  use {"andrejlevkovitch/vim-lua-format"}
-  -- python
-  use {"psf/black"}
+  -- use {"andrejlevkovitch/vim-lua-format"}
+
+  -- languages
+  use "psf/black"
+  use 'fatih/vim-go'
+  use 'pangloss/vim-javascript'
+
+  use {
+      'rust-lang/rust.vim',
+      config = function()
+          vim.g.rustfmt_autosave = 1
+          vim.g.rustfmt_emit_files = 1
+          vim.g.rustfmt_fail_silently = 0
+      end
+  }
+
 
   use {"chrisbra/vim-diff-enhanced"}
   -- -- +/- 扩大/缩小选区
@@ -164,8 +199,5 @@ return require("packer").startup(function()
   -- {"bps/vim-textobj-python", ["for"] = {"python"}},
   -- -- 提供 uri/url 的文本对象，iu/au 表示
   -- "jceb/vim-textobj-uri",
-
-  -- -- rust
-  -- {"rust-lang/rust.vim", ["for"] = {"rust"}}
 
 end)

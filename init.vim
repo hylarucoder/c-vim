@@ -81,7 +81,7 @@ set t_Co=256
 color gruvbox
 
 
-autocmd BufWrite *.lua call LuaFormat()
+" autocmd BufWrite *.lua call LuaFormat()
 
 " 更清晰的错误标注：默认一片红色背景，语法高亮都被搞没了
 " 只显示红色或者蓝色下划线或者波浪线
